@@ -11,6 +11,22 @@ type CTAModalContextType = {
   openModal: () => void;
 };
 
+type OptionWithHref = {
+  icon: typeof MessageSquare | typeof Cloud | typeof MessageCircle;
+  title: string;
+  href: string;
+  description: string;
+};
+
+type OptionWithAction = {
+  icon: typeof MessageSquare | typeof Cloud | typeof MessageCircle;
+  title: string;
+  action: "contact";
+  description: string;
+};
+
+type Option = OptionWithHref | OptionWithAction;
+
 const CTAModalContext = createContext<CTAModalContextType | null>(null);
 
 export function useCTAModal() {
@@ -18,7 +34,7 @@ export function useCTAModal() {
   return ctx ?? { openModal: () => {} };
 }
 
-const options = [
+const options: Option[] = [
   {
     icon: MessageSquare,
     title: "I need Bulk SMS",
