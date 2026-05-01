@@ -12,12 +12,6 @@ const features = [
   "No lock-in contracts",
 ];
 
-const competitors = [
-  { name: "TalkSasa", us: true, comp: false },
-  { name: "Competitor A", us: false, comp: true },
-  { name: "Competitor B", us: false, comp: true },
-];
-
 function Cell({ yes }: { yes: boolean }) {
   return yes ? (
     <Check className="h-5 w-5 text-emerald-500 mx-auto" aria-hidden />

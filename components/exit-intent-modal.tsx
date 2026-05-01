@@ -22,7 +22,7 @@ export function ExitIntentModal() {
     if (typeof window === "undefined") return;
     const onMouseOut = (e: MouseEvent) => {
       if (!shouldShow()) return;
-      if ((e.relatedTarget === null || (e as any).toElement === null) && e.clientY <= 0) {
+      if ((e.relatedTarget === null || (e as unknown as { toElement: Node | null }).toElement === null) && e.clientY <= 0) {
         window.localStorage.setItem(EXIT_SHOWN_KEY, "1");
         setOpen(true);
       }

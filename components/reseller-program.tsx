@@ -12,9 +12,6 @@ import {
   TrendingUp,
   Users,
   Star,
-  Zap,
-  Shield,
-  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

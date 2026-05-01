@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useCurrency, type Currency } from "@/lib/currency-provider";
+import { useCurrency } from "@/lib/currency-provider";
 import { cn } from "@/lib/utils";
 
 export function CurrencySelector() {
