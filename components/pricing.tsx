@@ -122,7 +122,7 @@ const productPlans: Record<Product, Plan[]> = {
         "No Hidden Charges",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -154,7 +154,7 @@ const productPlans: Record<Product, Plan[]> = {
         "No Hidden Charges",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: true,
     },
     {
@@ -187,7 +187,7 @@ const productPlans: Record<Product, Plan[]> = {
         "No Hidden Charges",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -219,7 +219,7 @@ const productPlans: Record<Product, Plan[]> = {
         "PHP 7.4, 8.0, 8.1",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -252,7 +252,7 @@ const productPlans: Record<Product, Plan[]> = {
         "No Hidden Charges",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -285,7 +285,7 @@ const productPlans: Record<Product, Plan[]> = {
         "No Hidden Charges",
       ],
       cta: "Contact Sales",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
   ],
@@ -309,7 +309,7 @@ const productPlans: Record<Product, Plan[]> = {
         "30-Day Money-Back",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -331,7 +331,7 @@ const productPlans: Record<Product, Plan[]> = {
         "30-Day Money-Back",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: true,
     },
     {
@@ -353,7 +353,7 @@ const productPlans: Record<Product, Plan[]> = {
         "30-Day Money-Back",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -375,7 +375,7 @@ const productPlans: Record<Product, Plan[]> = {
         "30-Day Money-Back",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
   ],
@@ -397,7 +397,7 @@ const productPlans: Record<Product, Plan[]> = {
         "Free Phone Support",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
     {
@@ -419,7 +419,7 @@ const productPlans: Record<Product, Plan[]> = {
         "Free Phone Support",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: true,
     },
     {
@@ -440,7 +440,7 @@ const productPlans: Record<Product, Plan[]> = {
         "Free Phone Support",
       ],
       cta: "Order Now",
-      href: "https://cloud.talksasa.com",
+      href: "https://servers.talksasa.com",
       featured: false,
     },
   ],

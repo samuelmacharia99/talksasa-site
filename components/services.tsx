@@ -45,7 +45,7 @@ const services: ServiceCard[] = [
     title: "Web Hosting",
     description:
       "Lightning-fast SSD hosting with cPanel, 99.9% uptime guarantee, and free SSL certificates.",
-    href: "https://cloud.talksasa.com",
+    href: "https://servers.talksasa.com",
     features: ["Free SSL", "Daily Backups", "cPanel included"],
     colSpan: 1,
     rowSpan: 1,
@@ -89,7 +89,7 @@ const services: ServiceCard[] = [
     title: "Cloud Solutions",
     description:
       "Flexible cloud infrastructure that grows with your business needs.",
-    href: "https://cloud.talksasa.com",
+    href: "https://servers.talksasa.com",
     features: ["Scalable", "Managed", "Pay as you grow"],
     colSpan: 2,
     rowSpan: 1,

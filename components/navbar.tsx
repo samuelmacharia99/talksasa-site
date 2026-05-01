@@ -27,10 +27,10 @@ import { useRipple } from "@/lib/use-ripple";
 import { CurrencySelector } from "@/components/currency-selector";
 
 const BULK_SMS_URL = "https://bulksms.talksasa.com";
-const HOSTING_URL = "https://cloud.talksasa.com";
-const VPS_URL = "https://cloud.talksasa.com/store/vps-hostin";
-const SHARED_HOSTING_URL = "https://cloud.talksasa.com/store/shared-hosting";
-const DEDICATED_SERVERS_URL = "https://cloud.talksasa.com/cart.php?gid=16";
+const HOSTING_URL = "https://servers.talksasa.com";
+const VPS_URL = "https://servers.talksasa.com/store/vps-hostin";
+const SHARED_HOSTING_URL = "https://servers.talksasa.com/store/shared-hosting";
+const DEDICATED_SERVERS_URL = "https://servers.talksasa.com/cart.php?gid=16";
 
 const servicesMega = [
   { icon: MessageSquare, title: "Bulk SMS", description: "Send millions of messages with our reliable SMS gateway.", href: BULK_SMS_URL },

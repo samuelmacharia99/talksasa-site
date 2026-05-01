@@ -28,7 +28,7 @@ const options = [
   {
     icon: Cloud,
     title: "I need Hosting/Cloud",
-    href: "https://cloud.talksasa.com",
+    href: "https://servers.talksasa.com",
     description: "Web hosting & cloud",
   },
   {

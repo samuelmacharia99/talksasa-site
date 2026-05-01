@@ -15,7 +15,7 @@ export function DomainSearch() {
     e.preventDefault();
     if (!query.trim()) return;
     const domain = query.replace(/\.(com|co\.ke|org|net)$/i, "").trim() + tld;
-    window.open(`https://cloud.talksasa.com/cart.php?a=add&domain=register&query=${encodeURIComponent(domain)}`, "_blank");
+    window.open(`https://servers.talksasa.com/cart.php?a=add&domain=register&query=${encodeURIComponent(domain)}`, "_blank");
   };
 
   return (
