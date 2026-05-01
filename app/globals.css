@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #030712;
+  --foreground: #f8fafc;
+  --border: rgba(148, 163, 184, 0.12);
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: rgba(139, 92, 246, 0.15);
+  --ring: #8b5cf6;
+  --gradient-from: #6366f1;
+  --gradient-via: #8b5cf6;
+  --gradient-to: #a855f7;
+}
+
+[data-theme="light"] {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --border: rgba(15, 23, 42, 0.12);
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: rgba(99, 102, 241, 0.12);
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .glass-subtle {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.glass-subtle {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient border effect */
+.gradient-border {
+  position: relative;
+  background: var(--background);
+  border-radius: inherit;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Mesh / gradient background for CTA */
+.cta-mesh {
+  background-color: #0f0f23;
+  background-image:
+    radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.25) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(139, 92, 246, 0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
+}
+
+/* Accessibility: focus visible for keyboard users */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Card tilt on hover (subtle 3D) */
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+.card-tilt:hover {
+  transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+
+/* Button ripple (use .btn-ripple on button) */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(255,255,255,0.3) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+.btn-ripple:active::after {
+  opacity: 1;
+  transform: scale(2);
+  transition: transform 0s, opacity 0s;
+}
+
+/* Select and option styling for dark mode */
+select {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+select option {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme="light"] select {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme="light"] select option {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Input and textarea styling for dark mode */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="email"],
+[data-theme="light"] input[type="tel"],
+[data-theme="light"] input[type="number"],
+[data-theme="light"] textarea {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme="light"] input[type="text"]::placeholder,
+[data-theme="light"] input[type="email"]::placeholder,
+[data-theme="light"] input[type="tel"]::placeholder,
+[data-theme="light"] input[type="number"]::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
