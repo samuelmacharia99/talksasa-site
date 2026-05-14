@@ -130,7 +130,7 @@ export function ResellerProgram() {
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom_right,transparent_0%,rgba(139,92,246,0.1)_50%,transparent_100%)]" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-[55%_45%] lg:grid-cols-[60%_40%] gap-8 md:gap-6 lg:gap-12">
           {/* LEFT COLUMN */}
           <div className="space-y-8">
             {/* Badge */}
@@ -464,7 +464,7 @@ export function ResellerProgram() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative rounded-2xl glass border border-white/20 p-6 bg-background/80 shadow-2xl"
+              className="hidden md:block relative rounded-2xl glass border border-white/20 p-6 bg-background/80 shadow-2xl"
             >
               <div className="aspect-[4/5] rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-white/10 p-4 flex flex-col gap-3">
                 {/* Mock dashboard */}

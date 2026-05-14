@@ -41,7 +41,7 @@ export function ComparisonTable() {
           <table className="w-full min-w-[400px]" role="table">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left p-4 font-semibold text-foreground">Feature</th>
+                <th className="sticky left-0 bg-background z-10 text-left p-4 font-semibold text-foreground">Feature</th>
                 <th className="p-4 font-semibold text-primary">TalkSasa</th>
                 <th className="p-4 font-semibold text-muted-foreground">Others</th>
               </tr>
@@ -49,7 +49,7 @@ export function ComparisonTable() {
             <tbody>
               {features.map((feature, i) => (
                 <tr key={feature} className="border-b border-border/50 hover:bg-white/[0.02] transition-colors">
-                  <td className="p-4 text-foreground">{feature}</td>
+                  <td className="sticky left-0 bg-background z-10 p-4 text-foreground">{feature}</td>
                   <td className="p-4">
                     <Cell yes={true} />
                   </td>

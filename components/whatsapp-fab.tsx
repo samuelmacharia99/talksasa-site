@@ -32,7 +32,7 @@ export function WhatsAppFab() {
       <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.96 }}
-        className="relative flex h-14 w-14 md:h-15 md:w-15 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/40"
+        className="relative flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/40"
       >
         {/* Inner subtle pulse */}
         <motion.span

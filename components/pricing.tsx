@@ -610,7 +610,7 @@ export function Pricing() {
               aria-label="Toggle annual billing"
               onClick={() => setBilling((b) => (b === "monthly" ? "annual" : "monthly"))}
               className={cn(
-                "relative w-11 h-6 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "relative w-12 h-7 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 billing === "annual" ? "bg-primary" : "bg-muted"
               )}
             >
@@ -643,7 +643,7 @@ export function Pricing() {
                 className={cn(
                   "relative rounded-2xl p-6 sm:p-8 border transition-all duration-300 flex flex-col",
                   plan.featured
-                    ? "glass gradient-border shadow-glow-sm md:scale-105 z-10"
+                    ? "glass gradient-border shadow-glow-sm lg:scale-105 z-10"
                     : "glass border-border hover:border-primary/20"
                 )}
               >

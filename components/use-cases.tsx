@@ -154,15 +154,15 @@ export function UseCases() {
                 ))}
               </ul>
               <div className="flex items-center justify-between mt-2">
-                <span className="inline-flex items-center rounded-full bg-primary/10 text-[11px] font-medium text-primary px-3 py-1">
+                <span className="inline-flex items-center rounded-full bg-primary/10 text-xs font-medium text-primary px-3 py-1">
                   {useCase.stat}
                 </span>
                 <button
                   type="button"
-                  className="text-xs text-primary hover:text-primary/90 inline-flex items-center gap-1"
+                  className="text-xs text-primary hover:text-primary/90 inline-flex items-center gap-1 px-3 py-2"
                 >
                   {useCase.cta}
-                  <ArrowRight className="h-3 w-3" aria-hidden />
+                  <ArrowRight className="h-4 w-4" aria-hidden />
                 </button>
               </div>
             </motion.article>

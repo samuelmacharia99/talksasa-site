@@ -163,10 +163,12 @@ function TestimonialsCarouselSimple() {
             aria-label={`Go to testimonial ${i + 1}`}
             onClick={() => setIndex(i)}
             className={cn(
-              "w-2 h-2 rounded-full transition-all duration-200",
-              i === index ? "bg-primary w-6" : "bg-muted-foreground/40 hover:bg-muted-foreground/60"
+              "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200",
+              i === index ? "bg-primary/20" : "bg-transparent hover:bg-muted-foreground/10"
             )}
-          />
+          >
+            <span className={cn("rounded-full transition-all duration-200", i === index ? "w-3 h-3 bg-primary" : "w-2 h-2 bg-muted-foreground/40")} />
+          </button>
         ))}
       </div>
     </div>
@@ -210,7 +212,7 @@ export function TrustIndicators() {
           viewport={{ once: true }}
           className="rounded-2xl glass border border-border p-8 sm:p-12 mb-16"
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <Counter value={500} suffix="+" label="Hosting Clients" />
             <Counter value={1600} suffix="+" label="SMS Users" />
             <Counter value={3000} suffix="+" label="Domains" />

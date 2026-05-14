@@ -195,7 +195,7 @@ function HeroIllustration() {
 
 /* Particle dots for background */
 function ParticleBackground() {
-  const count = 60;
+  const count = 30;
   const particles = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -271,7 +271,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-20"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-20"
       onMouseMove={onMouseMove}
       onMouseLeave={() => setMouse({ x: 50, y: 50 })}
     >

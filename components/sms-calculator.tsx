@@ -109,7 +109,7 @@ export function SMSCalculator() {
       </div>
       <div className="rounded-lg bg-primary/10 border border-primary/20 p-4 text-center">
         <div className="text-sm text-muted-foreground mb-2">You can send approximately</div>
-        <div className="text-3xl font-bold text-foreground mb-1">
+        <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
           {result.smsCount.toLocaleString()} SMS
         </div>
         {result.tier && (

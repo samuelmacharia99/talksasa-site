@@ -17,7 +17,7 @@ export function CTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl border border-white/10 p-12 sm:p-16 lg:p-20 text-center"
+          className="relative rounded-3xl border border-white/10 p-6 sm:p-12 lg:p-20 text-center"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight max-w-3xl mx-auto">
             Ready to scale your business?

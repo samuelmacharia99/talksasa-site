@@ -135,7 +135,7 @@ function ServiceCardComponent({ service }: { service: ServiceCard }) {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={`card-tilt h-full flex flex-col rounded-2xl p-6 sm:p-8 glass border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-glow-sm hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.15)] group relative overflow-hidden
-        ${service.colSpan === 2 ? "lg:col-span-2" : ""}
+        ${service.colSpan === 2 ? "md:col-span-2 lg:col-span-2" : ""}
         ${service.rowSpan === 2 ? "lg:row-span-2" : ""}
       `}
     >

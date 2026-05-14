@@ -136,7 +136,7 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/5"
+                  className="text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/5"
                 >
                   <Icon className="h-5 w-5" />
                 </Link>

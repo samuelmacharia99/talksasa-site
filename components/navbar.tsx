@@ -359,7 +359,7 @@ export function Navbar() {
             {/* Mobile menu button - hamburger animates to X */}
             <button
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              className="lg:hidden relative p-2 text-foreground w-10 h-10 flex items-center justify-center"
+              className="lg:hidden relative p-2 text-foreground w-11 h-11 flex items-center justify-center"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <span className="sr-only">{mobileOpen ? "Close" : "Menu"}</span>
