@@ -24,8 +24,8 @@ const WHATSAPP_RESELLER_URL =
 const benefits = [
   {
     icon: "💰",
-    title: "Zero Upfront Investment",
-    text: "Start with just KES 5,000/month - no hidden costs",
+    title: "One-Time Low Investment",
+    text: "Just KES 5,000 one-time - no monthly fees, no hidden costs",
   },
   {
     icon: "📈",
@@ -65,6 +65,10 @@ const perfectFor = [
 ];
 
 const faqs = [
+  {
+    q: "Is the KES 5,000 a monthly fee?",
+    a: "No! It's a one-time investment. Pay once and you're set up for life. No monthly charges ever.",
+  },
   {
     q: "Do I need technical knowledge?",
     a: "No! We provide complete training and handle all technical aspects. You focus on sales, we handle delivery.",
@@ -160,7 +164,7 @@ export function ResellerProgram() {
               className="text-lg sm:text-xl text-white/90"
             >
               Start your own SMS and hosting business with zero infrastructure costs.
-              Everything you need for just KES 5,000/month.
+              Everything you need for just KES 5,000 (one-time investment).
             </motion.p>
 
             {/* Bundle Card */}
@@ -183,7 +187,7 @@ export function ResellerProgram() {
                   <span className="text-4xl sm:text-5xl font-bold text-foreground">
                     KES 5,000
                   </span>
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-muted-foreground">One-time Fee</span>
                 </div>
               </div>
 

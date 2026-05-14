@@ -7,7 +7,6 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCTAModal } from "@/components/cta-modal";
 import { trackCTAClick } from "@/components/analytics";
-import { DomainSearch } from "@/components/domain-search";
 import { UptimeStatus } from "@/components/uptime-status";
 
 /* Animated counter for stats */
@@ -259,13 +258,6 @@ export function Hero() {
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 600], [0, 150]);
 
-  // Scroll to domain search when landing with #domain-search (e.g. from Services menu)
-  useEffect(() => {
-    if (typeof window !== "undefined" && (window.location.hash === "#domain-search" || window.location.hash === "domain-search")) {
-      const el = document.getElementById("domain-search");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
 
   const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!sectionRef.current) return;
@@ -386,18 +378,6 @@ export function Hero() {
           <HeroIllustration />
         </motion.div>
       </div>
-
-      {/* Domain search - full width below */}
-      <motion.div
-        id="domain-search"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="w-full mt-12 px-4"
-      >
-        <p className="text-center text-sm text-muted-foreground mb-3">Search for your domain</p>
-        <DomainSearch />
-      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div

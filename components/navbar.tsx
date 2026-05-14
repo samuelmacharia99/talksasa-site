@@ -23,21 +23,20 @@ import { useCTAModal } from "@/components/cta-modal";
 import { useTheme } from "@/components/theme-provider";
 import { trackCTAClick } from "@/components/analytics";
 import { useRipple } from "@/lib/use-ripple";
-import { CurrencySelector } from "@/components/currency-selector";
 
 const BULK_SMS_URL = "https://bulksms.talksasa.com";
 const HOSTING_URL = "https://servers.talksasa.com";
-const VPS_URL = "https://servers.talksasa.com/store/vps-hostin";
-const SHARED_HOSTING_URL = "https://servers.talksasa.com/store/shared-hosting";
-const DEDICATED_SERVERS_URL = "https://servers.talksasa.com/cart.php?gid=16";
+const VPS_URL = "https://servers.talksasa.com/";
+const SHARED_HOSTING_URL = "https://servers.talksasa.com/";
+const DEDICATED_SERVERS_URL = "https://servers.talksasa.com/";
 
 const servicesMega = [
   { icon: MessageSquare, title: "Bulk SMS", description: "Send millions of messages with our reliable SMS gateway.", href: BULK_SMS_URL },
   { icon: Server, title: "Web Hosting", description: "Fast SSD hosting with cPanel and free SSL.", href: SHARED_HOSTING_URL },
-  { icon: Globe, title: "Domains", description: "Register and manage .ke, .com, and 100+ TLDs.", href: "/#domain-search" },
   { icon: Layers, title: "VPS", description: "Scalable virtual servers with full root access.", href: VPS_URL },
   { icon: Boxes, title: "Dedicated Servers", description: "Bare metal for maximum performance.", href: DEDICATED_SERVERS_URL },
   { icon: Cloud, title: "Cloud Solutions", description: "Flexible cloud infrastructure that scales.", href: "/pricing" },
+  { icon: Globe, title: "Domains", description: "Register and manage .ke, .com, and 100+ TLDs.", href: HOSTING_URL },
 ];
 
 const leftServices = servicesMega.slice(0, 3);
@@ -67,10 +66,8 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [resellerOpen, setResellerOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
   const resellerRef = useRef<HTMLDivElement>(null);
-  const loginRef = useRef<HTMLDivElement>(null);
   const { openModal } = useCTAModal();
   const { theme, toggleTheme } = useTheme();
   const ripple = useRipple();
@@ -87,7 +84,6 @@ export function Navbar() {
       const target = e.target as Node;
       if (servicesRef.current && !servicesRef.current.contains(target)) setServicesOpen(false);
       if (resellerRef.current && !resellerRef.current.contains(target)) setResellerOpen(false);
-      if (loginRef.current && !loginRef.current.contains(target)) setLoginOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -188,9 +184,6 @@ export function Navbar() {
                                   if (!isExternal && s.href.startsWith("#")) {
                                     e.preventDefault();
                                     handleNavClick(s.href);
-                                  } else if (!isExternal && pathname === "/" && s.href === "/#domain-search") {
-                                    e.preventDefault();
-                                    document.getElementById("domain-search")?.scrollIntoView({ behavior: "smooth" });
                                   }
                                 }}
                                 className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
@@ -220,9 +213,6 @@ export function Navbar() {
                                   if (!isExternal && s.href.startsWith("#")) {
                                     e.preventDefault();
                                     handleNavClick(s.href);
-                                  } else if (!isExternal && pathname === "/" && s.href === "/#domain-search") {
-                                    e.preventDefault();
-                                    document.getElementById("domain-search")?.scrollIntoView({ behavior: "smooth" });
                                   }
                                 }}
                                 className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
@@ -329,7 +319,7 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* Right: Theme toggle, Currency selector, Login, Get Started */}
+            {/* Right: Theme toggle, Login, Get Started */}
             <div className="hidden lg:flex items-center gap-3">
               <button
                 type="button"
@@ -339,44 +329,26 @@ export function Navbar() {
               >
                 {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
-              <CurrencySelector />
-              <div
-                className="relative"
-                ref={loginRef}
-                onMouseEnter={() => setLoginOpen(true)}
-                onMouseLeave={() => setLoginOpen(false)}
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="text-xs sm:text-sm"
               >
-                <button
-                  onClick={() => setLoginOpen((o) => !o)}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
-                >
-                  Login
-                  <ChevronDown className={cn("h-4 w-4", loginOpen && "rotate-180")} />
-                </button>
-                <AnimatePresence>
-                  {loginOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      className="absolute top-full right-0 mt-1 w-52 rounded-lg glass border border-border py-1 shadow-xl"
-                    >
-                      <a
-                        href={`${BULK_SMS_URL}/login`}
-                        className="block px-4 py-2.5 text-sm text-foreground hover:bg-white/5"
-                      >
-                        Bulk SMS Login
-                      </a>
-                      <a
-                        href={`${HOSTING_URL}/clientarea.php`}
-                        className="block px-4 py-2.5 text-sm text-foreground hover:bg-white/5"
-                      >
-                        Hosting Login
-                      </a>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                <a href={`${BULK_SMS_URL}/login`} target="_blank" rel="noopener noreferrer">
+                  Bulk SMS Login
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="text-xs sm:text-sm"
+              >
+                <a href={`${HOSTING_URL}/login`} target="_blank" rel="noopener noreferrer">
+                  Domains/Servers Login
+                </a>
+              </Button>
               <Button
                 size="default"
                 className="btn-ripple bg-gradient-to-r from-indigo-500 to-purple-600 hover:opacity-90 border-0 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -519,16 +491,6 @@ export function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="py-4 border-b border-border"
-              >
-                <span className="text-sm text-muted-foreground mb-2 block">Currency</span>
-                <CurrencySelector />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22 }}
                 className="flex items-center gap-3 py-4 border-b border-border"
               >
@@ -547,15 +509,29 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
-                className="mt-6 pt-4 border-t border-border"
+                className="mt-6 pt-4 border-t border-border space-y-3"
               >
-                <span className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Login</span>
-                <a href={`${BULK_SMS_URL}/login`} className="block py-3 text-foreground" onClick={() => setMobileOpen(false)}>
-                  Bulk SMS Login
-                </a>
-                <a href={`${HOSTING_URL}/clientarea.php`} className="block py-3 text-foreground" onClick={() => setMobileOpen(false)}>
-                  Hosting Login
-                </a>
+                <span className="block text-xs font-medium text-muted-foreground uppercase tracking-wider">Login</span>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                >
+                  <a href={`${BULK_SMS_URL}/login`} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
+                    Bulk SMS Login
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                >
+                  <a href={`${HOSTING_URL}/login`} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
+                    Domains/Servers Login
+                  </a>
+                </Button>
               </motion.div>
 
               <motion.div
