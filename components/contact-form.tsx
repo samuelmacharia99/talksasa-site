@@ -195,10 +195,6 @@ export function ContactForm() {
                 <a href="tel:+254781000403" className="underline hover:text-red-300">
                   +254 781 000 403
                 </a>
-                {" or "}
-                <a href="tel:+254116723188" className="underline hover:text-red-300">
-                  +254 116 723 188
-                </a>
               </p>
             </div>
           </div>

@@ -129,9 +129,6 @@ export default function ContactPage() {
                 <a href="tel:+254781000403" className="block text-muted-foreground hover:text-primary">
                   +254 781 000 403
                 </a>
-                <a href="tel:+254116723188" className="block text-muted-foreground hover:text-primary">
-                  +254 116 723 188
-                </a>
               </div>
             </div>
             <div className="rounded-2xl glass border border-border p-6">
