@@ -6,7 +6,6 @@ import { ToastProvider } from "@/components/toast";
 import { CurrencyProvider } from "@/lib/currency-provider";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { ScrollProgress } from "@/components/scroll-progress";
-import { ExitIntentModal } from "@/components/exit-intent-modal";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { LiveActivityFeed } from "@/components/live-activity-feed";
 
@@ -21,7 +20,6 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
             <LiveActivityFeed />
             <WhatsAppFab />
             <ServiceWorkerRegister />
-            <ExitIntentModal />
           </CTAModalProvider>
         </ToastProvider>
       </CurrencyProvider>
