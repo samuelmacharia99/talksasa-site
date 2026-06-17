@@ -17,7 +17,7 @@ export function WhatsAppFab() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2, duration: 0.4, ease: "easeOut" }}
-      className="group fixed bottom-4 right-4 md:bottom-5 md:right-5 z-[9999]"
+      className="group whatsapp-fab fixed bottom-4 right-4 md:bottom-5 md:right-5 z-[9999]"
     >
       {/* Pulse background */}
       <span className="absolute inset-0 rounded-full bg-[#25D366]/40 blur-sm scale-100 group-hover:scale-110 transition-transform duration-200 pointer-events-none" />

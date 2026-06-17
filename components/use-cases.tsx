@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ type UseCase = {
   features: string[];
   stat: string;
   cta: string;
+  href?: string;
   accent: string;
 };
 
@@ -55,15 +57,16 @@ const useCases: UseCase[] = [
     icon: "💻",
     title: "SaaS & Tech Companies",
     description:
-      "Secure your users with 2FA, password resets, and real-time notifications.",
+      "Host containerized apps, secure users with 2FA, and send real-time notifications — all on one platform.",
     features: [
-      "Two-factor authentication",
+      "Application hosting & Git deploys",
+      "Two-factor authentication SMS",
       "Password reset codes",
-      "Account activity alerts",
       "API webhook notifications",
     ],
-    stat: "99.9% delivery rate",
-    cta: "See Developer Solutions",
+    stat: "Ship faster, scale easier",
+    cta: "See App Hosting",
+    href: "/cloud-hosting",
     accent: "from-violet-500 to-fuchsia-500",
   },
   {
@@ -98,7 +101,7 @@ const item = {
 
 export function UseCases() {
   return (
-    <section className="py-24 bg-background">
+    <section className="section-py bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -157,13 +160,23 @@ export function UseCases() {
                 <span className="inline-flex items-center rounded-full bg-primary/10 text-xs font-medium text-primary px-3 py-1">
                   {useCase.stat}
                 </span>
-                <button
-                  type="button"
-                  className="text-xs text-primary hover:text-primary/90 inline-flex items-center gap-1 px-3 py-2"
-                >
-                  {useCase.cta}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </button>
+                {useCase.href ? (
+                  <Link
+                    href={useCase.href}
+                    className="text-xs text-primary hover:text-primary/90 inline-flex items-center gap-1 px-3 py-2"
+                  >
+                    {useCase.cta}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className="text-xs text-primary hover:text-primary/90 inline-flex items-center gap-1 px-3 py-2"
+                  >
+                    {useCase.cta}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </button>
+                )}
               </div>
             </motion.article>
           ))}

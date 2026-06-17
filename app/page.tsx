@@ -3,85 +3,48 @@ import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Services } from "@/components/services";
 import { TrustIndicators } from "@/components/trust-indicators";
+import { CustomerJourneySection } from "@/components/customer-journey";
 import { Features } from "@/components/features";
 import { UseCases } from "@/components/use-cases";
 import { ResellerProgram } from "@/components/reseller-program";
-import { SMSCalculator } from "@/components/sms-calculator";
-import { ComparisonTable } from "@/components/comparison-table";
 import { Pricing } from "@/components/pricing";
+import { CloudFaqSection } from "@/components/cloud-faq";
 import { CTA } from "@/components/cta";
 import { CTASupport } from "@/components/cta-support";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com";
+import { SITE_URL } from "@/lib/urls";
+import { FAQ_ITEMS, faqJsonLd } from "@/lib/cloud-content";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: SITE_URL,
-    },
-  ],
+  itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL }],
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  serviceType: "Digital Infrastructure Services",
+  name: "TalkSasa",
+  description:
+    "Talksasa Cloud hosting, domains, cloud apps, and reseller platform — plus Kenya's trusted bulk SMS gateway and API.",
   provider: {
-    "@type": "LocalBusiness",
+    "@type": "Organization",
     name: "TalkSasa",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Nairobi",
-      addressCountry: "KE",
-    },
+    url: SITE_URL,
+    address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
   },
-  areaServed: {
-    "@type": "Country",
-    name: ["Kenya", "Tanzania", "Uganda", "Rwanda"],
-  },
+  areaServed: ["Kenya", "Tanzania", "Uganda", "Rwanda"],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "TalkSasa Services",
     itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Bulk SMS Gateway",
-          description: "Reliable SMS gateway for Kenya and East Africa",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Web Hosting",
-          description: "Fast SSD web hosting with cPanel and free SSL",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Domain Registration",
-          description: "Register .co.ke, .com, and 100+ TLDs",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "VPS Hosting",
-          description: "Scalable cloud VPS with dedicated resources",
-        },
-      },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Bulk SMS Gateway", description: "Marketing, alerts, OTP/2FA, and REST API" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Shared Web Hosting", description: "DirectAdmin shared hosting with auto-provisioning" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Domain Registration", description: ".co.ke, .com and global TLD registration" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cloud App Hosting", description: "Laravel, Node.js container hosting" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "VPS and Dedicated Servers", description: "Root access servers" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "White-Label Reseller Hosting", description: "Branded hosting reseller platform" } },
     ],
   },
 };
@@ -89,39 +52,20 @@ const serviceSchema = {
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <Script
-        id="breadcrumb-schema-home"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <Script
-        id="service-schema-home"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <Script id="breadcrumb-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <Script id="service-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <Script id="faq-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQ_ITEMS)) }} />
       <Navbar />
       <main id="main-content" role="main">
         <Hero />
         <Services />
+        <CustomerJourneySection />
         <TrustIndicators />
         <Features />
         <UseCases />
         <ResellerProgram />
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                SMS <span className="gradient-text">Cost Calculator</span>
-              </h2>
-              <p className="mt-2 text-muted-foreground">
-                Estimate your monthly cost based on volume.
-              </p>
-            </div>
-            <SMSCalculator />
-          </div>
-        </section>
-        <ComparisonTable />
         <Pricing />
+        <CloudFaqSection />
         <CTA />
         <CTASupport />
         <ContactSection />

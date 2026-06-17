@@ -7,14 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageSquare,
   Server,
-  Globe,
-  Layers,
-  Boxes,
-  Cloud,
   ChevronDown,
   ArrowRight,
   Sun,
   Moon,
+  LogIn,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -22,33 +19,24 @@ import { useCTAModal } from "@/components/cta-modal";
 import { useTheme } from "@/components/theme-provider";
 import { trackCTAClick } from "@/components/analytics";
 import { useRipple } from "@/lib/use-ripple";
+import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
+import { ServicesMegaMenu } from "@/components/services-mega-menu";
+import { megaMenuGroups } from "@/lib/platform-menu";
 
-const BULK_SMS_URL = "https://bulksms.talksasa.com";
-const HOSTING_URL = "https://servers.talksasa.com";
-const VPS_URL = "https://servers.talksasa.com/";
-const SHARED_HOSTING_URL = "https://servers.talksasa.com/";
-const DEDICATED_SERVERS_URL = "https://servers.talksasa.com/";
-
-const servicesMega = [
-  { icon: MessageSquare, title: "Bulk SMS", description: "Send millions of messages with our reliable SMS gateway.", href: BULK_SMS_URL },
-  { icon: Server, title: "Web Hosting", description: "Fast SSD hosting with cPanel and free SSL.", href: SHARED_HOSTING_URL },
-  { icon: Layers, title: "VPS", description: "Scalable virtual servers with full root access.", href: VPS_URL },
-  { icon: Boxes, title: "Dedicated Servers", description: "Bare metal for maximum performance.", href: DEDICATED_SERVERS_URL },
-  { icon: Cloud, title: "Cloud Solutions", description: "Flexible cloud infrastructure that scales.", href: "/pricing" },
-  { icon: Globe, title: "Domains", description: "Register and manage .ke, .com, and 100+ TLDs.", href: HOSTING_URL },
+const loginItems = [
+  { label: "Bulk SMS", href: `${BULK_SMS_URL}/login` },
+  { label: "Hosting & Domains", href: `${HOSTING_URL}/login` },
 ];
 
-const leftServices = servicesMega.slice(0, 3);
-const rightServices = servicesMega.slice(3, 6);
-
 const resellerItems = [
-  { icon: Server, title: "Reseller Hosting", description: "Start your hosting business with our reseller plans.", href: HOSTING_URL },
-  { icon: MessageSquare, title: "SMS Reseller", description: "Resell bulk SMS services to your clients.", href: BULK_SMS_URL },
+  { icon: Server, title: "Reseller Hosting", description: "White-label hosting, domains, and cloud apps.", href: "/reseller-hosting" },
+  { icon: MessageSquare, title: "SMS Reseller", description: "Resell bulk SMS under your own brand.", href: "/sms-reseller" },
 ];
 
 const navItems = [
+  { href: "/bulk-sms", label: "Bulk SMS" },
+  { href: "/cloud-hosting", label: "Cloud apps" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/#solutions", label: "Solutions" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -65,8 +53,11 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [resellerOpen, setResellerOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
   const resellerRef = useRef<HTMLDivElement>(null);
+  const loginRef = useRef<HTMLDivElement>(null);
   const { openModal } = useCTAModal();
   const { theme, toggleTheme } = useTheme();
   const ripple = useRipple();
@@ -78,10 +69,20 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
+    document.body.classList.toggle("mobile-menu-open", mobileOpen);
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Node;
       if (servicesRef.current && !servicesRef.current.contains(target)) setServicesOpen(false);
       if (resellerRef.current && !resellerRef.current.contains(target)) setResellerOpen(false);
+      if (loginRef.current && !loginRef.current.contains(target)) setLoginOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -91,6 +92,8 @@ export function Navbar() {
     setMobileOpen(false);
     setServicesOpen(false);
     setResellerOpen(false);
+    setLoginOpen(false);
+    setMobileServicesOpen(false);
     if (href.startsWith("#")) {
       const path = href.slice(1);
       if (path) scrollToSection(href);
@@ -160,84 +163,11 @@ export function Navbar() {
 
                 <AnimatePresence>
                   {servicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-1 w-[480px] rounded-xl glass border border-border shadow-xl overflow-hidden"
-                    >
-                      <div className="p-4 grid grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          {leftServices.map((s) => {
-                            const isExternal = s.href.startsWith("http");
-                            const Comp = isExternal ? "a" : Link;
-                            return (
-                              <Comp
-                                key={s.title}
-                                href={s.href}
-                                {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                onClick={(e: React.MouseEvent) => {
-                                  setServicesOpen(false);
-                                  if (!isExternal && s.href.startsWith("#")) {
-                                    e.preventDefault();
-                                    handleNavClick(s.href);
-                                  }
-                                }}
-                                className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
-                              >
-                                <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary group-hover:bg-primary/20">
-                                  <s.icon className="h-4 w-4" />
-                                </div>
-                                <div className="min-w-0">
-                                  <div className="font-medium text-foreground text-sm">{s.title}</div>
-                                  <div className="text-xs text-muted-foreground mt-0.5">{s.description}</div>
-                                </div>
-                              </Comp>
-                            );
-                          })}
-                        </div>
-                        <div className="space-y-1">
-                          {rightServices.map((s) => {
-                            const isExternal = s.href.startsWith("http");
-                            const Comp = isExternal ? "a" : Link;
-                            return (
-                              <Comp
-                                key={s.title}
-                                href={s.href}
-                                {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                onClick={(e: React.MouseEvent) => {
-                                  setServicesOpen(false);
-                                  if (!isExternal && s.href.startsWith("#")) {
-                                    e.preventDefault();
-                                    handleNavClick(s.href);
-                                  }
-                                }}
-                                className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
-                              >
-                                <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary group-hover:bg-primary/20">
-                                  <s.icon className="h-4 w-4" />
-                                </div>
-                                <div className="min-w-0">
-                                  <div className="font-medium text-foreground text-sm">{s.title}</div>
-                                  <div className="text-xs text-muted-foreground mt-0.5">{s.description}</div>
-                                </div>
-                              </Comp>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <div className="border-t border-border p-3">
-                        <Link
-                          href="#services"
-                          onClick={() => handleNavClick("#services")}
-                          className="flex items-center justify-center gap-2 text-sm font-medium text-primary hover:text-primary/90"
-                        >
-                          View All Services
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </div>
-                    </motion.div>
+                    <ServicesMegaMenu
+                      key="services-mega"
+                      onNavigate={() => setServicesOpen(false)}
+                      onViewAll={() => handleNavClick("#services")}
+                    />
                   )}
                 </AnimatePresence>
               </div>
@@ -280,13 +210,7 @@ export function Navbar() {
                               key={item.title}
                               href={item.href}
                               {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                              onClick={(e: React.MouseEvent) => {
-                                setResellerOpen(false);
-                                if (!isExternal) {
-                                  e.preventDefault();
-                                  handleNavClick(item.href);
-                                }
-                              }}
+                              onClick={() => setResellerOpen(false)}
                               className="flex gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors group"
                             >
                               <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary group-hover:bg-primary/20">
@@ -327,26 +251,53 @@ export function Navbar() {
               >
                 {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="text-xs sm:text-sm"
+
+              <div
+                className="relative"
+                ref={loginRef}
+                onMouseEnter={() => setLoginOpen(true)}
+                onMouseLeave={() => setLoginOpen(false)}
               >
-                <a href={`${BULK_SMS_URL}/login`} target="_blank" rel="noopener noreferrer">
-                  Bulk SMS Login
-                </a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="text-xs sm:text-sm"
-              >
-                <a href={`${HOSTING_URL}/login`} target="_blank" rel="noopener noreferrer">
-                  Domains/Servers Login
-                </a>
-              </Button>
+                <button
+                  type="button"
+                  onClick={() => setLoginOpen((o) => !o)}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border border-border transition-colors",
+                    loginOpen ? "text-foreground bg-white/5" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <LogIn className="h-4 w-4" aria-hidden />
+                  Log in
+                  <ChevronDown className={cn("h-4 w-4 transition-transform", loginOpen && "rotate-180")} />
+                </button>
+                <AnimatePresence>
+                  {loginOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full right-0 mt-1 w-52 rounded-xl glass border border-border shadow-xl overflow-hidden"
+                    >
+                      <div className="p-2">
+                        {loginItems.map((item) => (
+                          <a
+                            key={item.label}
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setLoginOpen(false)}
+                            className="block px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
+                          >
+                            {item.label}
+                          </a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <Button
                 size="default"
                 className="btn-ripple bg-gradient-to-r from-indigo-500 to-purple-600 hover:opacity-90 border-0 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -396,9 +347,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden bg-background/95 backdrop-blur-xl"
+            className="fixed inset-0 z-40 lg:hidden bg-background/95 backdrop-blur-xl overflow-y-auto overscroll-contain"
           >
-            <div className="flex flex-col min-h-full pt-24 pb-8 px-6">
+            <div className="flex flex-col min-h-full pt-24 pb-8 px-4 sm:px-6">
               {/* Home */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -414,22 +365,84 @@ export function Navbar() {
                 </Link>
               </motion.div>
 
-              {/* Services */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.12 }}
+              >
+                <Link
+                  href="/cloud-hosting"
+                  onClick={() => setMobileOpen(false)}
+                  className="block py-4 text-lg font-medium text-foreground border-b border-border"
+                >
+                  Cloud app hosting
+                </Link>
+              </motion.div>
+
+              {/* Services mega menu (mobile) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
+                className="border-b border-border"
               >
-                <Link
-                  href="/#services"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick("#services");
-                  }}
-                  className="block py-4 text-lg font-medium text-foreground border-b border-border"
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen((o) => !o)}
+                  className="flex w-full items-center justify-between py-4 text-lg font-medium text-foreground"
                 >
                   Services
-                </Link>
+                  <ChevronDown
+                    className={cn("h-5 w-5 transition-transform", mobileServicesOpen && "rotate-180")}
+                  />
+                </button>
+                <AnimatePresence>
+                  {mobileServicesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pb-4 space-y-5"
+                    >
+                      {megaMenuGroups.map((group) => (
+                        <div key={group.id}>
+                          <p className="text-xs font-semibold uppercase tracking-wider text-primary px-1">
+                            {group.label}
+                          </p>
+                          <p className="text-xs text-muted-foreground px-1 mb-2">{group.tagline}</p>
+                          <div className="space-y-1 pl-2">
+                            {group.items.map((item) => {
+                              const isExternal = item.href.startsWith("http");
+                              const Comp = isExternal ? "a" : Link;
+                              return (
+                                <Comp
+                                  key={item.title}
+                                  href={item.href}
+                                  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="block py-3 text-sm text-muted-foreground hover:text-foreground"
+                                >
+                                  {item.title}
+                                </Comp>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                      <Link
+                        href="/#services"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavClick("#services");
+                        }}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary pl-2"
+                      >
+                        View all services
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Reseller */}
@@ -441,24 +454,20 @@ export function Navbar() {
                 <div className="border-b border-border">
                   <div className="py-4 text-lg font-medium text-foreground">Reseller</div>
                   <div className="pl-4 pb-2 space-y-2">
-                    <a
-                      href={HOSTING_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/reseller-hosting"
                       onClick={() => setMobileOpen(false)}
-                      className="block py-2 text-sm text-muted-foreground hover:text-foreground"
+                      className="block py-3 text-sm text-muted-foreground hover:text-foreground"
                     >
                       Reseller Hosting
-                    </a>
-                    <a
-                      href={BULK_SMS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    </Link>
+                    <Link
+                      href="/sms-reseller"
                       onClick={() => setMobileOpen(false)}
-                      className="block py-2 text-sm text-muted-foreground hover:text-foreground"
+                      className="block py-3 text-sm text-muted-foreground hover:text-foreground"
                     >
                       SMS Reseller
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -506,30 +515,23 @@ export function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 }}
+                transition={{ delay: 0.28 }}
                 className="mt-6 pt-4 border-t border-border space-y-3"
               >
-                <span className="block text-xs font-medium text-muted-foreground uppercase tracking-wider">Login</span>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                >
-                  <a href={`${BULK_SMS_URL}/login`} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
-                    Bulk SMS Login
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                >
-                  <a href={`${HOSTING_URL}/login`} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
-                    Domains/Servers Login
-                  </a>
-                </Button>
+                <span className="block text-xs font-medium text-muted-foreground uppercase tracking-wider">Log in</span>
+                {loginItems.map((item) => (
+                  <Button
+                    key={item.label}
+                    asChild
+                    variant="outline"
+                    size="default"
+                    className="w-full min-h-11"
+                  >
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
+                      {item.label}
+                    </a>
+                  </Button>
+                ))}
               </motion.div>
 
               <motion.div

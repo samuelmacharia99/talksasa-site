@@ -4,16 +4,16 @@ import { useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  MessageSquare,
   Server,
   Globe,
+  Container,
   Layers,
-  Boxes,
-  Cloud,
+  CreditCard,
+  Headphones,
   ArrowRight,
   Check,
+  MessageSquare,
 } from "lucide-react";
-
 type ServiceCard = {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -21,10 +21,7 @@ type ServiceCard = {
   description: string;
   href: string;
   features: string[];
-  /** Bento: col-span on lg (1 or 2) */
   colSpan?: 1 | 2;
-  /** Bento: row-span on lg (1 or 2) */
-  rowSpan?: 1 | 2;
 };
 
 const services: ServiceCard[] = [
@@ -33,75 +30,76 @@ const services: ServiceCard[] = [
     icon: MessageSquare,
     title: "Bulk SMS",
     description:
-      "Send millions of messages instantly with our reliable SMS gateway. Perfect for marketing, notifications, and 2FA.",
-    href: "https://bulksms.talksasa.com",
-    features: ["API Access", "Delivery Reports", "Sender ID customization"],
+      "Kenya's trusted SMS gateway for marketing, alerts, OTP/2FA, and API integrations. M-Pesa top-up, delivery reports, and reseller options.",
+    href: "/bulk-sms",
+    features: ["REST API & portal", "Sender ID support", "2,100+ businesses"],
     colSpan: 2,
-    rowSpan: 1,
   },
   {
-    id: "web-hosting",
+    id: "shared-hosting",
     icon: Server,
-    title: "Web Hosting",
+    title: "Shared hosting",
     description:
-      "Lightning-fast SSD hosting with cPanel, 99.9% uptime guarantee, and free SSL certificates.",
-    href: "https://servers.talksasa.com",
-    features: ["Free SSL", "Daily Backups", "cPanel included"],
-    colSpan: 1,
-    rowSpan: 1,
+      "DirectAdmin-powered hosting with automatic provisioning after payment. DNS, email, SSL, and backups included.",
+    href: "/web-hosting",
+    features: ["DirectAdmin on port 2222", "Auto-provision after M-Pesa", "Let's Encrypt SSL"],
+    colSpan: 2,
+  },
+  {
+    id: "cloud-apps",
+    icon: Container,
+    title: "Cloud apps",
+    description:
+      "Deploy Laravel, Node.js, Python and more. Git deploy, web terminal, logs, metrics, and custom domains.",
+    href: "/cloud-hosting",
+    features: ["Container auto-deploy", "Git & Laravel helpers", "Web terminal"],
+    colSpan: 2,
   },
   {
     id: "domains",
     icon: Globe,
-    title: "Domain Registration",
+    title: "Domains",
     description:
-      "Search and register your perfect domain. Over 3,000 domains already trusted to us.",
-    features: ["Free WHOIS Privacy", "Easy DNS Management", "Bulk discounts"],
-    href: "#",
+      "Register and renew .co.ke, .com, .org. Transfer with EPP codes, manage DNS, and bundle with hosting at checkout.",
+    href: "/domains",
+    features: [".co.ke & global TLDs", "DNS management", "Transfer support"],
     colSpan: 1,
-    rowSpan: 1,
   },
   {
-    id: "vps",
+    id: "servers",
     icon: Layers,
-    title: "VPS Hosting",
+    title: "VPS & dedicated",
     description:
-      "Scalable virtual private servers with full root access and your choice of OS.",
-    features: ["SSD Storage", "Dedicated Resources", "Instant Setup"],
-    href: "#",
-    colSpan: 2,
-    rowSpan: 1,
-  },
-  {
-    id: "dedicated",
-    icon: Boxes,
-    title: "Dedicated Servers",
-    description:
-      "Enterprise-grade bare metal servers for maximum performance and control.",
-    features: ["Full Control", "Custom Configs", "Premium Support"],
-    href: "#",
+      "Full root access for custom stacks, high-traffic sites, and enterprise workloads.",
+    href: "/servers",
+    features: ["VPS & bare metal", "Secure credentials", "Scalable resources"],
     colSpan: 1,
-    rowSpan: 1,
   },
   {
-    id: "cloud",
-    icon: Cloud,
-    title: "Cloud Solutions",
+    id: "billing",
+    icon: CreditCard,
+    title: "Smart billing",
     description:
-      "Flexible cloud infrastructure that grows with your business needs.",
-    href: "https://servers.talksasa.com",
-    features: ["Scalable", "Managed", "Pay as you grow"],
-    colSpan: 2,
-    rowSpan: 1,
+      "PDF invoices, M-Pesa STK push, cards, PayPal, wallet credits, and automatic renewal reminders.",
+    href: "/payments/mpesa",
+    features: ["M-Pesa STK push", "PDF invoices", "Wallet credits"],
+    colSpan: 1,
+  },
+  {
+    id: "support",
+    icon: Headphones,
+    title: "Support tickets",
+    description:
+      "Open, reply, and track issues in one thread. Service dashboard with renewal dates at a glance.",
+    href: "/contact",
+    features: ["Built-in ticketing", "Service dashboard", "24/7 team"],
+    colSpan: 1,
   },
 ];
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
 };
 
 const item = {
@@ -123,6 +121,7 @@ function ServiceCardComponent({ service }: { service: ServiceCard }) {
     el.style.setProperty("--tilt-x", `${y * -6}deg`);
     el.style.setProperty("--tilt-y", `${x * 6}deg`);
   }, []);
+
   const onMouseLeave = useCallback(() => {
     cardRef.current?.style.setProperty("--tilt-x", "0deg");
     cardRef.current?.style.setProperty("--tilt-y", "0deg");
@@ -134,39 +133,21 @@ function ServiceCardComponent({ service }: { service: ServiceCard }) {
       variants={item}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className={`card-tilt h-full flex flex-col rounded-2xl p-6 sm:p-8 glass border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-glow-sm hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.15)] group relative overflow-hidden
+      className={`card-tilt h-full flex flex-col rounded-2xl p-6 sm:p-8 glass border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-glow-sm hover:-translate-y-1 group relative overflow-hidden
         ${service.colSpan === 2 ? "md:col-span-2 lg:col-span-2" : ""}
-        ${service.rowSpan === 2 ? "lg:row-span-2" : ""}
-      `}
+        ${service.id === "support" ? "lg:col-span-3" : ""}`}
     >
-      {/* Gradient border glow on hover */}
-      <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{
-          padding: "1px",
-          background: "linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)",
-          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          WebkitMaskComposite: "xor",
-          maskComposite: "exclude",
-        }}
-      />
       <div className="relative flex flex-col h-full">
         <div className="rounded-xl bg-primary/10 w-fit p-3 text-primary group-hover:bg-primary/20 transition-colors">
           <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
         </div>
-        <h3 className="mt-4 text-xl sm:text-2xl font-semibold text-foreground">
-          {service.title}
-        </h3>
+        <h3 className="mt-4 text-xl sm:text-2xl font-semibold text-foreground">{service.title}</h3>
         <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed flex-1">
           {service.description}
         </p>
         <ul className="mt-4 space-y-2">
           {service.features.map((feature) => (
-            <li
-              key={feature}
-              className="flex items-center gap-2 text-sm text-muted-foreground"
-            >
+            <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
               <Check className="h-4 w-4 shrink-0 text-primary" />
               {feature}
             </li>
@@ -178,7 +159,7 @@ function ServiceCardComponent({ service }: { service: ServiceCard }) {
           rel={isExternal ? "noopener noreferrer" : undefined}
           className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/90 transition-colors"
         >
-          Learn More
+          Learn more
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
@@ -188,20 +169,19 @@ function ServiceCardComponent({ service }: { service: ServiceCard }) {
 
 export function Services() {
   return (
-    <section id="services" className="py-24 relative">
+    <section id="services" className="section-py relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Everything you need to{" "}
-            <span className="gradient-text">grow online</span>
+            <span className="gradient-text">TalkSasa</span> — cloud hosting & bulk SMS
           </h2>
           <p className="mt-4 text-muted-foreground">
-            From messaging to infrastructure, we power businesses of every size.
+            Talksasa Cloud for hosting, domains, and apps — plus a bulk SMS gateway trusted across East Africa.
           </p>
         </motion.div>
 

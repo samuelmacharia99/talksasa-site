@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ClientProviders } from "@/components/client-providers";
 import { Analytics } from "@/components/analytics";
 import "./globals.css";
+import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,74 +25,34 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "TalkSasa | Bulk SMS, Web Hosting & Cloud Solutions in Kenya",
-    template: "%s | TalkSasa",
+    default: DEFAULT_SEO.title,
+    template: `%s | ${BRAND}`,
   },
-  description:
-    "Kenya's leading bulk SMS gateway, web hosting, domains, VPS & cloud solutions provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 2,100+ businesses. 99.9% uptime. 24/7 local support. Accept M-Pesa, Airtel Money, and bank transfers.",
-  keywords: [
-    "bulk SMS Kenya",
-    "SMS gateway Kenya",
-    "bulk SMS Nairobi",
-    "bulk SMS East Africa",
-    "SMS API Kenya",
-    "web hosting Kenya",
-    "web hosting Nairobi",
-    "web hosting East Africa",
-    "Kenya web hosting",
-    "Tanzania web hosting",
-    "Uganda web hosting",
-    "Rwanda web hosting",
-    "domain registration Kenya",
-    ".co.ke domain",
-    "domain registration Nairobi",
-    "VPS hosting Kenya",
-    "VPS Nairobi",
-    "cloud VPS Kenya",
-    "dedicated servers Kenya",
-    "cloud solutions Kenya",
-    "cloud hosting East Africa",
-    "cPanel hosting Kenya",
-    "WordPress hosting Kenya",
-    "reseller hosting Kenya",
-    "email hosting Kenya",
-    "SSL certificate Kenya",
-    "TalkSasa",
-    "Talksasa Kenya",
-    "Talksasa Nairobi",
-    "Talksasa East Africa",
-    "affordable hosting Kenya",
-    "M-Pesa payment hosting",
-    "local hosting provider Kenya",
-    "business SMS Kenya",
-    "marketing SMS Kenya",
-    "SMS marketing East Africa",
-  ],
-  authors: [{ name: "TalkSasa", url: SITE_URL }],
-  creator: "TalkSasa",
+  description: DEFAULT_SEO.description,
+  keywords: [...DEFAULT_SEO.keywords],
+  authors: [{ name: BRAND, url: SITE_URL }],
+  creator: BRAND,
   openGraph: {
     type: "website",
     locale: "en_KE",
     alternateLocale: ["en_TZ", "en_UG", "en_RW", "sw_KE"],
     url: SITE_URL,
-    siteName: "TalkSasa",
-    title: "TalkSasa | Bulk SMS, Web Hosting & Cloud Solutions in Kenya & East Africa",
-    description:
-      "Kenya's leading bulk SMS gateway, web hosting, domains, VPS & cloud solutions provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 2,100+ businesses. 99.9% uptime. 24/7 local support.",
+    siteName: BRAND,
+    title: DEFAULT_SEO.title,
+    description: DEFAULT_SEO.description,
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TalkSasa - Digital Infrastructure Partner for Kenya & East Africa",
+        alt: "Talksasa Cloud — Web Hosting, Domains and Cloud Apps in Kenya",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TalkSasa | Bulk SMS, Web Hosting & Cloud Solutions in Kenya",
-    description:
-      "Reliable bulk SMS gateway, web hosting, domains, VPS & cloud solutions. Trusted by 2,100+ businesses.",
+    title: DEFAULT_SEO.title,
+    description: DEFAULT_SEO.description,
   },
   robots: {
     index: true,
@@ -133,12 +94,11 @@ export const viewport: Viewport = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": ["Organization", "LocalBusiness"],
-  name: "TalkSasa",
+  name: "Talksasa Cloud",
   url: SITE_URL,
   logo: `${SITE_URL}/st.png`,
   image: `${SITE_URL}/og-image.png`,
-  description:
-    "Kenya's leading bulk SMS gateway, web hosting, domains, VPS & cloud solutions provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 2,100+ businesses.",
+  description: DEFAULT_SEO.description,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Nairobi",
@@ -256,6 +216,14 @@ const organizationJsonLd = {
           "@type": "Service",
           name: "VPS Hosting",
           description: "Scalable cloud VPS with dedicated resources and full root access",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Application Hosting",
+          description: "Container-based application hosting with Git deploys and managed SSL",
         },
       },
       {

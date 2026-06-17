@@ -541,7 +541,7 @@ export function Pricing() {
   const formatSenderIdPrice = (price: number) => formatPrice(price, 0);
 
   return (
-    <section id="pricing" className="py-24 relative">
+    <section id="pricing" className="section-py relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Currency selector - show at top of pricing section */}
         <motion.div
@@ -631,8 +631,8 @@ export function Pricing() {
         )}
 
         {/* Pricing cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-          <AnimatePresence mode="wait">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
+          <AnimatePresence initial={false}>
             {plans.map((plan, i) => (
               <motion.div
                 key={`${product}-${plan.name}`}
@@ -643,7 +643,7 @@ export function Pricing() {
                 className={cn(
                   "relative rounded-2xl p-6 sm:p-8 border transition-all duration-300 flex flex-col",
                   plan.featured
-                    ? "glass gradient-border shadow-glow-sm lg:scale-105 z-10"
+                    ? "glass gradient-border shadow-glow-sm xl:scale-105 z-10"
                     : "glass border-border hover:border-primary/20"
                 )}
               >

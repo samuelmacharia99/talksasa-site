@@ -1,34 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, Lock, Headphones, BarChart3 } from "lucide-react";
+import { Zap, CreditCard, Headphones, Shield } from "lucide-react";
 
 const features = [
   {
     icon: Zap,
-    title: "Lightning fast",
-    description: "SSD storage, optimized stacks, and global CDN for minimal latency.",
+    title: "Auto-provisioning",
+    description: "Shared hosting and cloud apps provision automatically after payment — no manual setup delays.",
   },
   {
-    icon: Lock,
-    title: "Secure by default",
-    description: "Free SSL, DDoS protection, and automated backups on all plans.",
+    icon: CreditCard,
+    title: "M-Pesa & smart billing",
+    description: "STK push, PDF invoices, wallet credits, renewal reminders, and transparent line-item billing.",
+  },
+  {
+    icon: Shield,
+    title: "DirectAdmin & containers",
+    description: "Shared hosting on DirectAdmin plus isolated container apps with SSL, backups, and Git deploy.",
   },
   {
     icon: Headphones,
-    title: "Expert support",
-    description: "24/7 technical support from our team. Real humans, real solutions.",
-  },
-  {
-    icon: BarChart3,
-    title: "Scale on demand",
-    description: "Upgrade resources anytime. No lock-in contracts or surprise fees.",
+    title: "Support tickets",
+    description: "Built-in ticketing, service dashboard, and 24/7 human support from our Nairobi team.",
   },
 ];
 
 export function Features() {
   return (
-    <section id="solutions" className="py-24 relative scroll-mt-20">
+    <section id="solutions" className="section-py relative scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,15 +37,13 @@ export function Features() {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Built for <span className="gradient-text">reliability</span>
+            Built for <span className="gradient-text">Kenyan businesses</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Enterprise-grade infrastructure with a focus on simplicity and
-            performance.
+            Order. Pay. Provision. Manage. Renew. — automated billing and infrastructure on Talksasa Cloud.
           </p>
         </motion.div>
 
-        {/* Bento-style grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {features.map((feature, i) => (
             <motion.div
@@ -61,12 +59,8 @@ export function Features() {
                   <feature.icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
+                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
                 </div>
               </div>
             </motion.div>

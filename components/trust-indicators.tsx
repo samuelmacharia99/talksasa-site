@@ -202,7 +202,7 @@ function SecurityBadges() {
 
 export function TrustIndicators() {
   return (
-    <section className="py-24 relative">
+    <section className="section-py relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* 1. Stats counter */}

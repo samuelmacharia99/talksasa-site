@@ -2,35 +2,32 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Twitter,
-  Linkedin,
-  Facebook,
-  Instagram,
-  CreditCard,
-} from "lucide-react";
+import { Twitter, Linkedin, Facebook, Instagram, CreditCard } from "lucide-react";
 
 const services = [
-  { label: "Bulk SMS", href: "#services" },
-  { label: "Web Hosting", href: "#services" },
-  { label: "Domains", href: "#services" },
-  { label: "VPS", href: "#services" },
-  { label: "Servers", href: "#services" },
+  { label: "Web hosting", href: "/web-hosting" },
+  { label: "Domains", href: "/domains" },
+  { label: "Cloud apps", href: "/cloud-hosting" },
+  { label: "VPS & servers", href: "/servers" },
+  { label: "M-Pesa payments", href: "/payments/mpesa" },
+  { label: "Bulk SMS", href: "/bulk-sms" },
 ];
 
 const company = [
-  { label: "About Us", href: "#about" },
-  { label: "Contact", href: "#contact" },
-  { label: "Blog", href: "#" },
+  { label: "About", href: "/about" },
+  { label: "Resellers", href: "/reseller" },
+  { label: "Reseller hosting", href: "/reseller-hosting" },
+  { label: "SMS reseller", href: "/sms-reseller" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
   { label: "Terms", href: "/terms" },
   { label: "Privacy", href: "/privacy" },
 ];
 
 const support = [
-  { label: "Help Center", href: "#" },
-  { label: "API Docs", href: "#" },
-  { label: "System Status", href: "#" },
-  { label: "Contact Support", href: "#contact" },
+  { label: "Customer portal", href: "https://servers.talksasa.com" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact support", href: "/contact" },
 ];
 
 const social = [
@@ -40,31 +37,33 @@ const social = [
   { label: "Instagram", href: "#", icon: Instagram },
 ];
 
-const paymentMethods = ["Visa", "Mastercard", "PayPal", "M-Pesa"];
+const paymentMethods = ["M-Pesa", "Visa", "Mastercard", "PayPal"];
 
-function FooterColumn({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-        {title}
-      </h4>
+      <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">{title}</h4>
       <div className="mt-4">{children}</div>
     </div>
   );
 }
 
 function FooterLink({ href, label }: { href: string; label: string }) {
+  const isExternal = href.startsWith("http");
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1.5"
+      >
+        {label}
+      </a>
+    );
+  }
   return (
-    <Link
-      href={href}
-      className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1.5"
-    >
+    <Link href={href} className="text-sm text-muted-foreground hover:text-foreground transition-colors block py-1.5">
       {label}
     </Link>
   );
@@ -75,60 +74,45 @@ export function Footer() {
     <footer className="border-t border-border bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
-          {/* 1. Logo + tagline */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link
-              href="/"
-              className="inline-block hover:opacity-90 transition-opacity"
-              aria-label="TalkSasa Home"
-            >
-              <Image
-                src="/st.png"
-                alt="TalkSasa"
-                width={160}
-                height={48}
-                className="h-10 w-auto object-contain"
-              />
+            <Link href="/" className="inline-block hover:opacity-90 transition-opacity" aria-label="Talksasa Cloud Home">
+              <Image src="/st.png" alt="Talksasa Cloud" width={160} height={48} className="h-10 w-auto object-contain" />
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
-              Your Complete Digital Infrastructure Partner
+              Hosting, domains, cloud apps, and reseller billing — built for Kenya.
             </p>
           </div>
 
-          {/* 2. Services */}
-          <FooterColumn title="Services">
+          <FooterColumn title="Talksasa Cloud">
             <ul className="space-y-0">
               {services.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
           </FooterColumn>
 
-          {/* 3. Company */}
           <FooterColumn title="Company">
             <ul className="space-y-0">
               {company.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
           </FooterColumn>
 
-          {/* 4. Support */}
           <FooterColumn title="Support">
             <ul className="space-y-0">
               {support.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
           </FooterColumn>
 
-          {/* 5. Social */}
           <FooterColumn title="Follow us">
             <div className="flex gap-4 mt-4">
               {social.map(({ href, icon: Icon, label }) => (
@@ -145,16 +129,11 @@ export function Footer() {
           </FooterColumn>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-muted-foreground">
-            Copyright © 2025 TalkSasa. All rights reserved.
-          </p>
+          <p className="text-sm text-muted-foreground">Copyright © 2026 Talksasa Cloud. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span className="text-xs text-muted-foreground uppercase tracking-wider hidden sm:inline">
-              We accept
-            </span>
-            <div className="flex items-center gap-3">
+            <span className="text-xs text-muted-foreground uppercase tracking-wider hidden sm:inline">We accept</span>
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-3">
               {paymentMethods.map((name) => (
                 <span
                   key={name}

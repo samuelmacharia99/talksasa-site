@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useCTAModal } from "@/components/cta-modal";
 import { trackCTAClick } from "@/components/analytics";
 import { UptimeStatus } from "@/components/uptime-status";
+import { HeroPlatformIllustration } from "@/components/hero-platform-illustration";
 
 /* Animated counter for stats */
 function AnimatedCounter({
@@ -103,95 +104,8 @@ function StatCardDecimal({ label, delay }: { label: string; delay: number }) {
   );
 }
 
-/* Abstract network illustration: nodes + connecting lines */
-function HeroIllustration() {
-  const nodes = useMemo(
-    () => [
-      { id: 0, x: 50, y: 20, r: 12 },
-      { id: 1, x: 20, y: 45, r: 8 },
-      { id: 2, x: 80, y: 40, r: 10 },
-      { id: 3, x: 35, y: 75, r: 6 },
-      { id: 4, x: 65, y: 70, r: 9 },
-      { id: 5, x: 50, y: 55, r: 14 },
-      { id: 6, x: 10, y: 65, r: 5 },
-      { id: 7, x: 90, y: 75, r: 7 },
-    ],
-    []
-  );
-  const links = useMemo(
-    () => [
-      [0, 5],
-      [1, 5],
-      [2, 5],
-      [5, 3],
-      [5, 4],
-      [1, 3],
-      [2, 4],
-      [0, 1],
-      [0, 2],
-      [1, 6],
-      [2, 7],
-      [3, 4],
-    ],
-    []
-  );
-
-  return (
-    <div className="relative w-full max-w-lg mx-auto h-[280px] sm:h-[320px] lg:h-[360px]">
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 w-full h-full text-primary"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <defs>
-          <linearGradient id="hero-node-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#a855f7" />
-          </linearGradient>
-          <filter id="hero-glow">
-            <feGaussianBlur stdDeviation="0.5" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        {/* Connection lines */}
-        <g stroke="url(#hero-node-gradient)" strokeOpacity="0.5" strokeWidth="0.35" fill="none">
-          {links.map(([a, b], i) => (
-            <motion.line
-              key={`${a}-${b}`}
-              x1={nodes[a].x}
-              y1={nodes[a].y}
-              x2={nodes[b].x}
-              y2={nodes[b].y}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.04 }}
-            />
-          ))}
-        </g>
-        {/* Nodes */}
-        {nodes.map((node, i) => (
-          <motion.circle
-            key={node.id}
-            r={node.r}
-            cx={node.x}
-            cy={node.y}
-            fill="url(#hero-node-gradient)"
-            filter="url(#hero-glow)"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}
-            className="drop-shadow-lg"
-          />
-        ))}
-      </svg>
-      {/* Subtle radial glow behind illustration */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(99,102,241,0.12),transparent_70%)] pointer-events-none" />
-    </div>
-  );
-}
+import { HERO } from "@/lib/cloud-content";
+import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
 
 /* Particle dots for background */
 function ParticleBackground() {
@@ -271,7 +185,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-20"
+      className="relative min-h-0 lg:min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-16 sm:pb-20"
       onMouseMove={onMouseMove}
       onMouseLeave={() => setMouse({ x: 50, y: 50 })}
     >
@@ -316,33 +230,68 @@ export function Hero() {
           animate="show"
           className="flex-1 text-center lg:text-left max-w-2xl"
         >
+          <motion.p
+            variants={item}
+            className="text-sm font-medium uppercase tracking-wider text-primary/90"
+          >
+            {HERO.eyebrow}
+          </motion.p>
           <motion.h1
             variants={item}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-bold tracking-tight leading-[1.1]"
+            className="mt-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-balance"
           >
-            Your Complete{" "}
-            <span className="gradient-text">Digital Infrastructure</span> Partner
+            {HERO.headline}{" "}
+            <span className="gradient-text">{HERO.headlineAccent}</span>
           </motion.h1>
           <motion.p
             variants={item}
-            className="mt-6 text-lg sm:text-xl text-muted-foreground"
+            className="mt-6 text-base sm:text-lg md:text-xl text-muted-foreground"
           >
-            From bulk SMS to enterprise hosting — scale your business with
-            reliable telecommunications solutions trusted by 2,100+ companies.
+            {HERO.subheadline}
+          </motion.p>
+          <motion.p variants={item} className="mt-3 text-sm text-primary/90 font-medium italic">
+            {HERO.tagline}
           </motion.p>
           <motion.div
             variants={item}
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            className="mt-8 sm:mt-10 flex flex-col md:flex-row flex-wrap gap-3 md:gap-4 justify-center lg:justify-start"
           >
-            <Button size="lg" className="group bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0 shadow-lg shadow-primary/25 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" onClick={() => { trackCTAClick("hero_start_free_trial"); openModal(); }}>
+            <Button size="lg" className="w-full md:w-auto group bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0 shadow-lg shadow-primary/25 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" onClick={() => { trackCTAClick("hero_start_customer"); openModal(); }}>
               <span className="flex items-center gap-2">
-                Start Free Trial
+                Start as a customer
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
               </span>
             </Button>
-            <Button asChild variant="ghost" size="lg">
-              <Link href="#pricing">View Pricing</Link>
+            <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
+              <Link href="/bulk-sms">Explore bulk SMS</Link>
             </Button>
+            <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
+              <Link href="/reseller">Become a reseller</Link>
+            </Button>
+          </motion.div>
+          <motion.div variants={item} className="mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
+            <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
+              <a href={HOSTING_URL} target="_blank" rel="noopener noreferrer">
+                Open cloud portal →
+              </a>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
+              <a href={BULK_SMS_URL} target="_blank" rel="noopener noreferrer">
+                Open bulk SMS portal →
+              </a>
+            </Button>
+          </motion.div>
+
+          <motion.div
+            variants={item}
+            className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground"
+          >
+            {HERO.trust.map((text, i) => (
+              <span key={text} className="flex items-center gap-4">
+                {i > 0 && <span className="hidden sm:inline text-border" aria-hidden>·</span>}
+                <span>{text}</span>
+              </span>
+            ))}
           </motion.div>
 
           {/* Floating stats cards */}
@@ -375,7 +324,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex-1 w-full flex items-center justify-center"
         >
-          <HeroIllustration />
+          <HeroPlatformIllustration />
         </motion.div>
       </div>
 
@@ -384,7 +333,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1"
       >
         <span className="text-xs text-muted-foreground">Scroll</span>
         <motion.div

@@ -26,7 +26,7 @@ export function ComparisonTable() {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="py-24"
+      className="section-py"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -37,7 +37,8 @@ export function ComparisonTable() {
             See why 2,100+ businesses choose us for SMS and hosting.
           </p>
         </div>
-        <div className="overflow-x-auto rounded-2xl glass border border-border">
+        <p className="text-xs text-muted-foreground text-center mb-3 sm:hidden">Swipe to compare →</p>
+        <div className="overflow-x-auto rounded-2xl glass border border-border -mx-4 sm:mx-0 px-4 sm:px-0">
           <table className="w-full min-w-[400px]" role="table">
             <thead>
               <tr className="border-b border-border">

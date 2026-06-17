@@ -210,8 +210,27 @@ textarea::placeholder {
   color: var(--muted-foreground);
 }
 
+@layer base {
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  body.mobile-menu-open .whatsapp-fab {
+    display: none;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .section-py {
+    @apply py-16 sm:py-20 lg:py-24;
   }
 }
