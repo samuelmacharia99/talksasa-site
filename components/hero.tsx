@@ -299,8 +299,8 @@ export function Hero() {
             variants={item}
             className="mt-12 lg:mt-16 flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
           >
-            <StatCard value={2100} suffix="+" label="Active Users" delay={0.1} />
-            <StatCard value={3000} suffix="+" label="Domains Managed" delay={0.2} />
+            <StatCard value={7000} suffix="+" label="Active Users" delay={0.1} />
+            <StatCard value={11000} suffix="+" label="Domains Managed" delay={0.2} />
             <StatCardDecimal label="Uptime" delay={0.3} />
             <motion.div
               initial={{ opacity: 0, y: 16 }}

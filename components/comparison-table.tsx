@@ -34,7 +34,7 @@ export function ComparisonTable() {
             TalkSasa vs <span className="gradient-text">Competitors</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            See why 2,100+ businesses choose us for SMS and hosting.
+            See why 7,000+ businesses choose us for SMS and hosting.
           </p>
         </div>
         <p className="text-xs text-muted-foreground text-center mb-3 sm:hidden">Swipe to compare →</p>

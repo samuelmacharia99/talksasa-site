@@ -30,7 +30,7 @@ const breadcrumbSchema = {
 export const metadata: Metadata = {
   title: "About Us - TalkSasa | Kenya's Leading Digital Infrastructure Provider",
   description:
-    "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 2,100+ businesses. Our mission to power African businesses with reliable SMS and cloud solutions.",
+    "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 7,000+ businesses. Our mission to power African businesses with reliable SMS and cloud solutions.",
   keywords: [
     "about TalkSasa",
     "TalkSasa Kenya",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 const values = [
   { icon: Target, title: "Mission", text: "To be the most trusted digital infrastructure partner for African businesses." },
-  { icon: Users, title: "Community", text: "We grow with our customers. 2,100+ businesses rely on us every day." },
+  { icon: Users, title: "Community", text: "We grow with our customers. 7,000+ businesses rely on us every day." },
   { icon: Zap, title: "Innovation", text: "We invest in technology and support so you can focus on your business." },
   { icon: Heart, title: "Support", text: "24/7 human support. No bots, no runaround." },
 ];

@@ -32,7 +32,7 @@ export const HERO = {
   headline: "Hosting, domains, cloud apps — and bulk SMS —",
   headlineAccent: "built for Kenya.",
   subheadline:
-    "Run your website or hosting business on Talksasa Cloud with M-Pesa billing and auto-provisioning. Send millions of messages with our bulk SMS gateway and API — trusted by 2,100+ businesses across East Africa.",
+    "Run your website or hosting business on Talksasa Cloud with M-Pesa billing and auto-provisioning. Send millions of messages with our bulk SMS gateway and API — trusted by 7,000+ businesses across East Africa.",
   tagline: "Cloud platform + SMS gateway. One partner for your digital stack.",
   trust: [
     "M-Pesa STK push",
@@ -443,7 +443,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     path: "/bulk-sms",
     title: "Bulk SMS Kenya — Gateway & API for Business",
     metaDescription:
-      "Send bulk SMS in Kenya with TalkSasa. Marketing campaigns, alerts, OTP/2FA, delivery reports, and REST API. M-Pesa top-up. Trusted by 2,100+ businesses in East Africa.",
+      "Send bulk SMS in Kenya with TalkSasa. Marketing campaigns, alerts, OTP/2FA, delivery reports, and REST API. M-Pesa top-up. Trusted by 7,000+ businesses in East Africa.",
     keywords: [
       "bulk SMS Kenya",
       "SMS gateway Kenya",

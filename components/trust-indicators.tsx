@@ -57,24 +57,45 @@ function CounterDecimal({ label }: { label: string }) {
   );
 }
 
-/* Placeholder logo block for marquee */
+/* Client logo pill for marquee */
 function LogoPlaceholder({ name }: { name: string }) {
   return (
-    <div className="group flex shrink-0 w-32 h-14 sm:w-40 sm:h-16 rounded-lg glass border border-border grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center mx-4">
-      <span className="text-xs font-semibold text-muted-foreground group-hover:text-foreground">
+    <div className="group flex shrink-0 min-w-[7.5rem] max-w-[11rem] h-14 sm:h-16 rounded-xl glass border border-border/80 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center mx-3 sm:mx-4 px-4 hover:border-primary/30 hover:shadow-glow-sm">
+      <span className="text-[11px] sm:text-xs font-semibold text-muted-foreground group-hover:text-foreground text-center leading-tight">
         {name}
       </span>
     </div>
   );
 }
 
-const LOGOS = ["Acme Co", "TechCorp", "Global Inc", "StartupXYZ", "DataFlow", "CloudNine", "NextGen", "SecureNet"];
+const LOGOS = [
+  "Naitech",
+  "Alinpay",
+  "Centipid",
+  "SmartPay",
+  "Jaemnet",
+  "SasaPay",
+  "Isuzu",
+  "Onfon Media",
+  "Advanta",
+  "Hostraha",
+  "Riven Corp",
+  "Bingwa Sokoni",
+  "The Future Billing",
+  "Moriasi3D",
+  "Beam Networks",
+  "Ekinpay",
+  "Payless",
+];
 
 function LogosMarquee() {
+  const track = [...LOGOS, ...LOGOS];
   return (
-    <div className="relative overflow-hidden py-8">
+    <div className="relative overflow-hidden py-4">
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background to-transparent z-10" />
       <div className="flex w-max animate-marquee shrink-0">
-        {[...LOGOS, ...LOGOS].map((name, i) => (
+        {track.map((name, i) => (
           <LogoPlaceholder key={`${name}-${i}`} name={name} />
         ))}
       </div>
@@ -213,10 +234,13 @@ export function TrustIndicators() {
           className="rounded-2xl glass border border-border p-8 sm:p-12 mb-16"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <Counter value={500} suffix="+" label="Hosting Clients" />
-            <Counter value={1600} suffix="+" label="SMS Users" />
-            <Counter value={3000} suffix="+" label="Domains" />
+            <Counter value={7000} suffix="+" label="Active Users" />
+            <Counter value={11000} suffix="+" label="Domains Managed" />
             <CounterDecimal label="Uptime" />
+            <div className="text-center">
+              <div className="text-3xl sm:text-4xl font-bold gradient-text">24/7</div>
+              <div className="mt-1 text-sm text-muted-foreground">Support</div>
+            </div>
           </div>
         </motion.div>
 

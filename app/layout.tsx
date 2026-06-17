@@ -171,7 +171,7 @@ const organizationJsonLd = {
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.8",
-    reviewCount: "2100",
+    reviewCount: "7000",
   },
   priceRange: "KES 380 - KES 16,800",
   paymentAccepted: "M-Pesa, Airtel Money, Bank Transfer, Credit Card",
