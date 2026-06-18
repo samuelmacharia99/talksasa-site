@@ -8,6 +8,7 @@ import { StackDesign } from "@/components/hero-illustrations/stack-design";
 import { PipelineDesign } from "@/components/hero-illustrations/pipeline-design";
 import { DomainSearchDesign } from "@/components/hero-illustrations/domain-search-design";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const ROTATE_MS = 4000;
 
@@ -41,6 +42,7 @@ const slideVariants = {
 };
 
 export function HeroPlatformIllustration() {
+  const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
@@ -51,19 +53,19 @@ export function HeroPlatformIllustration() {
   }, [activeIndex]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || reducedMotion) return;
     const timer = setInterval(() => {
       setDirection(1);
       setActiveIndex((i) => (i + 1) % heroDesigns.length);
     }, ROTATE_MS);
     return () => clearInterval(timer);
-  }, [paused]);
+  }, [paused, reducedMotion]);
 
   const ActiveComponent = heroDesigns[activeIndex].Component;
 
   return (
     <div
-      className="relative w-full max-w-lg mx-auto h-[300px] sm:h-[360px] md:h-[380px] lg:h-[420px] overflow-hidden"
+      className="relative w-full max-w-lg mx-auto h-[240px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[420px] overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

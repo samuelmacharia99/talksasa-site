@@ -126,13 +126,14 @@ export function Navbar() {
                 alt="TalkSasa"
                 width={180}
                 height={52}
-                className="h-11 w-auto object-contain"
+                sizes="(max-width: 640px) 140px, 180px"
+                className="h-9 sm:h-11 w-auto object-contain"
                 priority
               />
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-0.5 2xl:gap-1">
               {/* Home link */}
               <Link
                 href="/"
@@ -234,15 +235,22 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={link.href.startsWith("#") ? (e) => { e.preventDefault(); handleNavClick(link.href); } : undefined}
-                  className="px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="px-2 xl:px-3 py-2 rounded-lg text-xs xl:text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
                 >
-                  {link.label}
+                  {link.href === "/cloud-hosting" ? (
+                    <>
+                      <span className="2xl:hidden">App hosting</span>
+                      <span className="hidden 2xl:inline">Application hosting</span>
+                    </>
+                  ) : (
+                    link.label
+                  )}
                 </Link>
               ))}
             </div>
 
             {/* Right: Theme toggle, Login, Get Started */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-2 2xl:gap-3">
               <button
                 type="button"
                 aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
@@ -310,7 +318,7 @@ export function Navbar() {
             {/* Mobile menu button - hamburger animates to X */}
             <button
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              className="lg:hidden relative p-2 text-foreground w-11 h-11 flex items-center justify-center"
+              className="xl:hidden relative p-2 text-foreground w-11 h-11 flex items-center justify-center touch-target"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <span className="sr-only">{mobileOpen ? "Close" : "Menu"}</span>
@@ -347,7 +355,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden bg-background/95 backdrop-blur-xl overflow-y-auto overscroll-contain"
+            className="fixed inset-0 z-40 xl:hidden bg-background/95 backdrop-blur-xl overflow-y-auto overscroll-contain safe-bottom"
           >
             <div className="flex flex-col min-h-full pt-24 pb-8 px-4 sm:px-6">
               {/* Home */}

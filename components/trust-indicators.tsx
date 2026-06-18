@@ -94,7 +94,7 @@ function LogosMarquee() {
     <div className="relative overflow-hidden py-4">
       <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background to-transparent z-10" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-background to-transparent z-10" />
-      <div className="flex w-max animate-marquee shrink-0">
+      <div className="flex w-max animate-marquee motion-reduce:animate-none shrink-0">
         {track.map((name, i) => (
           <LogoPlaceholder key={`${name}-${i}`} name={name} />
         ))}

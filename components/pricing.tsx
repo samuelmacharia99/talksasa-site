@@ -574,7 +574,7 @@ export function Pricing() {
               aria-label={`View ${productLabels[key]} pricing`}
               onClick={() => setProduct(key)}
               className={cn(
-                "relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "relative rounded-full px-4 sm:px-5 py-2.5 min-h-[44px] text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 product === key
                   ? "text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground hover:bg-white/5"
@@ -643,7 +643,7 @@ export function Pricing() {
                 className={cn(
                   "relative rounded-2xl p-6 sm:p-8 border transition-all duration-300 flex flex-col",
                   plan.featured
-                    ? "glass gradient-border shadow-glow-sm xl:scale-105 z-10"
+                    ? "glass gradient-border shadow-glow-sm 2xl:scale-105 z-10"
                     : "glass border-border hover:border-primary/20"
                 )}
               >

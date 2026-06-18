@@ -27,7 +27,7 @@ const PRODUCT_HERO_MAP: Record<ProductPageSlug, ComponentType<IllustrationProps>
 export function ProductHeroIllustration({ slug }: { slug: ProductPageSlug }) {
   const Illustration = PRODUCT_HERO_MAP[slug];
   return (
-    <div className="w-full max-w-md mx-auto lg:max-w-none h-[280px] sm:h-[320px] lg:h-[380px]">
+    <div className="w-full max-w-md mx-auto lg:max-w-none h-[240px] sm:h-[300px] md:h-[320px] lg:h-[380px] overflow-hidden">
       <Illustration compact />
     </div>
   );

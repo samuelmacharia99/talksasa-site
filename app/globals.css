@@ -133,6 +133,12 @@ body {
   transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
 }
 
+@media (pointer: coarse) {
+  .card-tilt:hover {
+    transform: none;
+  }
+}
+
 /* Button ripple (use .btn-ripple on button) */
 .btn-ripple {
   position: relative;
@@ -214,14 +220,32 @@ textarea::placeholder {
   html {
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   body.mobile-menu-open .whatsapp-fab {
     display: none;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
   }
 }
 
@@ -232,5 +256,23 @@ textarea::placeholder {
 
   .section-py {
     @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee {
+    animation: none !important;
   }
 }

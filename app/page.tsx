@@ -1,21 +1,51 @@
+import dynamic from "next/dynamic";
 import Script from "next/script";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Services } from "@/components/services";
-import { TrustIndicators } from "@/components/trust-indicators";
-import { CustomerJourneySection } from "@/components/customer-journey";
 import { Features } from "@/components/features";
-import { UseCases } from "@/components/use-cases";
-import { ResellerProgram } from "@/components/reseller-program";
-import { Pricing } from "@/components/pricing";
 import { CloudFaqSection } from "@/components/cloud-faq";
 import { CTA } from "@/components/cta";
 import { CTASupport } from "@/components/cta-support";
-import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { SITE_URL } from "@/lib/urls";
 import { CONTACT } from "@/lib/contact";
 import { FAQ_ITEMS, faqJsonLd } from "@/lib/cloud-content";
+
+function SectionFallback({ minHeight = "320px" }: { minHeight?: string }) {
+  return (
+    <div
+      className="section-py container mx-auto px-4 sm:px-6 lg:px-8"
+      style={{ minHeight }}
+      aria-hidden
+    />
+  );
+}
+
+const CustomerJourneySection = dynamic(
+  () => import("@/components/customer-journey").then((m) => ({ default: m.CustomerJourneySection })),
+  { loading: () => <SectionFallback minHeight="280px" /> }
+);
+const TrustIndicators = dynamic(
+  () => import("@/components/trust-indicators").then((m) => ({ default: m.TrustIndicators })),
+  { loading: () => <SectionFallback minHeight="360px" /> }
+);
+const UseCases = dynamic(
+  () => import("@/components/use-cases").then((m) => ({ default: m.UseCases })),
+  { loading: () => <SectionFallback minHeight="400px" /> }
+);
+const ResellerProgram = dynamic(
+  () => import("@/components/reseller-program").then((m) => ({ default: m.ResellerProgram })),
+  { loading: () => <SectionFallback minHeight="480px" /> }
+);
+const Pricing = dynamic(
+  () => import("@/components/pricing").then((m) => ({ default: m.Pricing })),
+  { loading: () => <SectionFallback minHeight="520px" /> }
+);
+const ContactSection = dynamic(
+  () => import("@/components/contact-section").then((m) => ({ default: m.ContactSection })),
+  { loading: () => <SectionFallback minHeight="360px" /> }
+);
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -57,7 +87,7 @@ const serviceSchema = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Script id="breadcrumb-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Script id="service-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <Script id="faq-schema-home" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQ_ITEMS)) }} />

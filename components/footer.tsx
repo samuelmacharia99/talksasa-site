@@ -91,13 +91,15 @@ export function Footer() {
                   {CONTACT.address.street}, {CONTACT.address.city}
                 </span>
               </p>
-              <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden />
-                <span>
+              <p className="flex items-start gap-2">
+                <Phone className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden />
+                <span className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-0.5">
                   <a href={`tel:${PRIMARY_PHONE.tel}`} className="hover:text-foreground transition-colors">
                     {PRIMARY_PHONE.display}
                   </a>
-                  {" · "}
+                  <span className="hidden sm:inline" aria-hidden>
+                    {" · "}
+                  </span>
                   <a href={`tel:${SALES_PHONE.tel}`} className="hover:text-foreground transition-colors">
                     {SALES_PHONE.display}
                   </a>

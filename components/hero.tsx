@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useMemo, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, animate, useInView, useMotionValue, useTransform, useScroll } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -106,22 +106,20 @@ function StatCardDecimal({ label, delay }: { label: string; delay: number }) {
 
 import { HERO } from "@/lib/cloud-content";
 import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
+import { useReducedMotion, useIsCoarsePointer } from "@/lib/use-reduced-motion";
 
 /* Particle dots for background */
-function ParticleBackground() {
-  const count = 30;
-  const particles = useMemo(
-    () =>
-      Array.from({ length: count }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: 1.5 + Math.random() * 2,
-        delay: Math.random() * 5,
-        duration: 8 + Math.random() * 6,
-      })),
-    []
-  );
+function ParticleBackground({ count }: { count: number }) {
+  if (count === 0) return null;
+
+  const particles = Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: 1.5 + Math.random() * 2,
+    delay: Math.random() * 5,
+    duration: 8 + Math.random() * 6,
+  }));
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -167,14 +165,27 @@ const item = {
 
 export function Hero() {
   const { openModal } = useCTAModal();
+  const reducedMotion = useReducedMotion();
+  const isCoarsePointer = useIsCoarsePointer();
   const [mouse, setMouse] = useState({ x: 50, y: 50 });
+  const [particleCount, setParticleCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 600], [0, 150]);
 
+  useEffect(() => {
+    if (reducedMotion) {
+      setParticleCount(0);
+      return;
+    }
+    const update = () => setParticleCount(window.innerWidth < 768 ? 10 : 20);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [reducedMotion]);
 
   const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!sectionRef.current) return;
+    if (isCoarsePointer || reducedMotion || !sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -192,14 +203,18 @@ export function Hero() {
       {/* Parallax + gradient background */}
       <div className="absolute inset-0 -z-10">
         <motion.div
-          style={{ y: parallaxY }}
+          style={{ y: reducedMotion ? 0 : parallaxY }}
           className="absolute inset-0"
         >
           <motion.div
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            animate={
+              reducedMotion
+                ? undefined
+                : {
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }
+            }
+            transition={{ duration: 20, repeat: reducedMotion ? 0 : Infinity, ease: "linear" }}
             className="absolute inset-0 opacity-90"
             style={{
               background:
@@ -209,17 +224,19 @@ export function Hero() {
           />
         </motion.div>
         {/* Gradient follows mouse */}
-        <div
-          className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, rgba(99,102,241,0.4) 0%, transparent 50%)`,
-          }}
-        />
+        {!isCoarsePointer && !reducedMotion && (
+          <div
+            className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-300"
+            style={{
+              background: `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, rgba(99,102,241,0.4) 0%, transparent 50%)`,
+            }}
+          />
+        )}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.3),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_50%,rgba(139,92,246,0.2),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_20%_80%,rgba(168,85,247,0.15),transparent)]" />
         <div className="absolute inset-0 bg-background/50" />
-        <ParticleBackground />
+        <ParticleBackground count={particleCount} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
