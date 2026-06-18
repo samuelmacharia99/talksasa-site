@@ -79,9 +79,12 @@ export const metadata: Metadata = {
     "ICBM": "-1.2921, 36.8219",
   },
   icons: {
-    icon: "/st.png",
-    shortcut: "/st.png",
-    apple: "/st.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
