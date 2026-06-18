@@ -51,7 +51,7 @@ export const platformPillars: PlatformPillar[] = [
   {
     id: "applications",
     icon: Container,
-    label: "Cloud apps",
+    label: "Application hosting",
     detail: "Laravel & Node.js",
     href: "/cloud-hosting",
     lineEnd: { x: 88, y: 318 },
@@ -98,7 +98,7 @@ export const megaMenuGroups: MegaMenuGroup[] = [
       },
       {
         icon: Container,
-        title: "Cloud app hosting",
+        title: "Application hosting",
         description: "Laravel, Node.js, Python containers.",
         href: "/cloud-hosting",
       },

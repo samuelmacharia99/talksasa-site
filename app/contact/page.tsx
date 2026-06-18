@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ContactForm } from "@/components/contact-form";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com";
 
@@ -34,33 +35,34 @@ const contactPageSchema = {
     name: "TalkSasa",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Nairobi",
+      streetAddress: CONTACT.address.streetAddress,
+      addressLocality: CONTACT.address.city,
       addressCountry: "KE",
     },
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+254712295880",
+        telephone: PRIMARY_PHONE.tel,
         contactType: "customer service",
         areaServed: "KE",
         availableLanguage: ["English", "Swahili"],
       },
       {
         "@type": "ContactPoint",
-        telephone: "+254781000403",
+        telephone: SALES_PHONE.tel,
         contactType: "sales",
         areaServed: "KE",
         availableLanguage: ["English", "Swahili"],
       },
     ],
-    email: "info@talksasa.com",
+    email: INFO_EMAIL,
   },
 };
 
 export const metadata: Metadata = {
   title: "Contact Us - TalkSasa | Nairobi, Kenya",
   description:
-    "Contact TalkSasa in Nairobi, Kenya. Phone: +254 712 295 880, +254 781 000 403. Email: info@talksasa.com, sales@talksasa.com. 24/7 support for bulk SMS, web hosting, VPS, and cloud solutions across Kenya & East Africa.",
+    `Contact TalkSasa at ${CONTACT.address.display}. Phone: ${PRIMARY_PHONE.international}, ${SALES_PHONE.international}. Email: ${INFO_EMAIL}, ${SALES_EMAIL}. 24/7 support for bulk SMS, web hosting, VPS, and cloud solutions across Kenya & East Africa.`,
   keywords: [
     "contact TalkSasa",
     "TalkSasa Nairobi",
@@ -69,11 +71,12 @@ export const metadata: Metadata = {
     "hosting support Kenya",
     "SMS support Kenya",
     "Nairobi hosting contact",
+    "Viewpark Towers TalkSasa",
   ],
   openGraph: {
     title: "Contact TalkSasa - Nairobi, Kenya",
     description:
-      "Contact TalkSasa in Nairobi, Kenya. Phone, email, and 24/7 support for bulk SMS and hosting services.",
+      `Visit us at ${CONTACT.address.building}, ${CONTACT.address.street}. Phone, email, and 24/7 support for bulk SMS and hosting.`,
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/contact`,
   },
   alternates: {
@@ -111,11 +114,11 @@ export default function ContactPage() {
               <Mail className="h-6 w-6 text-primary mb-3" />
               <h3 className="font-semibold text-foreground">Email</h3>
               <div className="space-y-1">
-                <a href="mailto:info@talksasa.com" className="block text-muted-foreground hover:text-primary">
-                  info@talksasa.com
+                <a href={`mailto:${INFO_EMAIL}`} className="block text-muted-foreground hover:text-primary">
+                  {INFO_EMAIL}
                 </a>
-                <a href="mailto:sales@talksasa.com" className="block text-muted-foreground hover:text-primary">
-                  sales@talksasa.com
+                <a href={`mailto:${SALES_EMAIL}`} className="block text-muted-foreground hover:text-primary">
+                  {SALES_EMAIL}
                 </a>
               </div>
             </div>
@@ -123,18 +126,24 @@ export default function ContactPage() {
               <Phone className="h-6 w-6 text-primary mb-3" />
               <h3 className="font-semibold text-foreground">Phone</h3>
               <div className="space-y-1">
-                <a href="tel:+254712295880" className="block text-muted-foreground hover:text-primary">
-                  +254 712 295 880
+                <a href={`tel:${PRIMARY_PHONE.tel}`} className="block text-muted-foreground hover:text-primary">
+                  {PRIMARY_PHONE.display}
                 </a>
-                <a href="tel:+254781000403" className="block text-muted-foreground hover:text-primary">
-                  +254 781 000 403
+                <a href={`tel:${SALES_PHONE.tel}`} className="block text-muted-foreground hover:text-primary">
+                  {SALES_PHONE.display}
                 </a>
               </div>
             </div>
             <div className="rounded-2xl glass border border-border p-6">
               <MapPin className="h-6 w-6 text-primary mb-3" />
               <h3 className="font-semibold text-foreground">Office</h3>
-              <p className="text-muted-foreground">Nairobi, Kenya</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {CONTACT.address.building}
+                <br />
+                {CONTACT.address.street}
+                <br />
+                {CONTACT.address.city}, {CONTACT.address.country}
+              </p>
             </div>
           </aside>
           <div className="lg:col-span-2 order-1 lg:order-2">

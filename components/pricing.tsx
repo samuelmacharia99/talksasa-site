@@ -704,8 +704,8 @@ export function Pricing() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               {[
                 { network: "Safaricom", price: 6950 },
-                { network: "Airtel", price: 6950 },
-                { network: "Telkom", price: 6950 },
+                { network: "Airtel", price: 7500 },
+                { network: "Telkom", price: 7300 },
               ].map((item) => (
                 <motion.div
                   key={item.network}

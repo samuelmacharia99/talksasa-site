@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-const PHONE = "254712295880";
+import { CONTACT } from "@/lib/contact";
+
+const PHONE = CONTACT.whatsapp;
 const MESSAGE =
   "Hi TalkSasa, I'm interested in learning more about your services.";
 

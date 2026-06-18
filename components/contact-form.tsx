@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/components/analytics";
 import { useToast } from "@/components/toast";
 import { cn } from "@/lib/utils";
+import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
 
 const SERVICE_OPTIONS = [
   "Bulk SMS",
@@ -28,7 +29,7 @@ type FormState = {
 
 type Errors = Partial<Record<keyof FormState, string>>;
 
-const WHATSAPP_NUMBER = "254712295880";
+const WHATSAPP_NUMBER = CONTACT.whatsapp;
 
 function formatWhatsAppMessage(formData: FormState) {
   const messageText = `
@@ -180,20 +181,20 @@ export function ContactForm() {
               <p className="text-sm font-medium text-red-400">{errorMessage}</p>
               <p className="text-xs text-red-400/80 mt-1">
                 Contact us directly:{" "}
-                <a href="mailto:info@talksasa.com" className="underline hover:text-red-300">
-                  info@talksasa.com
+                <a href={`mailto:${INFO_EMAIL}`} className="underline hover:text-red-300">
+                  {INFO_EMAIL}
                 </a>
                 {" or "}
-                <a href="mailto:sales@talksasa.com" className="underline hover:text-red-300">
-                  sales@talksasa.com
+                <a href={`mailto:${SALES_EMAIL}`} className="underline hover:text-red-300">
+                  {SALES_EMAIL}
                 </a>
                 {" or call "}
-                <a href="tel:+254712295880" className="underline hover:text-red-300">
-                  +254 712 295 880
+                <a href={`tel:${PRIMARY_PHONE.tel}`} className="underline hover:text-red-300">
+                  {PRIMARY_PHONE.display}
                 </a>
                 {", "}
-                <a href="tel:+254781000403" className="underline hover:text-red-300">
-                  +254 781 000 403
+                <a href={`tel:${SALES_PHONE.tel}`} className="underline hover:text-red-300">
+                  {SALES_PHONE.display}
                 </a>
               </p>
             </div>
@@ -336,9 +337,21 @@ export function ContactForm() {
             className="flex-1"
             asChild
           >
-            <a href={`tel:+${WHATSAPP_NUMBER}`}>
+            <a href={`tel:${PRIMARY_PHONE.tel}`}>
               <Phone className="mr-2 h-4 w-4" />
-              Call Us
+              {PRIMARY_PHONE.display}
+            </a>
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="flex-1"
+            asChild
+          >
+            <a href={`tel:${SALES_PHONE.tel}`}>
+              <Phone className="mr-2 h-4 w-4" />
+              {SALES_PHONE.display}
             </a>
           </Button>
         </div>
@@ -350,9 +363,9 @@ export function ContactForm() {
             className="flex-1"
             asChild
           >
-            <a href="mailto:info@talksasa.com">
+            <a href={`mailto:${INFO_EMAIL}`}>
               <Mail className="mr-2 h-4 w-4" />
-              info@talksasa.com
+              {INFO_EMAIL}
             </a>
           </Button>
           <Button
@@ -362,9 +375,9 @@ export function ContactForm() {
             className="flex-1"
             asChild
           >
-            <a href="mailto:sales@talksasa.com">
+            <a href={`mailto:${SALES_EMAIL}`}>
               <Mail className="mr-2 h-4 w-4" />
-              sales@talksasa.com
+              {SALES_EMAIL}
             </a>
           </Button>
         </div>

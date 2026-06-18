@@ -149,7 +149,7 @@ export function ServicesMegaMenu({ onNavigate, onViewAll }: ServicesMegaMenuProp
             className="mt-3 mr-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/90"
           >
             <Container className="h-3.5 w-3.5" />
-            Cloud app hosting
+            Application hosting
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </motion.div>

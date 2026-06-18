@@ -4,9 +4,10 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CONTACT } from "@/lib/contact";
 
 const WHATSAPP_URL =
-  "https://wa.me/254712295880?text=" +
+  `https://wa.me/${CONTACT.whatsapp}?text=` +
   encodeURIComponent(
     "Hi TalkSasa, I'm interested in learning more about your services."
   );

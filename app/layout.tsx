@@ -4,6 +4,7 @@ import { ClientProviders } from "@/components/client-providers";
 import { Analytics } from "@/components/analytics";
 import "./globals.css";
 import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
+import { CONTACT, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -104,10 +105,10 @@ const organizationJsonLd = {
   description: DEFAULT_SEO.description,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Nairobi",
-    addressLocality: "Nairobi",
+    streetAddress: CONTACT.address.streetAddress,
+    addressLocality: CONTACT.address.city,
     addressRegion: "Nairobi County",
-    postalCode: "00100",
+    postalCode: CONTACT.address.postalCode,
     addressCountry: "KE",
   },
   geo: {
@@ -157,7 +158,7 @@ const organizationJsonLd = {
     {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: "+254712295880",
+      telephone: PRIMARY_PHONE.tel,
       availableLanguage: ["English", "Swahili"],
       areaServed: ["KE", "TZ", "UG", "RW"],
       url: `${SITE_URL}/contact`,
@@ -165,7 +166,7 @@ const organizationJsonLd = {
     {
       "@type": "ContactPoint",
       contactType: "sales",
-      telephone: "+254781000403",
+      telephone: SALES_PHONE.tel,
       availableLanguage: ["English", "Swahili"],
       areaServed: ["KE", "TZ", "UG", "RW"],
       url: `${SITE_URL}/contact`,

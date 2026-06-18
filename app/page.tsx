@@ -14,6 +14,7 @@ import { CTASupport } from "@/components/cta-support";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { SITE_URL } from "@/lib/urls";
+import { CONTACT } from "@/lib/contact";
 import { FAQ_ITEMS, faqJsonLd } from "@/lib/cloud-content";
 
 const breadcrumbSchema = {
@@ -32,7 +33,12 @@ const serviceSchema = {
     "@type": "Organization",
     name: "TalkSasa",
     url: SITE_URL,
-    address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CONTACT.address.streetAddress,
+      addressLocality: CONTACT.address.city,
+      addressCountry: "KE",
+    },
   },
   areaServed: ["Kenya", "Tanzania", "Uganda", "Rwanda"],
   hasOfferCatalog: {

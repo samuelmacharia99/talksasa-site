@@ -14,7 +14,6 @@ import {
   Check,
   MessageSquare,
 } from "lucide-react";
-import { NetworkGlobe } from "@/components/network-globe";
 type ServiceCard = {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -173,34 +172,22 @@ export function Services() {
     <section id="services" className="section-py relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-12 sm:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex-1 text-center lg:text-left max-w-xl"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-              <span className="gradient-text">TalkSasa</span> — cloud hosting & bulk SMS
-            </h2>
-            <p className="mt-4 text-muted-foreground text-base sm:text-lg">
-              Talksasa Cloud for hosting, domains, and apps — plus a bulk SMS gateway trusted across East Africa.
-            </p>
-            <p className="mt-4 text-sm text-muted-foreground hidden sm:block">
-              Nairobi hub · regional SMS routes · cloud edge across Kenya, Uganda, Tanzania & Rwanda.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            whileInView={{ opacity: 1, scale: 0.96 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="flex-1 w-full max-w-sm lg:max-w-md pb-10 sm:pb-12"
-          >
-            <NetworkGlobe />
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
+            <span className="gradient-text">TalkSasa</span> — cloud hosting & bulk SMS
+          </h2>
+          <p className="mt-4 text-muted-foreground text-base sm:text-lg">
+            Talksasa Cloud for hosting, domains, and apps — plus a bulk SMS gateway trusted across East Africa.
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground hidden sm:block">
+            Nairobi hub · regional SMS routes · cloud edge across Kenya, Uganda, Tanzania & Rwanda.
+          </p>
+        </motion.div>
 
         <motion.div
           variants={container}

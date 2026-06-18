@@ -35,9 +35,9 @@ const resellerItems = [
 
 const navItems = [
   { href: "/bulk-sms", label: "Bulk SMS" },
-  { href: "/cloud-hosting", label: "Cloud apps" },
+  { href: "/cloud-hosting", label: "Application hosting" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About" },
+  { href: "/book-demo", label: "Book a demo" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -375,7 +375,7 @@ export function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className="block py-4 text-lg font-medium text-foreground border-b border-border"
                 >
-                  Cloud app hosting
+                  Application hosting
                 </Link>
               </motion.div>
 

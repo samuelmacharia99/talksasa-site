@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Twitter, Linkedin, Facebook, Instagram, CreditCard } from "lucide-react";
+import { Twitter, Linkedin, Facebook, Instagram, CreditCard, MapPin, Phone, Mail } from "lucide-react";
+import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
 
 const services = [
   { label: "Web hosting", href: "/web-hosting" },
@@ -14,7 +15,7 @@ const services = [
 ];
 
 const company = [
-  { label: "About", href: "/about" },
+  { label: "Book a demo", href: "/book-demo" },
   { label: "Resellers", href: "/reseller" },
   { label: "Reseller hosting", href: "/reseller-hosting" },
   { label: "SMS reseller", href: "/sms-reseller" },
@@ -81,6 +82,39 @@ export function Footer() {
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Hosting, domains, cloud apps, and reseller billing — built for Kenya.
             </p>
+            <div className="mt-5 space-y-2.5 text-sm text-muted-foreground">
+              <p className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden />
+                <span>
+                  {CONTACT.address.building}
+                  <br />
+                  {CONTACT.address.street}, {CONTACT.address.city}
+                </span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden />
+                <span>
+                  <a href={`tel:${PRIMARY_PHONE.tel}`} className="hover:text-foreground transition-colors">
+                    {PRIMARY_PHONE.display}
+                  </a>
+                  {" · "}
+                  <a href={`tel:${SALES_PHONE.tel}`} className="hover:text-foreground transition-colors">
+                    {SALES_PHONE.display}
+                  </a>
+                </span>
+              </p>
+              <p className="flex items-start gap-2">
+                <Mail className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden />
+                <span>
+                  <a href={`mailto:${INFO_EMAIL}`} className="hover:text-foreground transition-colors block">
+                    {INFO_EMAIL}
+                  </a>
+                  <a href={`mailto:${SALES_EMAIL}`} className="hover:text-foreground transition-colors block">
+                    {SALES_EMAIL}
+                  </a>
+                </span>
+              </p>
+            </div>
           </div>
 
           <FooterColumn title="Talksasa Cloud">
@@ -130,7 +164,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-muted-foreground">Copyright © 2026 Talksasa Cloud. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">Copyright © 2026 Talksasa Limited. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-muted-foreground uppercase tracking-wider hidden sm:inline">We accept</span>
             <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-3">

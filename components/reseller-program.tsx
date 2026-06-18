@@ -14,9 +14,10 @@ import {
   Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CONTACT, INFO_EMAIL, SALES_EMAIL } from "@/lib/contact";
 
 const WHATSAPP_RESELLER_URL =
-  "https://wa.me/254712295880?text=" +
+  `https://wa.me/${CONTACT.whatsapp}?text=` +
   encodeURIComponent(
     "Hi TalkSasa, I'm interested in your Reseller Program. Please share more details about the KES 5,000 bundle."
   );
@@ -163,7 +164,7 @@ export function ResellerProgram() {
               transition={{ delay: 0.15 }}
               className="text-lg sm:text-xl text-white/90"
             >
-              Start your own SMS and hosting business with zero infrastructure costs.
+              Start your own SMS business with zero infrastructure costs.
               Everything you need for just KES 5,000 (one-time investment).
             </motion.p>
 
@@ -417,20 +418,20 @@ export function ResellerProgram() {
               </h3>
               <div className="space-y-3">
                 <a
-                  href="mailto:info@talksasa.com"
+                  href={`mailto:${INFO_EMAIL}`}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-track="reseller-email-info"
                 >
                   <Mail className="h-4 w-4" />
-                  info@talksasa.com
+                  {INFO_EMAIL}
                 </a>
                 <a
-                  href="mailto:sales@talksasa.com"
+                  href={`mailto:${SALES_EMAIL}`}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   data-track="reseller-email-sales"
                 >
                   <Mail className="h-4 w-4" />
-                  sales@talksasa.com
+                  {SALES_EMAIL}
                 </a>
                 <a
                   href={WHATSAPP_RESELLER_URL}
