@@ -104,9 +104,15 @@ export const megaMenuGroups: MegaMenuGroup[] = [
       },
       {
         icon: Layers,
-        title: "VPS & servers",
-        description: "Root access for advanced workloads.",
-        href: "/servers",
+        title: "VPS",
+        description: "Cloud VPS with full root access.",
+        href: "/vps",
+      },
+      {
+        icon: Server,
+        title: "Dedicated servers",
+        description: "Bare-metal performance for enterprise workloads.",
+        href: "/dedicated",
       },
     ],
   },

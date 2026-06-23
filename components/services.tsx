@@ -71,7 +71,7 @@ const services: ServiceCard[] = [
     title: "VPS & dedicated",
     description:
       "Full root access for custom stacks, high-traffic sites, and enterprise workloads.",
-    href: "/servers",
+    href: "/vps",
     features: ["VPS & bare metal", "Secure credentials", "Scalable resources"],
     colSpan: 1,
   },

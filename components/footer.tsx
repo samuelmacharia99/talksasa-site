@@ -8,8 +8,9 @@ import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/
 const services = [
   { label: "Web hosting", href: "/web-hosting" },
   { label: "Domains", href: "/domains" },
-  { label: "Cloud apps", href: "/cloud-hosting" },
-  { label: "VPS & servers", href: "/servers" },
+  { label: "Application hosting", href: "/cloud-hosting" },
+  { label: "VPS", href: "/vps" },
+  { label: "Dedicated servers", href: "/dedicated" },
   { label: "M-Pesa payments", href: "/payments/mpesa" },
   { label: "Bulk SMS", href: "/bulk-sms" },
 ];

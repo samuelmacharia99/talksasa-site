@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BULK_SMS_URL, HOSTING_URL, SITE_URL } from "@/lib/urls";
+import { pricingUrl } from "@/lib/pricing-links";
 
 export const BRAND = "TalkSasa";
 export const CLOUD_BRAND = "Talksasa Cloud";
@@ -92,7 +93,7 @@ export const PRODUCT_CATEGORIES = [
     emoji: "🖥️",
     title: "Servers",
     description: "VPS and dedicated servers for advanced users and custom requirements.",
-    href: "/servers",
+    href: "/vps",
   },
   {
     id: "billing",
@@ -182,6 +183,8 @@ export type ProductPageSlug =
   | "web-hosting"
   | "domains"
   | "cloud-hosting"
+  | "vps"
+  | "dedicated"
   | "servers"
   | "reseller"
   | "reseller-hosting"
@@ -231,8 +234,8 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Clear invoices with renewal reminders",
     ],
     seoNote: "Shared web hosting Kenya · DirectAdmin hosting · cPanel alternative Kenya",
-    ctaPrimary: { label: "Order hosting", href: HOSTING_URL, external: true },
-    ctaSecondary: { label: "View pricing", href: "/pricing" },
+    ctaPrimary: { label: "Order hosting", href: pricingUrl({ product: "cloud", tab: "hosting" }) },
+    ctaSecondary: { label: "View pricing", href: pricingUrl({ product: "cloud", tab: "hosting" }) },
   },
   domains: {
     slug: "domains",
@@ -289,8 +292,65 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Database tools, scheduled backups, and Laravel project helpers",
     ],
     seoNote: "Laravel hosting Kenya · deploy Node.js app · managed cloud hosting",
-    ctaPrimary: { label: "Deploy your app", href: HOSTING_URL, external: true },
-    ctaSecondary: { label: "Become a reseller", href: "/reseller" },
+    ctaPrimary: { label: "Deploy your app", href: pricingUrl({ product: "cloud", tab: "cloud" }) },
+    ctaSecondary: { label: "View pricing", href: pricingUrl({ product: "cloud", tab: "cloud" }) },
+  },
+  vps: {
+    slug: "vps",
+    path: "/vps",
+    title: "VPS Hosting Kenya — Cloud VPS with Root Access",
+    metaDescription:
+      "Order cloud VPS in Kenya with full root access, dedicated resources, and secure credential delivery. M-Pesa, card, and wallet billing through Talksasa Cloud.",
+    keywords: [
+      "VPS Kenya",
+      "cloud VPS Nairobi",
+      "VPS hosting Kenya",
+      "root VPS Kenya",
+      "managed VPS Kenya",
+    ],
+    headline: "Cloud VPS with full root access",
+    subheadline: "Dedicated CPU, RAM, and storage — provisioned automatically after payment.",
+    intro:
+      "Talksasa Cloud VPS gives developers and businesses isolated server resources without sharing a hosting account. Pick a plan, pay with M-Pesa, and receive root credentials securely once provisioning completes.",
+    features: [
+      "Dedicated vCPU, RAM, and NVMe storage per plan",
+      "Full root access for custom stacks and software",
+      "Secure credential delivery after provisioning",
+      "Ideal for high-traffic sites, APIs, and databases",
+      "Same billing portal — M-Pesa, cards, wallet, and PDF invoices",
+      "Support tickets and renewal reminders included",
+    ],
+    seoNote: "VPS Kenya · cloud VPS Nairobi · root server hosting",
+    ctaPrimary: { label: "Order VPS", href: pricingUrl({ product: "cloud", tab: "vps" }) },
+    ctaSecondary: { label: "View pricing", href: pricingUrl({ product: "cloud", tab: "vps" }) },
+  },
+  dedicated: {
+    slug: "dedicated",
+    path: "/dedicated",
+    title: "Dedicated Servers Kenya — Bare Metal Hosting",
+    metaDescription:
+      "Order dedicated bare-metal servers in Kenya with maximum performance, full root access, and secure provisioning. M-Pesa and card billing on Talksasa Cloud.",
+    keywords: [
+      "dedicated server Kenya",
+      "bare metal server Kenya",
+      "dedicated hosting Nairobi",
+      "enterprise server Kenya",
+    ],
+    headline: "Dedicated bare-metal for maximum performance",
+    subheadline: "Enterprise-grade hardware with full control — built for serious workloads.",
+    intro:
+      "When VPS is not enough, order dedicated servers through Talksasa Cloud. Get bare-metal performance for databases, heavy applications, and compliance-sensitive workloads with the same M-Pesa-ready billing portal.",
+    features: [
+      "Bare-metal dedicated servers with predictable performance",
+      "Full root access and custom OS configurations",
+      "Secure credential delivery after provisioning",
+      "Ideal for enterprise apps, large databases, and custom stacks",
+      "M-Pesa STK push, cards, wallet, and transparent invoices",
+      "Renewal automation and support tickets included",
+    ],
+    seoNote: "Dedicated server Kenya · bare metal hosting Nairobi",
+    ctaPrimary: { label: "Order dedicated server", href: pricingUrl({ product: "cloud", tab: "dedicated" }) },
+    ctaSecondary: { label: "View pricing", href: pricingUrl({ product: "cloud", tab: "dedicated" }) },
   },
   servers: {
     slug: "servers",
@@ -316,8 +376,8 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Same billing portal — M-Pesa, cards, wallet, and PDF invoices",
       "Support tickets and renewal automation included",
     ],
-    ctaPrimary: { label: "Browse server plans", href: HOSTING_URL, external: true },
-    ctaSecondary: { label: "View pricing", href: "/pricing" },
+    ctaPrimary: { label: "Order VPS", href: pricingUrl({ product: "cloud", tab: "vps" }) },
+    ctaSecondary: { label: "Dedicated server pricing", href: pricingUrl({ product: "cloud", tab: "dedicated" }) },
   },
   reseller: {
     slug: "reseller",

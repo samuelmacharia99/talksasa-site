@@ -1,17 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Smartphone } from "lucide-react";
+import { Check, Loader2, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CurrencySelector } from "@/components/currency-selector";
 import { CloudPricing } from "@/components/cloud-pricing";
 import { BULK_SMS_URL } from "@/lib/urls";
+import { isCloudProductTab, isPricingProduct, type PricingProduct } from "@/lib/pricing-links";
+import type { CloudProductTab } from "@/lib/billing-types";
 
-type Product = "bulk-sms" | "cloud";
+type Product = PricingProduct;
 
 type Plan = {
   name: string;
@@ -94,9 +97,51 @@ const productLabels: Record<Product, string> = {
   cloud: "Talksasa Cloud",
 };
 
+function parseProductFromParams(params: URLSearchParams): Product {
+  const value = params.get("product");
+  return isPricingProduct(value) ? value : "cloud";
+}
+
+function parseCloudTabFromParams(params: URLSearchParams): CloudProductTab {
+  const value = params.get("tab");
+  return isCloudProductTab(value) ? value : "hosting";
+}
+
+function PricingFallback() {
+  return (
+    <section id="pricing" className="section-py relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-center py-16">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Loading pricing" />
+      </div>
+    </section>
+  );
+}
+
 export function Pricing() {
+  return (
+    <Suspense fallback={<PricingFallback />}>
+      <PricingContent />
+    </Suspense>
+  );
+}
+
+function PricingContent() {
+  const searchParams = useSearchParams();
   const { formatPrice } = useCurrency();
-  const [product, setProduct] = useState<Product>("cloud");
+  const [product, setProduct] = useState<Product>(() => parseProductFromParams(searchParams));
+  const cloudTab = parseCloudTabFromParams(searchParams);
+
+  useEffect(() => {
+    setProduct(parseProductFromParams(searchParams));
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!searchParams.has("product") && !searchParams.has("tab")) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [searchParams]);
 
   const formatSenderIdPrice = (price: number) => formatPrice(price, 0);
 
@@ -151,7 +196,7 @@ export function Pricing() {
         </motion.div>
 
         {product === "cloud" ? (
-          <CloudPricing />
+          <CloudPricing key={cloudTab} defaultTab={cloudTab} />
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">

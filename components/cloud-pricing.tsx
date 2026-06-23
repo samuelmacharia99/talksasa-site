@@ -57,14 +57,53 @@ export function CloudPricing({
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/api/billing/services")
-      .then((r) => r.json())
-      .then((data) => {
-        if (!data.services) throw new Error(data.error || "Failed to load pricing");
-        setServices(data.services);
-      })
-      .catch((err) => setError(err instanceof Error ? err.message : "Failed to load pricing"))
-      .finally(() => setLoading(false));
+    setProduct(defaultTab);
+  }, [defaultTab]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const controller = new AbortController();
+
+    async function loadServices(): Promise<PlatformService[]> {
+      const res = await fetch("/api/billing/services", { signal: controller.signal });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.services) {
+        throw new Error(data.error || "Failed to load pricing");
+      }
+      return data.services as PlatformService[];
+    }
+
+    async function run() {
+      setLoading(true);
+      setError("");
+      const retryDelays = [0, 800, 1600];
+
+      for (let attempt = 0; attempt < retryDelays.length; attempt++) {
+        if (cancelled) return;
+        if (retryDelays[attempt]) {
+          await new Promise((resolve) => setTimeout(resolve, retryDelays[attempt]));
+        }
+        try {
+          const nextServices = await loadServices();
+          if (!cancelled) {
+            setServices(nextServices);
+            setLoading(false);
+          }
+          return;
+        } catch (err) {
+          if (attempt === retryDelays.length - 1 && !cancelled) {
+            setError(err instanceof Error ? err.message : "Failed to load pricing");
+            setLoading(false);
+          }
+        }
+      }
+    }
+
+    run();
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, []);
 
   const plans = useMemo(() => {

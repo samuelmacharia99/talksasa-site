@@ -16,6 +16,8 @@ const PRODUCT_HERO_MAP: Record<ProductPageSlug, ComponentType<IllustrationProps>
   "web-hosting": HostingServerDesign,
   domains: DomainSearchDesign,
   "cloud-hosting": PipelineDesign,
+  vps: ServerRackDesign,
+  dedicated: ServerRackDesign,
   servers: ServerRackDesign,
   reseller: ResellerBrandDesign,
   "reseller-hosting": ResellerBrandDesign,
