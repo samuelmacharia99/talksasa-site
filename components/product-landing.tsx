@@ -1,5 +1,6 @@
 import Script from "next/script";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -12,9 +13,10 @@ import { SITE_URL } from "@/lib/urls";
 type ProductLandingProps = {
   page: ProductPageContent;
   relatedFaqs?: { question: string; answer: string }[];
+  afterHero?: ReactNode;
 };
 
-export function ProductLanding({ page, relatedFaqs }: ProductLandingProps) {
+export function ProductLanding({ page, relatedFaqs, afterHero }: ProductLandingProps) {
   const faqs = relatedFaqs ?? [];
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -56,6 +58,8 @@ export function ProductLanding({ page, relatedFaqs }: ProductLandingProps) {
       <Navbar />
       <main id="main-content" className="pb-20">
         <ProductPageHero page={page} />
+
+        {afterHero}
 
         <section className="border-y border-border bg-muted/20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">

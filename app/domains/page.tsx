@@ -1,13 +1,8 @@
-import { ProductLanding } from "@/components/product-landing";
-import { PRODUCT_PAGES, buildProductMetadata, FAQ_ITEMS } from "@/lib/cloud-content";
+import { DomainsLanding } from "@/components/domains/domains-landing";
+import { PRODUCT_PAGES, buildProductMetadata } from "@/lib/cloud-content";
 
-const page = PRODUCT_PAGES.domains;
-
-export const metadata = buildProductMetadata(page);
+export const metadata = buildProductMetadata(PRODUCT_PAGES.domains);
 
 export default function DomainsPage() {
-  const faqs = FAQ_ITEMS.filter((f) =>
-    [".co.ke", "domain"].some((k) => f.question.toLowerCase().includes(k) || f.answer.toLowerCase().includes("domain"))
-  );
-  return <ProductLanding page={page} relatedFaqs={faqs.length ? faqs : [FAQ_ITEMS[2]]} />;
+  return <DomainsLanding />;
 }
