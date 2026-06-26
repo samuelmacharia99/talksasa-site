@@ -1,11 +1,59 @@
 export type BillingCycle = "monthly" | "quarterly" | "semi-annual" | "annual";
 
+export type ResellerBillingCycle = "monthly" | "annual";
+
 export type ServiceType =
   | "shared_hosting"
   | "vps"
   | "dedicated_server"
   | "container_hosting"
   | "domain";
+
+export type LocationPrices = {
+  monthly: number;
+  quarterly: number;
+  "semi-annual": number;
+  annual: number;
+  setup_fee: number;
+  currency: string;
+};
+
+export type ServerLocation = {
+  key: string;
+  name: string;
+  city: string | null;
+  prices: LocationPrices;
+};
+
+export type ServerIpOption = {
+  ip_count: number;
+  monthly_addon: number;
+  setup_addon: number;
+  label: string;
+};
+
+export type ServerOperatingSystem = {
+  key: string;
+  label: string;
+};
+
+export type ServerConfiguration = {
+  specs: {
+    cpu_cores: number;
+    ram_gb: number;
+    storage_gb: number;
+    storage_type: string | null;
+    raid: string | null;
+    bandwidth_tb: number | null;
+    managed: boolean;
+    money_back_days: number | null;
+  };
+  spec_lines: string[];
+  locations: ServerLocation[];
+  ip_options: ServerIpOption[];
+  operating_systems: ServerOperatingSystem[];
+  max_ip_count: number;
+};
 
 export type PlatformService = {
   id: number;
@@ -19,6 +67,7 @@ export type PlatformService = {
   currency: string;
   billing_cycles: BillingCycle[];
   features: string[] | null;
+  configuration?: ServerConfiguration | null;
 };
 
 export type ServicesResponse = {
@@ -32,6 +81,7 @@ export type DomainExtension = {
   description: string;
   period_years: number;
   price: number;
+  transfer_price: number;
   currency: string;
 };
 
@@ -69,16 +119,60 @@ export type CartDomainItem = {
   years: number;
 };
 
+export type CartDomainTransferItem = {
+  type: "domain_transfer";
+  full_domain: string;
+  epp_code: string;
+  old_registrar: string;
+  old_registrar_url?: string;
+};
+
 export type CartServiceItem = {
   type: "service";
   product_id: number;
   billing_cycle: BillingCycle;
+  location_key?: string;
+  ip_count?: number;
+  operating_system?: string;
 };
 
-export type CartItem = CartDomainItem | CartServiceItem;
+export type CartResellerPackageItem = {
+  type: "reseller_package";
+  reseller_package_id: number;
+};
+
+export type CartItem =
+  | CartDomainItem
+  | CartDomainTransferItem
+  | CartServiceItem
+  | CartResellerPackageItem;
 
 export type CartRequest = {
   items: CartItem[];
+};
+
+export type ResellerPackage = {
+  id: number;
+  name: string;
+  description: string;
+  billing_cycle: ResellerBillingCycle;
+  price: number;
+  subtotal: number;
+  tax: number;
+  total: number;
+  currency: string;
+  max_services: number;
+  max_users: number;
+  disk_pool_gb: number;
+  disk_overage_rate: number;
+  features: string[];
+};
+
+export type ResellerPackagesResponse = {
+  success: boolean;
+  currency: string;
+  checkout_url: string;
+  packages: ResellerPackage[];
 };
 
 export type CloudProductTab = "hosting" | "vps" | "dedicated" | "cloud";
@@ -96,3 +190,11 @@ export const SERVICE_TYPES_BY_TAB: Record<CloudProductTab, ServiceType[]> = {
   dedicated: ["dedicated_server"],
   cloud: ["container_hosting"],
 };
+
+export function isConfigurableServer(plan: PlatformService): boolean {
+  return (
+    (plan.type === "vps" || plan.type === "dedicated_server") &&
+    !!plan.configuration &&
+    plan.configuration.locations.length > 0
+  );
+}

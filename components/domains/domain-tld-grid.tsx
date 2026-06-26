@@ -63,11 +63,22 @@ export function DomainTldGrid({ onPickTld }: { onPickTld?: (ext: string) => void
               </span>
             )}
             <p className="font-mono text-lg sm:text-xl font-bold text-foreground">{ext.extension}</p>
-            <p className="mt-1 text-xs text-muted-foreground capitalize">{ext.description}</p>
-            <p className="mt-3 text-sm sm:text-base font-semibold text-primary">
-              {formatBillingPrice(ext.price, ext.currency)}
-              <span className="text-muted-foreground font-normal text-xs"> /yr</span>
-            </p>
+            <p className="mt-1 text-xs text-muted-foreground capitalize line-clamp-1">{ext.description}</p>
+            <div className="mt-3 pt-3 border-t border-border/60 space-y-1.5">
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="text-muted-foreground text-xs">Register</span>
+                <span className="font-semibold text-primary">
+                  {formatBillingPrice(ext.price, ext.currency)}
+                  <span className="text-muted-foreground font-normal text-[10px]"> /yr</span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="text-muted-foreground text-xs">Transfer</span>
+                <span className="font-medium text-foreground text-xs">
+                  {formatBillingPrice(ext.transfer_price, ext.currency)}
+                </span>
+              </div>
+            </div>
           </motion.button>
         );
       })}

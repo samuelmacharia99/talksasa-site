@@ -3,6 +3,7 @@ import type {
   CartRequest,
   DomainExtensionsResponse,
   DomainSearchResponse,
+  ResellerPackagesResponse,
   ServicesResponse,
 } from "@/lib/billing-types";
 
@@ -104,6 +105,15 @@ async function billingFetch<T>(path: string, init?: BillingFetchInit): Promise<T
     } catch {
       // ignore parse errors
     }
+    if (res.status === 404) {
+      throw new Error("Billing API is disabled or the host is not configured.");
+    }
+    if (res.status === 403) {
+      throw new Error("Billing API access is not enabled for this token.");
+    }
+    if (res.status === 429) {
+      throw new Error("Too many requests to the billing API. Please try again shortly.");
+    }
     throw new Error(message);
   }
 
@@ -112,6 +122,18 @@ async function billingFetch<T>(path: string, init?: BillingFetchInit): Promise<T
 
 export async function fetchServices(): Promise<ServicesResponse> {
   return billingFetch<ServicesResponse>("/services");
+}
+
+export async function fetchResellerPackages(
+  cycle: "monthly" | "annual" = "monthly"
+): Promise<ResellerPackagesResponse> {
+  const data = await billingFetch<ResellerPackagesResponse>(
+    `/reseller-packages?cycle=${cycle}`
+  );
+  return {
+    ...data,
+    checkout_url: normalizeCheckoutUrl(data.checkout_url),
+  };
 }
 
 export async function fetchDomainExtensions(period = 1): Promise<DomainExtensionsResponse> {
@@ -176,6 +198,14 @@ export async function createCart(payload: CartRequest): Promise<{ checkoutUrl: s
     throw new Error(
       "Checkout session could not be started from the marketing site. Open the hosting portal to complete your order."
     );
+  }
+
+  if (res.status === 422) {
+    throw new Error(body.message || "Invalid cart items. Check your selections and try again.");
+  }
+
+  if (res.status === 429) {
+    throw new Error("Too many checkout attempts. Please wait a moment and try again.");
   }
 
   throw new Error(body.message || `Checkout failed (${res.status})`);

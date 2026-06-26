@@ -422,9 +422,9 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "domain reseller wholesale",
       "web hosting reseller Nairobi",
     ],
-    headline: "Start a reseller hosting business under your brand",
+    headline: "Run a hosting company under your brand",
     subheadline:
-      "Sell shared hosting, domains, and cloud apps — with a white-label portal, your pricing, and your M-Pesa till.",
+      "White-label portal, wholesale domains, your M-Pesa till, and automated provisioning — with live platform plans you can checkout today.",
     intro:
       "Talksasa Cloud reseller hosting is built for web designers, digital agencies, and entrepreneurs who want to run a hosting company without building software or managing data centres. You get a branded customer portal, retail catalog, wholesale domain wallet, one-click DirectAdmin provisioning, container app hosting, and full billing automation. Set your own prices, onboard clients, and scale with reports that show revenue, margins, and active services.",
     features: [
@@ -436,8 +436,8 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Customer lifecycle tools: create accounts, invoice, suspend, impersonate, and export reports",
     ],
     seoNote: "Reseller hosting Kenya · white label hosting · start hosting company Nairobi",
-    ctaPrimary: { label: "Apply for reseller hosting", href: "/contact" },
-    ctaSecondary: { label: "Open reseller portal", href: HOSTING_URL, external: true },
+    ctaPrimary: { label: "View reseller plans", href: "#reseller-pricing" },
+    ctaSecondary: { label: "Apply for reseller hosting", href: "/contact" },
   },
   "sms-reseller": {
     slug: "sms-reseller",
