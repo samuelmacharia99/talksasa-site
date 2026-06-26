@@ -60,6 +60,8 @@ export type PlatformService = {
   name: string;
   description: string | null;
   type: ServiceType;
+  /** Container hosting runtime, e.g. laravel, nodejs (when exposed by billing API). */
+  tech_stack?: string | null;
   category: string;
   monthly_price: number;
   yearly_price: number | null;

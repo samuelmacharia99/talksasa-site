@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,13 @@ import { useCurrency } from "@/lib/currency-provider";
 import { CheckoutButton } from "@/components/checkout-button";
 import { ServerPlanCard } from "@/components/server-plan-card";
 import { parseServiceFeatures, getPlanSortPrice } from "@/lib/billing-utils";
+import {
+  APP_TECH_STACK_LABELS,
+  getServiceTechStack,
+  isAppTechStack,
+  listAvailableTechStacks,
+  type AppTechStack,
+} from "@/lib/container-stacks";
 import type {
   BillingCycle,
   CloudProductTab,
@@ -41,10 +49,12 @@ function StandardPlanCard({
   plan,
   billing,
   featured,
+  subtitle,
 }: {
   plan: PlatformService;
   billing: Billing;
   featured: boolean;
+  subtitle?: string;
 }) {
   const { formatPrice } = useCurrency();
   const cycle = mapBillingCycle(billing);
@@ -73,7 +83,9 @@ function StandardPlanCard({
         </div>
       )}
       <h3 className="text-lg font-semibold text-foreground capitalize">{plan.name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{plan.category}</p>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+        {subtitle ?? plan.category}
+      </p>
       <div className="mt-6 flex items-baseline gap-1 flex-wrap">
         <span className="text-2xl sm:text-3xl font-bold text-foreground">
           {formatPrice(price, 0)}
@@ -115,15 +127,27 @@ export function CloudPricing({
   className?: string;
   defaultTab?: CloudProductTab;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [product, setProduct] = useState<CloudProductTab>(defaultTab);
   const [billing, setBilling] = useState<Billing>("monthly");
   const [services, setServices] = useState<PlatformService[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [techStack, setTechStack] = useState<AppTechStack | null>(() => {
+    const value = searchParams.get("stack");
+    return isAppTechStack(value) ? value : null;
+  });
 
   useEffect(() => {
     setProduct(defaultTab);
   }, [defaultTab]);
+
+  useEffect(() => {
+    const value = searchParams.get("stack");
+    setTechStack(isAppTechStack(value) ? value : null);
+  }, [searchParams]);
 
   useEffect(() => {
     let cancelled = false;
@@ -171,15 +195,36 @@ export function CloudPricing({
     };
   }, []);
 
+  const availableStacks = useMemo(
+    () => listAvailableTechStacks(services),
+    [services]
+  );
+
+  const activeStack = useMemo(() => {
+    if (product !== "cloud") return null;
+    if (techStack && availableStacks.includes(techStack)) return techStack;
+    return availableStacks[0] ?? null;
+  }, [product, techStack, availableStacks]);
+
   const plans = useMemo(() => {
     const types = TAB_TYPES[product];
-    const filtered = services.filter((s) => types.includes(s.type));
+    let filtered = services.filter((s) => types.includes(s.type));
+    if (product === "cloud" && activeStack) {
+      filtered = filtered.filter((plan) => getServiceTechStack(plan) === activeStack);
+    }
     return sortPlansByPrice(filtered, billing);
-  }, [services, product, billing]);
+  }, [services, product, billing, activeStack]);
 
   const featuredIndex = useMemo(() => pickFeatured(plans), [plans]);
   const billingCycle = mapBillingCycle(billing);
   const isServerTab = product === "vps" || product === "dedicated";
+
+  function selectTechStack(stack: AppTechStack) {
+    setTechStack(stack);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("stack", stack);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
 
   if (loading) {
     return (
@@ -230,6 +275,42 @@ export function CloudPricing({
         ))}
       </div>
 
+      {product === "cloud" && availableStacks.length > 0 && (
+        <div className="mb-8">
+          <p className="text-center text-sm text-muted-foreground mb-3">Choose your stack</p>
+          <div
+            role="tablist"
+            aria-label="Application hosting tech stack"
+            className="flex flex-wrap justify-center gap-2"
+          >
+            {availableStacks.map((stack) => (
+              <button
+                key={stack}
+                type="button"
+                role="tab"
+                aria-selected={activeStack === stack}
+                onClick={() => selectTechStack(stack)}
+                className={cn(
+                  "relative rounded-full px-4 py-2 min-h-[40px] text-sm font-medium transition-all",
+                  activeStack === stack
+                    ? "text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 border border-border"
+                )}
+              >
+                {activeStack === stack && (
+                  <motion.span
+                    layoutId="cloud-stack-pill"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
+                <span className="relative z-10">{APP_TECH_STACK_LABELS[stack]}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-center items-center gap-3 mb-10">
         <span className={cn("text-sm", billing === "monthly" ? "text-foreground font-medium" : "text-muted-foreground")}>
           Monthly
@@ -258,7 +339,11 @@ export function CloudPricing({
       </div>
 
       {plans.length === 0 ? (
-        <p className="text-center text-muted-foreground py-8">No plans available for this category.</p>
+        <p className="text-center text-muted-foreground py-8">
+          {product === "cloud" && activeStack
+            ? `No ${APP_TECH_STACK_LABELS[activeStack]} plans are available right now.`
+            : "No plans available for this category."}
+        </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
           <AnimatePresence initial={false}>
@@ -282,7 +367,17 @@ export function CloudPricing({
                 );
               }
               return (
-                <StandardPlanCard key={plan.id} plan={plan} billing={billing} featured={featured} />
+                <StandardPlanCard
+                  key={plan.id}
+                  plan={plan}
+                  billing={billing}
+                  featured={featured}
+                  subtitle={
+                    product === "cloud" && activeStack
+                      ? APP_TECH_STACK_LABELS[activeStack]
+                      : undefined
+                  }
+                />
               );
             })}
           </AnimatePresence>

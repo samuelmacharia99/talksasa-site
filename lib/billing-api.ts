@@ -120,8 +120,17 @@ async function billingFetch<T>(path: string, init?: BillingFetchInit): Promise<T
   return res.json() as Promise<T>;
 }
 
-export async function fetchServices(): Promise<ServicesResponse> {
-  return billingFetch<ServicesResponse>("/services");
+export type ServicesQuery = {
+  type?: string;
+  tech_stack?: string;
+};
+
+export async function fetchServices(query?: ServicesQuery): Promise<ServicesResponse> {
+  const params = new URLSearchParams();
+  if (query?.type) params.set("type", query.type);
+  if (query?.tech_stack) params.set("tech_stack", query.tech_stack);
+  const qs = params.toString();
+  return billingFetch<ServicesResponse>(qs ? `/services?${qs}` : "/services");
 }
 
 export async function fetchResellerPackages(
