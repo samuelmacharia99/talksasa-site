@@ -176,7 +176,7 @@ export function ResellerHostingLanding() {
                   </span>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link href="/contact">Talk to sales</Link>
+                  <Link href="/pricing?product=reseller-hosting">All plans on pricing</Link>
                 </Button>
               </motion.div>
 

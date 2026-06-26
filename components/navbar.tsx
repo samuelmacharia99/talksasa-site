@@ -34,8 +34,7 @@ const resellerItems = [
 ];
 
 const navItems = [
-  { href: "/bulk-sms", label: "Bulk SMS" },
-  { href: "/cloud-hosting", label: "Application hosting" },
+  { href: "/domains", label: "Register domain" },
   { href: "/pricing", label: "Pricing" },
   { href: "/book-demo", label: "Book a demo" },
   { href: "/contact", label: "Contact" },
@@ -237,14 +236,7 @@ export function Navbar() {
                   onClick={link.href.startsWith("#") ? (e) => { e.preventDefault(); handleNavClick(link.href); } : undefined}
                   className="px-2 xl:px-3 py-2 rounded-lg text-xs xl:text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
                 >
-                  {link.href === "/cloud-hosting" ? (
-                    <>
-                      <span className="2xl:hidden">App hosting</span>
-                      <span className="hidden 2xl:inline">Application hosting</span>
-                    </>
-                  ) : (
-                    link.label
-                  )}
+                  {link.label}
                 </Link>
               ))}
             </div>
@@ -370,20 +362,6 @@ export function Navbar() {
                   className="block py-4 text-lg font-medium text-foreground border-b border-border"
                 >
                   Home
-                </Link>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.12 }}
-              >
-                <Link
-                  href="/cloud-hosting"
-                  onClick={() => setMobileOpen(false)}
-                  className="block py-4 text-lg font-medium text-foreground border-b border-border"
-                >
-                  Application hosting
                 </Link>
               </motion.div>
 

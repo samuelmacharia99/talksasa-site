@@ -1,11 +1,11 @@
 import type { CloudProductTab } from "@/lib/billing-types";
 
-export type PricingProduct = "bulk-sms" | "cloud";
+export type PricingProduct = "bulk-sms" | "cloud" | "reseller-hosting";
 
 const CLOUD_TABS: CloudProductTab[] = ["hosting", "vps", "dedicated", "cloud"];
 
 export function isPricingProduct(value: string | null | undefined): value is PricingProduct {
-  return value === "bulk-sms" || value === "cloud";
+  return value === "bulk-sms" || value === "cloud" || value === "reseller-hosting";
 }
 
 export function isCloudProductTab(value: string | null | undefined): value is CloudProductTab {

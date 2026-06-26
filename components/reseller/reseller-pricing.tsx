@@ -49,10 +49,13 @@ export function ResellerPricing({
   id = "reseller-pricing",
   className,
   compactHeader = false,
+  embedded = false,
 }: {
   id?: string;
   className?: string;
   compactHeader?: boolean;
+  /** When true, skip inner container (parent already provides layout). */
+  embedded?: boolean;
 }) {
   const { formatPrice } = useCurrency();
   const [cycle, setCycle] = useState<ResellerBillingCycle>("monthly");
@@ -120,7 +123,7 @@ export function ResellerPricing({
         className
       )}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={cn(!embedded && "container mx-auto px-4 sm:px-6 lg:px-8")}>
         {!compactHeader && (
           <div className="text-center max-w-2xl mx-auto mb-10">
             <p className="text-sm font-medium uppercase tracking-wider text-primary mb-2">
@@ -133,6 +136,12 @@ export function ResellerPricing({
               Tax-inclusive retail pricing, customer limits, and disk pool — checkout online and launch your hosting brand.
             </p>
           </div>
+        )}
+
+        {compactHeader && (
+          <p className="text-center text-sm text-muted-foreground mb-8 max-w-xl mx-auto">
+            White-label platform plans with live retail rates and tax-inclusive totals.
+          </p>
         )}
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">

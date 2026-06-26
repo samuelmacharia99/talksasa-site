@@ -436,8 +436,8 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Customer lifecycle tools: create accounts, invoice, suspend, impersonate, and export reports",
     ],
     seoNote: "Reseller hosting Kenya · white label hosting · start hosting company Nairobi",
-    ctaPrimary: { label: "View reseller plans", href: "#reseller-pricing" },
-    ctaSecondary: { label: "Apply for reseller hosting", href: "/contact" },
+    ctaPrimary: { label: "View reseller plans", href: pricingUrl({ product: "reseller-hosting" }) },
+    ctaSecondary: { label: "Learn more", href: "/reseller-hosting" },
   },
   "sms-reseller": {
     slug: "sms-reseller",

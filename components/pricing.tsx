@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CurrencySelector } from "@/components/currency-selector";
 import { CloudPricing } from "@/components/cloud-pricing";
+import { ResellerPricing } from "@/components/reseller/reseller-pricing";
 import { BULK_SMS_URL } from "@/lib/urls";
 import { isCloudProductTab, isPricingProduct, type PricingProduct } from "@/lib/pricing-links";
 import type { CloudProductTab } from "@/lib/billing-types";
@@ -95,6 +96,7 @@ const bulkSmsPlans: Plan[] = [
 const productLabels: Record<Product, string> = {
   "bulk-sms": "Bulk SMS",
   cloud: "Talksasa Cloud",
+  "reseller-hosting": "Reseller Hosting",
 };
 
 function parseProductFromParams(params: URLSearchParams): Product {
@@ -197,6 +199,8 @@ function PricingContent() {
 
         {product === "cloud" ? (
           <CloudPricing key={cloudTab} defaultTab={cloudTab} />
+        ) : product === "reseller-hosting" ? (
+          <ResellerPricing compactHeader embedded />
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
@@ -309,6 +313,10 @@ function PricingContent() {
           {" · "}
           <Link href="/domains" className="text-primary hover:underline font-medium">
             Search domains
+          </Link>
+          {" · "}
+          <Link href="/reseller-hosting" className="text-primary hover:underline font-medium">
+            Reseller hosting
           </Link>
         </motion.p>
       </div>
