@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Twitter, Linkedin, Facebook, Instagram, CreditCard, MapPin, Phone, Mail } from "lucide-react";
 import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
+import { SOCIAL_LINKS } from "@/lib/social";
 
 const services = [
   { label: "Web hosting", href: "/web-hosting" },
@@ -33,10 +34,10 @@ const support = [
 ];
 
 const social = [
-  { label: "Twitter", href: "#", icon: Twitter },
-  { label: "LinkedIn", href: "#", icon: Linkedin },
-  { label: "Facebook", href: "#", icon: Facebook },
-  { label: "Instagram", href: "#", icon: Instagram },
+  { label: "Twitter", href: SOCIAL_LINKS.twitter, icon: Twitter },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, icon: Linkedin },
+  { label: "Facebook", href: SOCIAL_LINKS.facebook, icon: Facebook },
+  { label: "Instagram", href: SOCIAL_LINKS.instagram, icon: Instagram },
 ];
 
 const paymentMethods = ["M-Pesa", "Visa", "Mastercard", "PayPal"];
@@ -153,14 +154,16 @@ export function Footer() {
           <FooterColumn title="Follow us">
             <div className="flex gap-4 mt-4">
               {social.map(({ href, icon: Icon, label }) => (
-                <Link
+                <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="text-muted-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/5"
                 >
                   <Icon className="h-5 w-5" />
-                </Link>
+                </a>
               ))}
             </div>
           </FooterColumn>

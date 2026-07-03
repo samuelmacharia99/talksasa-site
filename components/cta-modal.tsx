@@ -2,10 +2,11 @@
 
 import { createContext, useContext, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { X, MessageSquare, Cloud, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/components/analytics";
+import { appendAttributionToUrl } from "@/lib/attribution";
+import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
 
 type CTAModalContextType = {
   openModal: () => void;
@@ -38,13 +39,13 @@ const options: Option[] = [
   {
     icon: MessageSquare,
     title: "I need Bulk SMS",
-    href: "https://bulksms.talksasa.com",
+    href: BULK_SMS_URL,
     description: "Send SMS at scale",
   },
   {
     icon: Cloud,
     title: "I need Hosting/Cloud",
-    href: "https://servers.talksasa.com",
+    href: HOSTING_URL,
     description: "Web hosting & cloud",
   },
   {
@@ -86,18 +87,21 @@ function ModalContent({ onClose }: { onClose: () => void }) {
         {options.map((opt) =>
           "href" in opt ? (
             <Button key={opt.title} asChild variant="outline" className="w-full justify-start h-auto py-4 px-4">
-              <Link
-                href={opt.href}
+              <a
+                href={appendAttributionToUrl(opt.href)}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => { trackCTAClick(opt.title.replace(/\s+/g, "_")); onClose(); }}
+                onClick={() => {
+                  trackCTAClick(opt.title.replace(/\s+/g, "_"));
+                  onClose();
+                }}
               >
                 <opt.icon className="h-5 w-5 mr-3 shrink-0 text-primary" aria-hidden />
                 <span className="text-left">
                   <span className="font-medium block">{opt.title}</span>
                   <span className="text-xs text-muted-foreground">{opt.description}</span>
                 </span>
-              </Link>
+              </a>
             </Button>
           ) : (
             <Button

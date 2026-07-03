@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 import { CONTACT } from "@/lib/contact";
+import { trackCTAClick } from "@/components/analytics";
 
 const PHONE = CONTACT.whatsapp;
 const MESSAGE =
@@ -20,6 +21,7 @@ export function WhatsAppFab() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2, duration: 0.4, ease: "easeOut" }}
       className="group whatsapp-fab fixed z-[9999]"
+      onClick={() => trackCTAClick("whatsapp_fab")}
       style={{
         bottom: "max(1rem, env(safe-area-inset-bottom))",
         right: "max(1rem, env(safe-area-inset-right))",

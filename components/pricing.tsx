@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Loader2, Smartphone } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CurrencySelector } from "@/components/currency-selector";
 import { CloudPricing } from "@/components/cloud-pricing";
 import { ResellerPricing } from "@/components/reseller/reseller-pricing";
 import { BULK_SMS_URL } from "@/lib/urls";
+import { BulkSmsPlanButton } from "@/components/tracked-link";
+import { SMSCalculator } from "@/components/sms-calculator";
 import { isCloudProductTab, isPricingProduct, type PricingProduct } from "@/lib/pricing-links";
 import type { CloudProductTab } from "@/lib/billing-types";
 
@@ -203,6 +204,9 @@ function PricingContent() {
           <ResellerPricing compactHeader embedded />
         ) : (
           <>
+            <div className="mb-12">
+              <SMSCalculator />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
               <AnimatePresence initial={false}>
                 {bulkSmsPlans.map((plan, i) => (
@@ -240,19 +244,14 @@ function PricingContent() {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      asChild
-                      size="default"
+                    <BulkSmsPlanButton
+                      href={plan.href}
+                      trackId={`bulk_sms_pricing_${plan.name.replace(/\s+/g, "_").toLowerCase()}`}
                       variant={plan.featured ? "default" : "outline"}
-                      className={cn(
-                        "mt-8 w-full",
-                        plan.featured && "bg-gradient-to-r from-indigo-500 to-purple-600 border-0 hover:opacity-90"
-                      )}
+                      className={plan.featured ? "bg-gradient-to-r from-indigo-500 to-purple-600 border-0 hover:opacity-90" : undefined}
                     >
-                      <a href={plan.href} target="_blank" rel="noopener noreferrer">
-                        {plan.cta}
-                      </a>
-                    </Button>
+                      {plan.cta}
+                    </BulkSmsPlanButton>
                   </motion.div>
                 ))}
               </AnimatePresence>

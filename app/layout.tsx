@@ -5,6 +5,7 @@ import { Analytics } from "@/components/analytics";
 import "./globals.css";
 import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
 import { CONTACT, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
+import { SOCIAL_LINKS } from "@/lib/social";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -173,19 +174,14 @@ const organizationJsonLd = {
       url: `${SITE_URL}/contact`,
     },
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "7000",
-  },
   priceRange: "KES 380 - KES 16,800",
   paymentAccepted: "M-Pesa, Airtel Money, Bank Transfer, Credit Card",
   currenciesAccepted: "KES, USD, EUR",
   sameAs: [
-    "https://twitter.com/talksasa",
-    "https://www.facebook.com/talksasa",
-    "https://www.linkedin.com/company/talksasa",
-    "https://www.instagram.com/talksasa",
+    SOCIAL_LINKS.twitter,
+    SOCIAL_LINKS.facebook,
+    SOCIAL_LINKS.linkedin,
+    SOCIAL_LINKS.instagram,
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -279,14 +275,6 @@ export default function RootLayout({
               "@type": "WebSite",
               name: "TalkSasa",
               url: SITE_URL,
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: `${SITE_URL}/?s={search_term_string}`,
-                },
-                "query-input": "required name=search_term_string",
-              },
             }),
           }}
         />

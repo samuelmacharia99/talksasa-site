@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, ArrowRight } from "lucide-react";
 import { useCurrency } from "@/lib/currency-provider";
+import { BULK_SMS_URL } from "@/lib/urls";
+import { TrackedExternalLink } from "@/components/tracked-link";
+import { Button } from "@/components/ui/button";
 
 // Tiered pricing based on top-up amount (credit)
 function getSMSInfo(topUpAmount: number): { 
@@ -127,6 +130,14 @@ export function SMSCalculator() {
           </p>
         </div>
       </div>
+      <Button asChild className="w-full mt-5 bg-gradient-to-r from-indigo-500 to-purple-600 border-0">
+        <TrackedExternalLink href={BULK_SMS_URL} trackId="sms_calculator_get_started">
+          <span className="inline-flex items-center justify-center gap-2 w-full">
+            Start sending SMS
+            <ArrowRight className="h-4 w-4" />
+          </span>
+        </TrackedExternalLink>
+      </Button>
     </motion.div>
   );
 }

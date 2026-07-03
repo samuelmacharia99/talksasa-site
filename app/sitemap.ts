@@ -18,6 +18,7 @@ const PAGES: MetadataRoute.Sitemap = [
   { url: `${BASE_URL}/pricing`, changeFrequency: "weekly", priority: 0.9 },
   { url: `${BASE_URL}/book-demo`, changeFrequency: "monthly", priority: 0.85 },
   { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.8 },
+  { url: `${BASE_URL}/about`, changeFrequency: "monthly", priority: 0.75 },
   { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.4 },
   { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.4 },
 ];

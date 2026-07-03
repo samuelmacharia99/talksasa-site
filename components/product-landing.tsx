@@ -1,13 +1,12 @@
 import Script from "next/script";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import type { ProductPageContent } from "@/lib/cloud-content";
 import { BRAND, faqJsonLd } from "@/lib/cloud-content";
 import { ProductPageHero } from "@/components/product-page-hero";
+import { ProductCtaSection } from "@/components/tracked-link";
 import { SITE_URL } from "@/lib/urls";
 
 type ProductLandingProps = {
@@ -92,26 +91,12 @@ export function ProductLanding({ page, relatedFaqs, afterHero }: ProductLandingP
           </section>
         )}
 
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="text-2xl font-bold tracking-tight">Ready to get started?</h2>
-          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-            Create your account, search your domain, or talk to our team about reseller packages.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
-            <Button asChild size="lg" className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 border-0">
-              {page.ctaPrimary.external ? (
-                <a href={page.ctaPrimary.href} target="_blank" rel="noopener noreferrer">
-                  {page.ctaPrimary.label}
-                </a>
-              ) : (
-                <Link href={page.ctaPrimary.href}>{page.ctaPrimary.label}</Link>
-              )}
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link href="/contact">Contact sales</Link>
-            </Button>
-          </div>
-        </section>
+        <ProductCtaSection
+          primaryLabel={page.ctaPrimary.label}
+          primaryHref={page.ctaPrimary.href}
+          primaryExternal={page.ctaPrimary.external}
+          trackId={`product_${page.slug}_primary`}
+        />
       </main>
       <Footer />
     </div>

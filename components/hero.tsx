@@ -106,6 +106,7 @@ function StatCardDecimal({ label, delay }: { label: string; delay: number }) {
 
 import { HERO } from "@/lib/cloud-content";
 import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
+import { appendAttributionToUrl } from "@/lib/attribution";
 import { useReducedMotion, useIsCoarsePointer } from "@/lib/use-reduced-motion";
 
 /* Particle dots for background */
@@ -280,20 +281,30 @@ export function Hero() {
               </span>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
-              <Link href="/bulk-sms">Explore bulk SMS</Link>
+              <Link href="/bulk-sms" onClick={() => trackCTAClick("hero_explore_bulk_sms")}>Explore bulk SMS</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
-              <Link href="/reseller">Become a reseller</Link>
+              <Link href="/reseller" onClick={() => trackCTAClick("hero_become_reseller")}>Become a reseller</Link>
             </Button>
           </motion.div>
           <motion.div variants={item} className="mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
             <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
-              <a href={HOSTING_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={appendAttributionToUrl(HOSTING_URL)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackCTAClick("hero_open_cloud_portal")}
+              >
                 Open cloud portal →
               </a>
             </Button>
             <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
-              <a href={BULK_SMS_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={appendAttributionToUrl(BULK_SMS_URL)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackCTAClick("hero_open_bulk_sms_portal")}
+              >
                 Open bulk SMS portal →
               </a>
             </Button>

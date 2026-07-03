@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/components/analytics";
 import { useToast } from "@/components/toast";
+import { submitLead } from "@/lib/submit-lead";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/lib/contact";
 import {
@@ -137,7 +138,7 @@ export function BookDemoForm() {
     return Object.keys(next).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSuccessMessage("");
     setErrorMessage("");
@@ -147,28 +148,50 @@ export function BookDemoForm() {
     setStatus("loading");
 
     try {
-      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${formatWhatsAppMessage(form)}`;
-      openWhatsApp(whatsappURL);
+      const monthOption = MONTH_OPTIONS.find((m) => m.value === form.month);
+      const dateLabel =
+        monthOption && form.day
+          ? formatDemoDate(monthOption.year, monthOption.month, Number(form.day))
+          : "Not specified";
 
-      setSuccessMessage("Opening WhatsApp… Tap Send to confirm your demo booking.");
-      setStatus("success");
+      const saved = await submitLead({
+        type: "demo",
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        service: form.product,
+        message: form.notes.trim() || undefined,
+        metadata: {
+          preferred_date: dateLabel,
+          preferred_time: form.time,
+        },
+      });
+
+      if (!saved.ok) {
+        setStatus("error");
+        setErrorMessage(saved.error);
+        toast(saved.error, "error");
+        return;
+      }
+
+      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${formatWhatsAppMessage(form)}`;
+      const isMobile =
+        typeof window !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
       trackCTAClick("book_demo_whatsapp_submit");
 
-      setTimeout(() => {
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          product: "",
-          month: MONTH_OPTIONS[0]?.value ?? "",
-          day: "",
-          time: "",
-          notes: "",
-        });
-        setErrors({});
-        setStatus("idle");
-        setSuccessMessage("");
-      }, 4000);
+      if (isMobile) {
+        try {
+          sessionStorage.setItem("talksasa_pending_wa", whatsappURL);
+        } catch {
+          // ignore
+        }
+        window.location.href = `${saved.redirect}&open_whatsapp=1`;
+        return;
+      }
+
+      openWhatsApp(whatsappURL);
+      window.location.href = saved.redirect;
     } catch {
       const msg = "Could not open WhatsApp. Please try again.";
       setStatus("error");

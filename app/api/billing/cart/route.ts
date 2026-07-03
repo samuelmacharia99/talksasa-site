@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { createCart } from "@/lib/billing-api";
 import type { CartItem, CartRequest } from "@/lib/billing-types";
+import { appendAttributionParams } from "@/lib/leads/validate";
+import type { Attribution } from "@/lib/leads/types";
 import { HOSTING_URL } from "@/lib/urls";
+
+export const runtime = "nodejs";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +48,7 @@ function isValidCartItem(item: unknown): item is CartItem {
   return false;
 }
 
-function isValidCart(body: unknown): body is CartRequest {
+function isValidCart(body: unknown): body is CartRequest & { attribution?: Attribution } {
   if (!body || typeof body !== "object" || !("items" in body)) return false;
   const items = (body as CartRequest).items;
   if (!Array.isArray(items) || items.length === 0) return false;
@@ -64,8 +68,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Invalid cart items" }, { status: 400 });
     }
 
-    const { checkoutUrl } = await createCart(body);
-    return NextResponse.json({ success: true, checkoutUrl });
+    const { attribution, ...cart } = body as CartRequest & { attribution?: Attribution };
+    const { checkoutUrl } = await createCart(cart);
+    const trackedUrl = appendAttributionParams(checkoutUrl, attribution);
+    return NextResponse.json({ success: true, checkoutUrl: trackedUrl });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Checkout failed";
     const status = message.includes("not configured") ? 503 : 502;

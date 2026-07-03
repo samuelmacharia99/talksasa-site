@@ -7,7 +7,9 @@ import { CurrencyProvider } from "@/lib/currency-provider";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
-import { LiveActivityFeed } from "@/components/live-activity-feed";
+import { ExitIntentModal } from "@/components/exit-intent-modal";
+import { AttributionCapture } from "@/components/attribution-capture";
+import { CookieConsent } from "@/components/cookie-consent";
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -15,10 +17,12 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       <CurrencyProvider>
         <ToastProvider>
           <CTAModalProvider>
+            <AttributionCapture />
             <ScrollProgress />
             {children}
-            <LiveActivityFeed />
+            <ExitIntentModal />
             <WhatsAppFab />
+            <CookieConsent />
             <ServiceWorkerRegister />
           </CTAModalProvider>
         </ToastProvider>

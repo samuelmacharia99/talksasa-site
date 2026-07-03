@@ -6,6 +6,7 @@ import { Loader2, ArrowRight, CheckCircle2, AlertCircle, Clock, Shield, MessageC
 import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/components/analytics";
 import { useToast } from "@/components/toast";
+import { submitLead } from "@/lib/submit-lead";
 import { cn } from "@/lib/utils";
 import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
 
@@ -98,31 +99,41 @@ export function ContactForm() {
     setStatus("loading");
 
     try {
+      const saved = await submitLead({
+        type: "contact",
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        service: form.service,
+        message: form.message.trim() || undefined,
+      });
+
+      if (!saved.ok) {
+        setStatus("error");
+        setErrorMessage(saved.error);
+        toast(saved.error, "error");
+        return;
+      }
+
       const whatsappMessage = formatWhatsAppMessage(form);
       const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
-      
-      // Detect mobile device
-      const isMobile = typeof window !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        // On mobile, directly navigate (opens WhatsApp app)
-        window.location.href = whatsappURL;
-      } else {
-        // On desktop, open in new tab (WhatsApp Web)
-        window.open(whatsappURL, "_blank");
-      }
-      
-      setSuccessMessage("Opening WhatsApp... Please click Send to complete your inquiry.");
-      setStatus("success");
+      const isMobile =
+        typeof window !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
       trackCTAClick("contact_form_whatsapp_submit");
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setForm({ name: "", email: "", phone: "", service: "", message: "" });
-        setErrors({});
-        setStatus("idle");
-        setSuccessMessage("");
-      }, 3000);
+
+      if (isMobile) {
+        try {
+          sessionStorage.setItem("talksasa_pending_wa", whatsappURL);
+        } catch {
+          // ignore
+        }
+        window.location.href = `${saved.redirect}&open_whatsapp=1`;
+        return;
+      }
+
+      window.open(whatsappURL, "_blank");
+      window.location.href = saved.redirect;
       
     } catch (err) {
       setStatus("error");
@@ -201,6 +212,11 @@ export function ContactForm() {
           </div>
         </motion.div>
       )}
+
+      <div className="absolute -left-[9999px] opacity-0" aria-hidden>
+        <label htmlFor="contact-website">Website</label>
+        <input id="contact-website" type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </div>
 
       <div>
         <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">

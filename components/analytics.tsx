@@ -1,11 +1,111 @@
 "use client";
 
 import Script from "next/script";
+import { useEffect, useState } from "react";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+const ADS_LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL;
+
+export const CONSENT_KEY = "talksasa_cookie_consent";
+
+type GtagFn = (...args: unknown[]) => void;
+type FbqFn = (...args: unknown[]) => void;
+
+function getGtag(): GtagFn | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as Window & { gtag?: GtagFn }).gtag;
+}
+
+function getFbq(): FbqFn | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as Window & { fbq?: FbqFn }).fbq;
+}
+
+export function hasAnalyticsConsent(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.localStorage.getItem(CONSENT_KEY) === "accepted";
+}
+
+export function trackEvent(eventName: string, params?: Record<string, unknown>) {
+  const gtag = getGtag();
+  if (GA_ID && gtag) {
+    gtag("event", eventName, params);
+  }
+}
+
+export function trackCTAClick(label: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem("talksasa_cta_interacted", "1");
+  } catch {
+    // ignore
+  }
+
+  trackEvent("select_content", {
+    content_type: "cta",
+    item_id: label,
+  });
+
+  if (ADS_ID && ADS_LEAD_LABEL) {
+    const gtag = getGtag();
+    gtag?.("event", "conversion", {
+      send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
+      event_callback: () => undefined,
+    });
+  }
+
+  const fbq = getFbq();
+  if (FB_PIXEL_ID && fbq) {
+    fbq("track", "Lead", { content_name: label });
+  }
+}
+
+export function trackLeadCaptured(type: string, leadId: string) {
+  trackEvent("generate_lead", {
+    lead_type: type,
+    lead_id: leadId,
+    method: "server_saved",
+  });
+
+  if (ADS_ID && ADS_LEAD_LABEL) {
+    const gtag = getGtag();
+    gtag?.("event", "conversion", {
+      send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
+      value: 1,
+      currency: "KES",
+    });
+  }
+
+  const fbq = getFbq();
+  if (FB_PIXEL_ID && fbq) {
+    fbq("track", "Lead", { content_name: type, content_ids: [leadId] });
+  }
+}
+
+export function trackBeginCheckout(label: string) {
+  trackEvent("begin_checkout", { item_id: label });
+  trackCTAClick(label);
+}
 
 export function Analytics() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    setEnabled(hasAnalyticsConsent());
+
+    const onConsent = (event: Event) => {
+      const detail = (event as CustomEvent<{ status: string }>).detail;
+      setEnabled(detail?.status === "accepted");
+    };
+
+    window.addEventListener("talksasa:consent", onConsent);
+    return () => window.removeEventListener("talksasa:consent", onConsent);
+  }, []);
+
+  if (!enabled) return null;
+
   return (
     <>
       {GA_ID && (
@@ -19,7 +119,11 @@ export function Analytics() {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+              gtag('config', '${GA_ID}', {
+                page_path: window.location.pathname,
+                allow_google_signals: true
+              });
+              ${ADS_ID ? `gtag('config', '${ADS_ID}');` : ""}
             `}
           </Script>
         </>
@@ -42,25 +146,4 @@ export function Analytics() {
       )}
     </>
   );
-}
-
-/**
- * Call from CTA clicks for conversion tracking.
- * Requires GA_ID and/or FB_PIXEL_ID to be set.
- */
-export function trackCTAClick(label: string) {
-  if (typeof window === "undefined") return;
-  const w = window as Window & { gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void };
-  try {
-    window.localStorage.setItem("talksasa_cta_interacted", "1");
-  } catch {
-    // ignore
-  }
-  if (GA_ID && typeof w.gtag === "function") {
-    w.gtag("event", "conversion", { send_to: `${GA_ID}/cta_${label}` });
-    w.gtag("event", "click", { event_category: "CTA", event_label: label });
-  }
-  if (FB_PIXEL_ID && typeof w.fbq === "function") {
-    w.fbq("track", "Lead", { content_name: label });
-  }
 }

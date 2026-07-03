@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { trackCTAClick } from "@/components/analytics";
+import { trackBeginCheckout } from "@/components/analytics";
+import { getAttribution } from "@/lib/attribution";
 import { useToast } from "@/components/toast";
 import type { CartItem } from "@/lib/billing-types";
 import { HOSTING_URL } from "@/lib/urls";
@@ -29,13 +30,13 @@ export function CheckoutButton({
 
   async function handleCheckout() {
     setLoading(true);
-    trackCTAClick(trackId);
+    trackBeginCheckout(trackId);
 
     try {
       const res = await fetch("/api/billing/cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, attribution: getAttribution() }),
       });
       const data = (await res.json()) as {
         success?: boolean;

@@ -1,14 +1,22 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { submitLead } from "@/lib/submit-lead";
+import { trackCTAClick } from "@/components/analytics";
 
 const EXIT_SHOWN_KEY = "talksasa_exit_intent_shown";
 const CTA_INTERACTED_KEY = "talksasa_cta_interacted";
 
 export function ExitIntentModal() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [error, setError] = useState("");
 
   const shouldShow = useCallback(() => {
     if (typeof window === "undefined") return false;
@@ -17,12 +25,14 @@ export function ExitIntentModal() {
     return true;
   }, []);
 
-  // Desktop: mouse leaves at top
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onMouseOut = (e: MouseEvent) => {
       if (!shouldShow()) return;
-      if ((e.relatedTarget === null || (e as unknown as { toElement: Node | null }).toElement === null) && e.clientY <= 0) {
+      if (
+        (e.relatedTarget === null || (e as unknown as { toElement: Node | null }).toElement === null) &&
+        e.clientY <= 0
+      ) {
         window.localStorage.setItem(EXIT_SHOWN_KEY, "1");
         setOpen(true);
       }
@@ -31,7 +41,6 @@ export function ExitIntentModal() {
     return () => window.removeEventListener("mouseout", onMouseOut);
   }, [shouldShow]);
 
-  // Mobile / general: 30s timer (simple version)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const timer = window.setTimeout(() => {
@@ -39,11 +48,10 @@ export function ExitIntentModal() {
         window.localStorage.setItem(EXIT_SHOWN_KEY, "1");
         setOpen(true);
       }
-    }, 30000);
+    }, 45000);
     return () => window.clearTimeout(timer);
   }, [shouldShow]);
 
-  // ESC key
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -55,18 +63,32 @@ export function ExitIntentModal() {
 
   const close = () => setOpen(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const emailInput = e.currentTarget.elements.namedItem("exit-email") as HTMLInputElement | null;
-    if (!emailInput || !emailInput.value.includes("@")) {
-      emailInput?.focus();
+    setError("");
+    if (!email.includes("@")) {
+      setError("Enter a valid email address");
       return;
     }
-    // TODO: hook into FormSpree/Web3Forms or your API here
-    // data-form attribute added for external tools
+
+    setStatus("loading");
+    const saved = await submitLead({
+      type: "exit_intent",
+      email: email.trim(),
+      service: "Bulk SMS",
+      metadata: { offer: "1000_free_sms_credits" },
+    });
+
+    if (!saved.ok) {
+      setStatus("error");
+      setError(saved.error);
+      return;
+    }
+
+    trackCTAClick("exit_intent_email_submit");
     setOpen(false);
-    alert("Check your email for your free credits!");
-  };
+    router.push(saved.redirect);
+  }
 
   return (
     <AnimatePresence>
@@ -77,11 +99,7 @@ export function ExitIntentModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={close}
-            aria-hidden
-          />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={close} aria-hidden />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -108,35 +126,36 @@ export function ExitIntentModal() {
                 id="exit-intent-title"
                 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
               >
-                Wait! Don&apos;t Miss Out on This Offer
+                Wait! Get 1,000 free SMS credits
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Get 1,000 FREE SMS Credits When You Sign Up Today
+                Leave your email and we&apos;ll send your signup offer. No credit card required.
               </p>
-              <ul className="mt-5 space-y-1 text-sm text-muted-foreground text-left inline-block">
-                <li>✓ No credit card required</li>
-                <li>✓ Instant activation</li>
-                <li>✓ 24/7 support included</li>
-                <li>✓ Cancel anytime</li>
-              </ul>
-              <form
-                className="mt-6 space-y-3"
-                onSubmit={handleSubmit}
-                data-form="exit-intent-email"
-              >
+              <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
                 <input
                   type="email"
-                  name="exit-email"
+                  name="email"
                   required
-                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@company.com"
                   className="w-full rounded-lg bg-background/40 border border-border px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   aria-label="Email address to receive free SMS credits"
                 />
+                {error && <p className="text-xs text-red-400 text-left">{error}</p>}
                 <Button
                   type="submit"
+                  disabled={status === "loading"}
                   className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:opacity-90 border-0"
                 >
-                  Claim My Free SMS Credits
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving…
+                    </>
+                  ) : (
+                    "Claim free SMS credits"
+                  )}
                 </Button>
               </form>
               <button
@@ -144,7 +163,7 @@ export function ExitIntentModal() {
                 onClick={close}
                 className="mt-3 text-xs text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
               >
-                No thanks, I&apos;ll pay full price
+                No thanks
               </button>
             </div>
           </motion.div>
@@ -153,4 +172,3 @@ export function ExitIntentModal() {
     </AnimatePresence>
   );
 }
-
