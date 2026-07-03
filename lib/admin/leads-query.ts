@@ -1,4 +1,5 @@
 import { desc, eq, sql } from "drizzle-orm";
+import type { ResultSetHeader } from "mysql2";
 import { getDb } from "@/lib/db";
 import { leads, type Lead } from "@/lib/db/schema";
 
@@ -58,8 +59,8 @@ function mapLead(row: Lead): LeadListItem {
   };
 }
 
-export function listLeads(page = 1, pageSize = 25, type?: string): LeadsListResult {
-  const db = getDb();
+export async function listLeads(page = 1, pageSize = 25, type?: string): Promise<LeadsListResult> {
+  const db = await getDb();
   const safePage = Math.max(1, page);
   const safeSize = Math.min(100, Math.max(1, pageSize));
   const offset = (safePage - 1) * safeSize;
@@ -69,32 +70,31 @@ export function listLeads(page = 1, pageSize = 25, type?: string): LeadsListResu
       ? eq(leads.type, type as Lead["type"])
       : undefined;
 
-  const rows = db
+  const rows = await db
     .select()
     .from(leads)
     .where(typeFilter)
     .orderBy(desc(leads.createdAt))
     .limit(safeSize)
-    .offset(offset)
-    .all();
+    .offset(offset);
 
-  const countRow = db
+  const [countRow] = await db
     .select({ count: sql<number>`count(*)` })
     .from(leads)
-    .where(typeFilter)
-    .get();
+    .where(typeFilter);
 
   return {
     leads: rows.map(mapLead),
-    total: countRow?.count ?? 0,
+    total: Number(countRow?.count ?? 0),
     page: safePage,
     pageSize: safeSize,
   };
 }
 
-export function updateLeadStatus(id: string, status: string): boolean {
+export async function updateLeadStatus(id: string, status: string): Promise<boolean> {
   if (!VALID_STATUSES.has(status)) return false;
-  const db = getDb();
-  const result = db.update(leads).set({ status }).where(eq(leads.id, id)).run();
-  return result.changes > 0;
+  const db = await getDb();
+  const [result] = await db.update(leads).set({ status: status as Lead["status"] }).where(eq(leads.id, id));
+  const header = result as ResultSetHeader;
+  return header.affectedRows > 0;
 }

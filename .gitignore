@@ -29,7 +29,7 @@ yarn-error.log*
 .env*.local
 .env
 
-# sqlite database (contains PII — never commit)
+# local sqlite leftovers (legacy)
 /data/
 *.db
 *.db-shm

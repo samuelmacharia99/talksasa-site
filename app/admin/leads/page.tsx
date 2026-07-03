@@ -24,10 +24,10 @@ function NotConfigured() {
   );
 }
 
-export default function AdminLeadsPage() {
+export default async function AdminLeadsPage() {
   if (!isAdminConfigured()) return <NotConfigured />;
   if (!isAdminAuthenticated()) return <AdminLogin />;
 
-  const initial = listLeads(1, 25);
+  const initial = await listLeads(1, 25);
   return <LeadsDashboard initial={initial} />;
 }

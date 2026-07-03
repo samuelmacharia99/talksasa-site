@@ -18,10 +18,7 @@ RUN npm run build && npm prune --omit=dev
 
 FROM node:20-bookworm-slim AS runner
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends libsqlite3-0 \
-  && rm -rf /var/lib/apt/lists/* \
-  && groupadd -r nodejs -g 1001 \
+RUN groupadd -r nodejs -g 1001 \
   && useradd -r -g nodejs -u 1001 nodejs
 
 WORKDIR /app
@@ -36,8 +33,6 @@ COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nodejs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nodejs:nodejs /app/public ./public
 COPY --from=builder --chown=nodejs:nodejs /app/lib ./lib
-
-RUN mkdir -p data && chown nodejs:nodejs data
 
 USER nodejs
 

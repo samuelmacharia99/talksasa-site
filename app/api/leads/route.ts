@@ -76,7 +76,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const record = createLead(validated.data, ip);
+    const record = await createLead(validated.data, ip);
     return NextResponse.json({
       success: true,
       id: record.id,

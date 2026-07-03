@@ -5,7 +5,6 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
-    serverComponentsExternalPackages: ["better-sqlite3"],
   },
   async redirects() {
     return [

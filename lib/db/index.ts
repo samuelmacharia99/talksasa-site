@@ -1,44 +1,49 @@
-import Database from "better-sqlite3";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import fs from "fs";
 import path from "path";
+import mysql from "mysql2/promise";
+import { drizzle, type MySql2Database } from "drizzle-orm/mysql2";
+import { migrate } from "drizzle-orm/mysql2/migrator";
+import { getMysqlConfig } from "./config";
 import * as schema from "./schema";
 
+type Db = MySql2Database<typeof schema>;
+
 const globalForDb = globalThis as unknown as {
-  sqlite?: Database.Database;
-  db?: ReturnType<typeof drizzle<typeof schema>>;
+  pool?: mysql.Pool;
+  db?: Db;
+  dbReady?: Promise<Db>;
 };
 
-function resolveDbPath() {
-  const configured = process.env.DATABASE_PATH;
-  if (configured) return path.resolve(configured);
-  return path.join(process.cwd(), "data", "talksasa.db");
-}
+async function createConnection(): Promise<Db> {
+  const config = getMysqlConfig();
+  const pool = mysql.createPool({
+    host: config.host,
+    port: config.port,
+    user: config.user,
+    password: config.password,
+    database: config.database,
+    waitForConnections: true,
+    connectionLimit: 10,
+    maxIdle: 5,
+    idleTimeout: 60_000,
+    enableKeepAlive: true,
+  });
 
-function createConnection() {
-  const dbPath = resolveDbPath();
-  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
-
-  const sqlite = new Database(dbPath);
-  sqlite.pragma("journal_mode = WAL");
-  sqlite.pragma("foreign_keys = ON");
-  sqlite.pragma("busy_timeout = 5000");
-
-  const db = drizzle(sqlite, { schema });
+  const db = drizzle(pool, { schema, mode: "default" });
   const migrationsFolder = path.join(process.cwd(), "lib", "db", "migrations");
   if (fs.existsSync(migrationsFolder)) {
-    migrate(db, { migrationsFolder });
+    await migrate(db, { migrationsFolder });
   }
 
-  return { sqlite, db };
+  globalForDb.pool = pool;
+  globalForDb.db = db;
+  return db;
 }
 
-export function getDb() {
-  if (!globalForDb.db) {
-    const { sqlite, db } = createConnection();
-    globalForDb.sqlite = sqlite;
-    globalForDb.db = db;
+export async function getDb(): Promise<Db> {
+  if (globalForDb.db) return globalForDb.db;
+  if (!globalForDb.dbReady) {
+    globalForDb.dbReady = createConnection();
   }
-  return globalForDb.db;
+  return globalForDb.dbReady;
 }

@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   const page = Number(searchParams.get("page") || "1");
   const type = searchParams.get("type") || undefined;
 
-  const result = listLeads(page, 25, type ?? undefined);
+  const result = await listLeads(page, 25, type ?? undefined);
   return NextResponse.json(result);
 }
 
@@ -34,7 +34,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "id and status are required" }, { status: 400 });
   }
 
-  const updated = updateLeadStatus(body.id, body.status);
+  const updated = await updateLeadStatus(body.id, body.status);
   if (!updated) {
     return NextResponse.json({ error: "Lead not found or invalid status" }, { status: 400 });
   }
