@@ -12,7 +12,8 @@ RUN npm ci
 
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    NODE_OPTIONS=--max-old-space-size=2048
 RUN npm run build && npm prune --omit=dev
 
 FROM node:20-bookworm-slim AS runner
