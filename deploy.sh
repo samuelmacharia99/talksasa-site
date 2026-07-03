@@ -103,6 +103,7 @@ install_dependencies() {
     log "Installing dependencies..."
 
     cd "$PROJECT_DIR"
+    rm -rf node_modules
     npm ci || error "Failed to install dependencies"
 
     success "Dependencies installed"

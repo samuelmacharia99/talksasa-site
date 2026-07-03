@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.github
+.claude
+data
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+!.env.example
+npm-debug.log*
+README.md
+DEPLOYMENT*.md
+DEPLOY_INSTRUCTIONS.md
+COOLIFY.md

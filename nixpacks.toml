@@ -1,0 +1,14 @@
+# Fallback when Coolify uses Nixpacks instead of the Dockerfile.
+# Cleans node_modules before install to avoid ENOTEMPTY rename errors on redeploy.
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "python3", "gcc"]
+
+[phases.install]
+cmds = ["rm -rf node_modules .next", "npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm start"
