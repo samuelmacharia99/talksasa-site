@@ -1,4 +1,4 @@
-# Production image for Coolify / Docker (deps installed at build time, not on container start)
+# Production image — build deps at image build time, not on container start
 FROM node:20-bookworm-slim AS builder
 
 RUN apt-get update \

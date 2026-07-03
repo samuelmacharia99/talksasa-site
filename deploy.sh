@@ -148,8 +148,13 @@ restart_app() {
 health_check() {
     log "Performing health check..."
 
-    # Try to connect to localhost:3000
+    # Try app health endpoint (no database required)
     for i in {1..5}; do
+        if curl -sf http://localhost:3000/api/health >/dev/null 2>&1; then
+            log "Server is responding on port 3000"
+            success "Health check passed"
+            return 0
+        fi
         if nc -z localhost 3000 &>/dev/null; then
             log "Server is responding on port 3000"
             success "Health check passed"

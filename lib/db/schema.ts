@@ -29,5 +29,21 @@ export const leads = mysqlTable(
   ]
 );
 
+export const leadNotes = mysqlTable(
+  "lead_notes",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    leadId: varchar("lead_id", { length: 36 }).notNull(),
+    content: text("content").notNull(),
+    createdAt: varchar("created_at", { length: 30 }).notNull(),
+  },
+  (table) => [
+    index("lead_notes_lead_id_idx").on(table.leadId),
+    index("lead_notes_created_at_idx").on(table.createdAt),
+  ]
+);
+
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
+export type LeadNote = typeof leadNotes.$inferSelect;
+export type NewLeadNote = typeof leadNotes.$inferInsert;
