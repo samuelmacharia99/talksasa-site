@@ -11,7 +11,9 @@
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "cron:digest": "node scripts/trigger-digest.mjs",
+    "test:smtp": "node scripts/test-smtp.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
