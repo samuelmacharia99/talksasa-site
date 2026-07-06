@@ -99,8 +99,10 @@ export function validateLeadPayload(body: unknown): ValidationResult {
     return { ok: false, error: "Product selection is required" };
   }
 
-  if (type === "exit_intent" && !name) {
-    // email-only capture is fine
+  if (type === "exit_intent") {
+    if (!phone || !PHONE_RE.test(phone)) {
+      return { ok: false, error: "Valid phone is required" };
+    }
   }
 
   return {

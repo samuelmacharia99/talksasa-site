@@ -19,7 +19,7 @@ const COPY: Record<string, { title: string; body: string }> = {
   },
   exit_intent: {
     title: "You're on the list",
-    body: "We'll email your free SMS credits offer shortly. You can also sign up now and start sending in minutes.",
+    body: "We'll send your 100 free SMS units offer to your email and phone shortly. You can also sign up now and start sending in minutes.",
   },
 };
 

@@ -15,6 +15,7 @@ export function ExitIntentModal() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -70,13 +71,18 @@ export function ExitIntentModal() {
       setError("Enter a valid email address");
       return;
     }
+    if (!phone.trim()) {
+      setError("Enter your phone number");
+      return;
+    }
 
     setStatus("loading");
     const saved = await submitLead({
       type: "exit_intent",
       email: email.trim(),
+      phone: phone.trim(),
       service: "Bulk SMS",
-      metadata: { offer: "1000_free_sms_credits" },
+      metadata: { offer: "100_free_sms_units" },
     });
 
     if (!saved.ok) {
@@ -126,10 +132,10 @@ export function ExitIntentModal() {
                 id="exit-intent-title"
                 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
               >
-                Wait! Get 1,000 free SMS credits
+                Wait! Get 100 free SMS units
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Leave your email and we&apos;ll send your signup offer. No credit card required.
+                Leave your email and phone — we&apos;ll send your signup offer. No credit card required.
               </p>
               <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
                 <input
@@ -140,7 +146,17 @@ export function ExitIntentModal() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
                   className="w-full rounded-lg bg-background/40 border border-border px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  aria-label="Email address to receive free SMS credits"
+                  aria-label="Email address"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="0712 345 678"
+                  className="w-full rounded-lg bg-background/40 border border-border px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label="Phone number"
                 />
                 {error && <p className="text-xs text-red-400 text-left">{error}</p>}
                 <Button
@@ -154,7 +170,7 @@ export function ExitIntentModal() {
                       Saving…
                     </>
                   ) : (
-                    "Claim free SMS credits"
+                    "Claim 100 free SMS units"
                   )}
                 </Button>
               </form>
