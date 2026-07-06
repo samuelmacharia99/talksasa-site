@@ -177,6 +177,11 @@ export const FAQ_ITEMS = [
     answer:
       "Yes. TalkSasa SMS resellers can offer bulk SMS, OTP/2FA, and API access to their clients with white-label options. You manage pricing and customer relationships while we handle delivery, routing, and platform uptime.",
   },
+  {
+    question: "What are TalkSasa SMS reseller wholesale tiers?",
+    answer:
+      "Wholesale top-ups are tiered: Starter (KES 500–20,000 at KES 0.30/SMS), Pro (KES 20,001–60,000 at KES 0.23/SMS), and Pro+ (KES 60,001–100,000 at KES 0.20/SMS). Buy at wholesale, set your own retail prices, and keep the margin.",
+  },
 ] as const;
 
 export type ProductPageSlug =
@@ -455,7 +460,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     ],
     headline: "Build a bulk SMS business as a TalkSasa reseller",
     subheadline:
-      "Wholesale SMS credits, a reseller portal, API access, and white-label options — sell messaging under your brand.",
+      "Wholesale SMS from KES 0.20/SMS — Starter, Pro, and Pro+ tiers with a reseller portal, API access, and white-label options.",
     intro:
       "TalkSasa SMS reseller program lets agencies, marketers, and entrepreneurs offer bulk SMS, OTP/2FA, and API messaging to their clients without owning telecom infrastructure. Buy credits at wholesale rates, set your own retail pricing, and manage customers from a dedicated portal. Supports marketing campaigns, transactional alerts, sender ID registration, delivery reports, and M-Pesa top-up — trusted across Kenya and East Africa.",
     features: [
@@ -467,7 +472,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "M-Pesa and local payment top-up — credits never expire",
     ],
     seoNote: "SMS reseller Kenya · bulk SMS reseller · white label SMS Nairobi",
-    ctaPrimary: { label: "Join SMS reseller program", href: "/contact" },
+    ctaPrimary: { label: "View wholesale tiers", href: "/sms-reseller#wholesale-tiers" },
     ctaSecondary: { label: "Open SMS reseller portal", href: BULK_SMS_URL, external: true },
   },
   mpesa: {

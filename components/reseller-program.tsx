@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACT, INFO_EMAIL, SALES_EMAIL } from "@/lib/contact";
+import { SmsResellerWholesale } from "@/components/sms-reseller/sms-reseller-wholesale";
 
 const WHATSAPP_RESELLER_URL =
   `https://wa.me/${CONTACT.whatsapp}?text=` +
@@ -273,6 +274,15 @@ export function ResellerProgram() {
                   </div>
                 ))}
               </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.28 }}
+            >
+              <SmsResellerWholesale compact className="rounded-2xl border border-white/10 overflow-hidden" />
             </motion.div>
 
             {/* Why Become Reseller */}
