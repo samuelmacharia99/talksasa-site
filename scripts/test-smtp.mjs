@@ -4,6 +4,9 @@
  * Requires: SMTP_HOST, SMTP_USER, SMTP_PASSWORD, NOTIFY_EMAIL_TO in .env
  */
 import nodemailer from "nodemailer";
+import { loadEnv } from "./load-env.mjs";
+
+loadEnv();
 
 const host = process.env.SMTP_HOST;
 const port = Number(process.env.SMTP_PORT || "587");

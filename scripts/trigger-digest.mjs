@@ -3,6 +3,10 @@
  * Usage: npm run cron:digest
  * Requires: CRON_SECRET, SMTP_*, NOTIFY_EMAIL_TO in .env
  */
+import { loadEnv } from "./load-env.mjs";
+
+loadEnv();
+
 const secret = process.env.CRON_SECRET;
 const base = (process.env.NEXT_PUBLIC_SITE_URL || "http://127.0.0.1:3000").replace(/\/$/, "");
 
