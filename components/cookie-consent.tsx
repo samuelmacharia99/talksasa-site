@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CONSENT_KEY } from "@/components/analytics";
+import { CONSENT_KEY, grantGtagConsent } from "@/components/analytics";
 
 function dispatchConsent(status: "accepted" | "rejected") {
   window.localStorage.setItem(CONSENT_KEY, status);
+  if (status === "accepted") grantGtagConsent();
   window.dispatchEvent(new CustomEvent("talksasa:consent", { detail: { status } }));
 }
 

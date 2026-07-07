@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ClientProviders } from "@/components/client-providers";
-import { Analytics } from "@/components/analytics";
+import { Analytics, GoogleAdsTag } from "@/components/analytics";
 import "./globals.css";
 import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
 import { CONTACT, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
@@ -279,6 +279,7 @@ export default function RootLayout({
           }}
         />
         <ClientProviders>{children}</ClientProviders>
+        <GoogleAdsTag />
         <Analytics />
       </body>
     </html>

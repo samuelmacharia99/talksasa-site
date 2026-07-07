@@ -28,7 +28,19 @@ export function hasAnalyticsConsent(): boolean {
   return window.localStorage.getItem(CONSENT_KEY) === "accepted";
 }
 
+/** Call when user accepts cookies — enables full Ads + GA measurement. */
+export function grantGtagConsent() {
+  const gtag = getGtag();
+  gtag?.("consent", "update", {
+    ad_storage: "granted",
+    analytics_storage: "granted",
+    ad_user_data: "granted",
+    ad_personalization: "granted",
+  });
+}
+
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
+  if (!hasAnalyticsConsent()) return;
   const gtag = getGtag();
   if (GA_ID && gtag) {
     gtag("event", eventName, params);
@@ -48,6 +60,8 @@ export function trackCTAClick(label: string) {
     item_id: label,
   });
 
+  if (!hasAnalyticsConsent()) return;
+
   if (ADS_ID && ADS_LEAD_LABEL) {
     const gtag = getGtag();
     gtag?.("event", "conversion", {
@@ -63,6 +77,8 @@ export function trackCTAClick(label: string) {
 }
 
 export function trackLeadCaptured(type: string, leadId: string) {
+  if (!hasAnalyticsConsent()) return;
+
   trackEvent("generate_lead", {
     lead_type: type,
     lead_id: leadId,
@@ -89,44 +105,93 @@ export function trackBeginCheckout(label: string) {
   trackCTAClick(label);
 }
 
+/**
+ * Google Ads base tag — loads immediately so Google can verify installation.
+ * Conversion events still require cookie consent.
+ */
+export function GoogleAdsTag() {
+  if (!ADS_ID) return null;
+
+  return (
+    <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads-tag" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
+          });
+          gtag('config', '${ADS_ID}');
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('${CONSENT_KEY}') === 'accepted') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted',
+              analytics_storage: 'granted',
+              ad_user_data: 'granted',
+              ad_personalization: 'granted'
+            });
+          }
+        `}
+      </Script>
+    </>
+  );
+}
+
+/** GA4 + Meta Pixel — loaded only after cookie consent. */
 export function Analytics() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    setEnabled(hasAnalyticsConsent());
-
-    const onConsent = (event: Event) => {
-      const detail = (event as CustomEvent<{ status: string }>).detail;
-      setEnabled(detail?.status === "accepted");
+    const sync = () => {
+      const accepted = hasAnalyticsConsent();
+      setEnabled(accepted);
+      if (accepted) grantGtagConsent();
     };
+    sync();
 
+    const onConsent = () => sync();
     window.addEventListener("talksasa:consent", onConsent);
     return () => window.removeEventListener("talksasa:consent", onConsent);
   }, []);
 
   if (!enabled) return null;
 
+  const needsGtagLoader = GA_ID && !ADS_ID;
+
   return (
     <>
-      {GA_ID && (
+      {needsGtagLoader && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             strategy="afterInteractive"
           />
-          <Script id="ga-config" strategy="afterInteractive">
+          <Script id="ga-gtag-init" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GA_ID}', {
-                page_path: window.location.pathname,
-                allow_google_signals: true
-              });
-              ${ADS_ID ? `gtag('config', '${ADS_ID}');` : ""}
             `}
           </Script>
         </>
+      )}
+      {GA_ID && (
+        <Script id="ga-config" strategy="afterInteractive">
+          {`
+            gtag('config', '${GA_ID}', {
+              page_path: window.location.pathname,
+              allow_google_signals: true
+            });
+          `}
+        </Script>
       )}
       {FB_PIXEL_ID && (
         <Script id="fb-pixel" strategy="afterInteractive">
