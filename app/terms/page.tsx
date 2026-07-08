@@ -301,11 +301,82 @@ export default function TermsPage() {
               </p>
               <p className="text-muted-foreground mb-2">
                 <strong>4.3.2</strong> Domain transfers to another registrar must be initiated by
-                the Client following the applicable transfer policy. Transfer fees may apply.
-                TalkSasa is not liable for delays caused by registry processing times.
+                the Client following the applicable transfer policy. Standard registry transfer fees
+                may apply. TalkSasa is not liable for delays caused by registry processing times.
+                Bulk or batch transfer requests are subject to the administration fees in Section
+                4.3.4 below.
               </p>
-              <p className="text-muted-foreground">
-                <strong>4.3.3</strong> The Client is responsible for maintaining accurate
+
+              <h3 className="text-lg font-medium text-foreground mt-6 mb-2">
+                4.3.3 Registrar Accounts and Reseller Conduct
+              </h3>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.3.1</strong> TalkSasa provides domain registration and reseller services
+                through its accredited registrar relationships. Clients and resellers must use
+                these services in good faith and in accordance with these Terms.
+              </p>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.3.2</strong> It is strictly prohibited for any reseller, partner, or
+                Client to register domains under TalkSasa&apos;s registrar platform for the purpose
+                of circumventing TalkSasa&apos;s reseller programme, accumulating domains outside
+                the approved reseller workflow, or subsequently demanding bulk outbound transfers
+                to another registrar without paying applicable administration fees.
+              </p>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.3.3</strong> Where TalkSasa reasonably determines that a reseller or
+                Client has abused registrar access — including by creating accounts solely to
+                register domains at wholesale rates and then requiring TalkSasa to process mass
+                transfers to a third-party registrar — TalkSasa may suspend the relevant account,
+                withhold transfer authorization until outstanding fees are paid, and take any other
+                action permitted under these Terms.
+              </p>
+              <div className="mt-4 mb-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                <p className="text-foreground font-medium">
+                  Bulk domain transfers require manual administration by TalkSasa staff. These
+                  transfers are not automatic and are subject to the fees set out in Section 4.3.4.
+                </p>
+              </div>
+
+              <h3 className="text-lg font-medium text-foreground mt-6 mb-2">
+                4.3.4 Bulk Domain Transfer Administration Fees
+              </h3>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.4.1</strong> Where a Client or reseller requests the transfer of
+                multiple domains away from TalkSasa&apos;s management in a single request, batch, or
+                coordinated series of requests, an administration fee applies before TalkSasa will
+                authorize or release transfer codes. This includes transfers arising from reseller
+                accounts registered with TalkSasa&apos;s registrar.
+              </p>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.4.2</strong> The applicable administration fees are:
+              </p>
+              <ul className="list-disc pl-6 text-muted-foreground space-y-1 mb-4">
+                <li>
+                  <strong>Up to 30 domains:</strong> KES 5,000 (flat fee per transfer request or
+                  batch)
+                </li>
+                <li>
+                  <strong>More than 30 domains:</strong> KES 15,000 (flat fee per transfer
+                  request or batch)
+                </li>
+              </ul>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.4.3</strong> The administration fee must be paid in full before
+                TalkSasa begins processing the transfer request or releases authorization/EPP codes.
+                Administration fees are non-refundable once processing has commenced.
+              </p>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.4.4</strong> These fees are in addition to any standard domain
+                registration, renewal, redemption, or registry transfer fees that may apply.
+              </p>
+              <p className="text-muted-foreground mb-2">
+                <strong>4.3.4.5</strong> TalkSasa reserves the right to revise these administration
+                fees by posting updated terms on this page. Fees in effect at the time a transfer
+                request is submitted shall apply to that request.
+              </p>
+
+              <p className="text-muted-foreground mt-4">
+                <strong>4.3.5</strong> The Client is responsible for maintaining accurate
                 WHOIS/registrant information. Provision of false registration details is a breach
                 of ICANN/KENIC policy and these Terms.
               </p>
@@ -544,7 +615,7 @@ export default function TermsPage() {
                 Website: www.talksasa.com
               </p>
               <p className="mt-4 text-muted-foreground">
-                These Terms and Conditions were last updated on 10th August 2024.
+                These Terms and Conditions were last updated on 8th July 2026.
               </p>
             </section>
           </div>
