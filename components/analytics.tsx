@@ -62,14 +62,6 @@ export function trackCTAClick(label: string) {
 
   if (!hasAnalyticsConsent()) return;
 
-  if (ADS_ID && ADS_LEAD_LABEL) {
-    const gtag = getGtag();
-    gtag?.("event", "conversion", {
-      send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
-      event_callback: () => undefined,
-    });
-  }
-
   const fbq = getFbq();
   if (FB_PIXEL_ID && fbq) {
     fbq("track", "Lead", { content_name: label });
@@ -85,19 +77,29 @@ export function trackLeadCaptured(type: string, leadId: string) {
     method: "server_saved",
   });
 
-  if (ADS_ID && ADS_LEAD_LABEL) {
-    const gtag = getGtag();
-    gtag?.("event", "conversion", {
-      send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
-      value: 1,
-      currency: "KES",
-    });
-  }
+  fireGoogleAdsConversion({ value: 1, currency: "KES", transaction_id: leadId });
 
   const fbq = getFbq();
   if (FB_PIXEL_ID && fbq) {
     fbq("track", "Lead", { content_name: type, content_ids: [leadId] });
   }
+}
+
+/** Google Ads conversion: AW-18302658396 / Purchase (IhTeCI_T28wcENzOsZdE) */
+function fireGoogleAdsConversion(opts?: {
+  value?: number;
+  currency?: string;
+  transaction_id?: string;
+}) {
+  if (!ADS_ID || !ADS_LEAD_LABEL) return;
+  const gtag = getGtag();
+  gtag?.("event", "conversion", {
+    send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
+    ...(opts?.value !== undefined ? { value: opts.value } : {}),
+    ...(opts?.currency ? { currency: opts.currency } : {}),
+    ...(opts?.transaction_id ? { transaction_id: opts.transaction_id } : {}),
+    event_callback: () => undefined,
+  });
 }
 
 export function trackBeginCheckout(label: string) {
