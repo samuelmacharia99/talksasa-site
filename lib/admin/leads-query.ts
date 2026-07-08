@@ -217,7 +217,11 @@ export async function listLeads(
     .select()
     .from(leads)
     .where(where)
-    .orderBy(desc(leads.score), desc(leads.createdAt))
+    .orderBy(
+      sql`FIELD(${leads.status}, 'new', 'contacted', 'converted', 'lost')`,
+      desc(leads.createdAt),
+      desc(leads.score)
+    )
     .limit(safeSize)
     .offset(offset);
 
