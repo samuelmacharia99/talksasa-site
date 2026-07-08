@@ -19,7 +19,7 @@ export const leads = mysqlTable(
     utmContent: varchar("utm_content", { length: 120 }),
     pageUrl: varchar("page_url", { length: 500 }),
     ipHash: varchar("ip_hash", { length: 64 }),
-    status: mysqlEnum("status", ["new", "contacted", "converted"]).notNull().default("new"),
+    status: mysqlEnum("status", ["new", "contacted", "converted", "lost"]).notNull().default("new"),
     score: int("score").notNull().default(0),
     assignedTo: varchar("assigned_to", { length: 120 }),
     contactedAt: varchar("contacted_at", { length: 30 }),

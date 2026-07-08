@@ -8,6 +8,7 @@ export const STATUS_COLORS: Record<string, string> = {
   new: "bg-blue-500/15 text-blue-400 border-blue-500/30",
   contacted: "bg-amber-500/15 text-amber-400 border-amber-500/30",
   converted: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+  lost: "bg-red-500/15 text-red-400 border-red-500/30",
 };
 
 export const SCORE_COLORS: Record<string, string> = {
@@ -22,7 +23,7 @@ export const SOURCE_BADGE: Record<string, { label: string; className: string }> 
   direct: { label: "Direct", className: "bg-gray-500/15 text-gray-400" },
 };
 
-export const STATUSES = ["new", "contacted", "converted"] as const;
+export const STATUSES = ["new", "contacted", "converted", "lost"] as const;
 
 export function formatDate(iso: string) {
   try {

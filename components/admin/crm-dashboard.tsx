@@ -378,6 +378,7 @@ function DashboardTab({
           { label: "New", value: stats.byStatus.new, color: "text-blue-400" },
           { label: "Contacted", value: stats.byStatus.contacted, color: "text-amber-400" },
           { label: "Converted", value: stats.byStatus.converted, color: "text-emerald-400" },
+          { label: "Lost", value: stats.byStatus.lost, color: "text-red-400" },
         ]} />
         <StatusBlock title="By type" items={[
           { label: "Contact", value: stats.byType.contact, color: "text-foreground" },
@@ -527,6 +528,7 @@ function LeadsTab({
           { value: "new", label: "New" },
           { value: "contacted", label: "Contacted" },
           { value: "converted", label: "Converted" },
+          { value: "lost", label: "Lost" },
         ]} />
         <FilterSelect value={filters.priority} onChange={(v) => onFiltersChange({ ...filters, priority: v })} options={[
           { value: "", label: "All priority" },
@@ -626,6 +628,7 @@ function LeadsTab({
                         <option value="new">new</option>
                         <option value="contacted">contacted</option>
                         <option value="converted">converted</option>
+                        <option value="lost">lost</option>
                       </select>
                     </td>
                   </tr>

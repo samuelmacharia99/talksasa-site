@@ -52,7 +52,7 @@ export type LeadStats = {
   today: number;
   thisWeek: number;
   thisMonth: number;
-  byStatus: { new: number; contacted: number; converted: number };
+  byStatus: { new: number; contacted: number; converted: number; lost: number };
   byType: { contact: number; demo: number; exit_intent: number };
   bySource: { google_ads: number; organic: number; direct: number };
   staleCount: number;
@@ -88,7 +88,7 @@ export type NoteItem = {
   createdAt: string;
 };
 
-const VALID_STATUSES = new Set(["new", "contacted", "converted"]);
+const VALID_STATUSES = new Set(["new", "contacted", "converted", "lost"]);
 
 function minutesSince(iso: string): number {
   return Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 60_000));
@@ -473,7 +473,7 @@ export async function getLeadStats(): Promise<LeadStats> {
   const adsCount = Number(adsRow?.count ?? 0);
   const utmCount = Number(utmRow?.count ?? 0);
 
-  const byStatus = { new: 0, contacted: 0, converted: 0 };
+  const byStatus = { new: 0, contacted: 0, converted: 0, lost: 0 };
   for (const row of statusRows) {
     if (row.status in byStatus) byStatus[row.status as keyof typeof byStatus] = Number(row.count);
   }

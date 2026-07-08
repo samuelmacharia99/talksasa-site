@@ -22,6 +22,13 @@
       "when": 1738540800000,
       "tag": "0002_sales_features",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1751961600000,
+      "tag": "0003_add_lost_status",
+      "breakpoints": true
     }
   ]
 }
