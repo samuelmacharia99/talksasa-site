@@ -15,6 +15,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.talksasa.com" }],
+        destination: "https://talksasa.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/application-hosting",
         destination: "/cloud-hosting",
         permanent: true,

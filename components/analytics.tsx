@@ -2,13 +2,14 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { GOOGLE_ADS_ID, GOOGLE_ADS_LEAD_LABEL, CONSENT_KEY } from "@/lib/google-ads";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
-const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-const ADS_LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL;
+const ADS_ID = GOOGLE_ADS_ID;
+const ADS_LEAD_LABEL = GOOGLE_ADS_LEAD_LABEL;
 
-export const CONSENT_KEY = "talksasa_cookie_consent";
+export { CONSENT_KEY };
 
 type GtagFn = (...args: unknown[]) => void;
 type FbqFn = (...args: unknown[]) => void;
@@ -105,46 +106,6 @@ function fireGoogleAdsConversion(opts?: {
 export function trackBeginCheckout(label: string) {
   trackEvent("begin_checkout", { item_id: label });
   trackCTAClick(label);
-}
-
-/**
- * Google Ads base tag — loads immediately so Google can verify installation.
- * Conversion events still require cookie consent.
- */
-export function GoogleAdsTag() {
-  if (!ADS_ID) return null;
-
-  return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-ads-tag" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('consent', 'default', {
-            ad_storage: 'denied',
-            analytics_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            wait_for_update: 500
-          });
-          gtag('config', '${ADS_ID}');
-          if (typeof localStorage !== 'undefined' && localStorage.getItem('${CONSENT_KEY}') === 'accepted') {
-            gtag('consent', 'update', {
-              ad_storage: 'granted',
-              analytics_storage: 'granted',
-              ad_user_data: 'granted',
-              ad_personalization: 'granted'
-            });
-          }
-        `}
-      </Script>
-    </>
-  );
 }
 
 /** GA4 + Meta Pixel — loaded only after cookie consent. */

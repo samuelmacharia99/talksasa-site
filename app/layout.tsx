@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ClientProviders } from "@/components/client-providers";
-import { Analytics, GoogleAdsTag } from "@/components/analytics";
+import { Analytics } from "@/components/analytics";
+import { GOOGLE_ADS_ID, CONSENT_KEY } from "@/lib/google-ads";
 import "./globals.css";
 import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
 import { CONTACT, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
@@ -252,6 +253,33 @@ export default function RootLayout({
             __html: `(function(){var t=localStorage.getItem('talksasa-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');})();`,
           }}
         />
+        {/* Google tag (gtag.js) — server-rendered in <head> for Google Ads verification */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                analytics_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                wait_for_update: 500
+              });
+              gtag('config', '${GOOGLE_ADS_ID}');
+              if (typeof localStorage !== 'undefined' && localStorage.getItem('${CONSENT_KEY}') === 'accepted') {
+                gtag('consent', 'update', {
+                  ad_storage: 'granted',
+                  analytics_storage: 'granted',
+                  ad_user_data: 'granted',
+                  ad_personalization: 'granted'
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -279,7 +307,6 @@ export default function RootLayout({
           }}
         />
         <ClientProviders>{children}</ClientProviders>
-        <GoogleAdsTag />
         <Analytics />
       </body>
     </html>
