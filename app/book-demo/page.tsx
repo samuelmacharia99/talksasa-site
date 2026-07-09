@@ -17,7 +17,7 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Book a Demo - TalkSasa | Bulk SMS, Hosting & Cloud",
+  title: "Book a Demo | Bulk SMS, Hosting & Cloud",
   description:
     "Schedule a free TalkSasa product demo. Pick your preferred date and time, choose bulk SMS, hosting, application hosting, or reseller products, and send your request via WhatsApp.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "schedule product demo",
   ],
   openGraph: {
-    title: "Book a Demo - TalkSasa",
+    title: "Book a Demo",
     description:
       "Choose your product, pick a date and time, and send your demo request to our team on WhatsApp.",
     url: `${SITE_URL}/book-demo`,

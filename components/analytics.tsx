@@ -14,6 +14,13 @@ export { CONSENT_KEY };
 type GtagFn = (...args: unknown[]) => void;
 type FbqFn = (...args: unknown[]) => void;
 
+function pushDataLayer(event: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  const w = window as Window & { dataLayer?: Record<string, unknown>[] };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push(event);
+}
+
 function getGtag(): GtagFn | undefined {
   if (typeof window === "undefined") return undefined;
   return (window as Window & { gtag?: GtagFn }).gtag;
@@ -42,6 +49,7 @@ export function grantGtagConsent() {
 
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
   if (!hasAnalyticsConsent()) return;
+  pushDataLayer({ event: eventName, ...params });
   const gtag = getGtag();
   if (GA_ID && gtag) {
     gtag("event", eventName, params);
@@ -93,6 +101,15 @@ function fireGoogleAdsConversion(opts?: {
   transaction_id?: string;
 }) {
   if (!ADS_ID || !ADS_LEAD_LABEL) return;
+
+  pushDataLayer({
+    event: "google_ads_conversion",
+    send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
+    ...(opts?.value !== undefined ? { value: opts.value } : {}),
+    ...(opts?.currency ? { currency: opts.currency } : {}),
+    ...(opts?.transaction_id ? { transaction_id: opts.transaction_id } : {}),
+  });
+
   const gtag = getGtag();
   gtag?.("event", "conversion", {
     send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,

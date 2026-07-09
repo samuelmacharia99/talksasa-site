@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "M-Pesa payment hosting",
   ],
   openGraph: {
-    title: "Pricing - TalkSasa | Kenya & East Africa",
+    title: "Pricing | Kenya & East Africa",
     description:
       "Affordable pricing for bulk SMS, web hosting, VPS, and dedicated servers in Kenya & East Africa. Plans from KES 380/month.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/pricing`,

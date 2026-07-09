@@ -28,7 +28,7 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "About Us - TalkSasa | Kenya's Leading Digital Infrastructure Provider",
+  title: "About Us | Kenya's Leading Digital Infrastructure Provider",
   description:
     "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 7,000+ businesses. Our mission to power African businesses with reliable SMS and cloud solutions.",
   keywords: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "Nairobi hosting provider",
   ],
   openGraph: {
-    title: "About TalkSasa - Kenya's Leading Digital Infrastructure Provider",
+    title: "About Us | Kenya's Leading Digital Infrastructure Provider",
     description:
       "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider serving East Africa.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/about`,

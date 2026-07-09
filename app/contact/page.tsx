@@ -60,7 +60,7 @@ const contactPageSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Contact Us - TalkSasa | Nairobi, Kenya",
+  title: "Contact Us | Nairobi, Kenya",
   description:
     `Contact TalkSasa at ${CONTACT.address.display}. Phone: ${PRIMARY_PHONE.international}, ${SALES_PHONE.international}. Email: ${INFO_EMAIL}, ${SALES_EMAIL}. 24/7 support for bulk SMS, web hosting, VPS, and cloud solutions across Kenya & East Africa.`,
   keywords: [
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     "Viewpark Towers TalkSasa",
   ],
   openGraph: {
-    title: "Contact TalkSasa - Nairobi, Kenya",
+    title: "Contact Us | Nairobi, Kenya",
     description:
       `Visit us at ${CONTACT.address.building}, ${CONTACT.address.street}. Phone, email, and 24/7 support for bulk SMS and hosting.`,
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/contact`,

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ClientProviders } from "@/components/client-providers";
 import { Analytics } from "@/components/analytics";
-import { GOOGLE_ADS_ID, CONSENT_KEY } from "@/lib/google-ads";
+import { GTM_ID, CONSENT_KEY } from "@/lib/google-ads";
 import "./globals.css";
 import { DEFAULT_SEO, BRAND } from "@/lib/cloud-content";
 import { CONTACT, PRIMARY_PHONE, SALES_PHONE } from "@/lib/contact";
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_KE",
-    alternateLocale: ["en_TZ", "en_UG", "en_RW", "sw_KE"],
     url: SITE_URL,
     siteName: BRAND,
     title: DEFAULT_SEO.title,
@@ -56,6 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: DEFAULT_SEO.title,
     description: DEFAULT_SEO.description,
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -67,13 +67,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
-    languages: {
-      "en-KE": SITE_URL,
-      "en-TZ": SITE_URL,
-      "en-UG": SITE_URL,
-      "en-RW": SITE_URL,
-      "sw-KE": SITE_URL,
-    },
   },
   other: {
     "geo.region": "KE",
@@ -248,19 +241,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('talksasa-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');})();`,
-          }}
-        />
-        {/* Google tag (gtag.js) — server-rendered in <head> for Google Ads verification */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} />
+        {/* Consent defaults — must load before GTM / Google tags */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
               gtag('consent', 'default', {
                 ad_storage: 'denied',
                 analytics_storage: 'denied',
@@ -268,7 +254,6 @@ export default function RootLayout({
                 ad_personalization: 'denied',
                 wait_for_update: 500
               });
-              gtag('config', '${GOOGLE_ADS_ID}');
               if (typeof localStorage !== 'undefined' && localStorage.getItem('${CONSENT_KEY}') === 'accepted') {
                 gtag('consent', 'update', {
                   ad_storage: 'granted',
@@ -280,10 +265,33 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('talksasa-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');})();`,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <a
           href="#main-content"
           className="sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg focus:outline-none focus:[width:auto] focus:[height:auto] focus:[padding:0.5rem_1rem] focus:[margin:0] focus:[overflow:visible] focus:[clip:auto]"

@@ -17,7 +17,7 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - TalkSasa | Data Protection & Your Rights",
+  title: "Privacy Policy | Data Protection & Your Rights",
   description:
     "TalkSasa Privacy Policy. Learn how we collect, use, store, and protect your personal data in compliance with the Kenya Data Protection Act 2019. Your rights and how to contact us.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "privacy policy Kenya",
   ],
   openGraph: {
-    title: "Privacy Policy - TalkSasa",
+    title: "Privacy Policy",
     description:
       "How TalkSasa collects, uses, and protects your personal data. Compliant with Kenya Data Protection Act 2019.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/privacy`,

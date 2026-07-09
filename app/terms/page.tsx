@@ -17,7 +17,7 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions - TalkSasa | Service Agreement",
+  title: "Terms and Conditions | Service Agreement",
   description:
     "TalkSasa Terms and Conditions of Service. Read our terms for Bulk SMS, domain registration, web hosting, and email hosting services in Kenya. Effective 10th August 2024.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "domain registration terms",
   ],
   openGraph: {
-    title: "Terms and Conditions - TalkSasa",
+    title: "Terms and Conditions",
     description:
       "TalkSasa Terms and Conditions of Service for Bulk SMS, domains, and hosting. Read before using our services.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/terms`,
