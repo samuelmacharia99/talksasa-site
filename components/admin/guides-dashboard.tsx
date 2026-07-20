@@ -20,7 +20,7 @@ import {
   slugify,
   type GuideItem,
   type GuidesListResult,
-} from "@/lib/admin/guides-query";
+} from "@/lib/admin/guides-shared";
 import { MarkdownContent } from "@/components/guides/markdown-content";
 import { formatDate } from "./shared";
 

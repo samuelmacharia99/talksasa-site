@@ -1,43 +1,18 @@
+import "server-only";
 import { and, desc, eq, like, ne, or, sql } from "drizzle-orm";
 import type { ResultSetHeader } from "mysql2";
 import { randomUUID } from "crypto";
 import { getDb } from "@/lib/db";
 import { guides, type Guide } from "@/lib/db/schema";
+import {
+  slugify,
+  type GuideInput,
+  type GuideItem,
+  type GuidesListResult,
+} from "@/lib/admin/guides-shared";
 
-export type GuideItem = {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  body: string;
-  status: "draft" | "published";
-  seoTitle: string | null;
-  seoDescription: string | null;
-  ctaLabel: string | null;
-  ctaHref: string | null;
-  publishedAt: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type GuidesListResult = {
-  guides: GuideItem[];
-  total: number;
-  page: number;
-  pageSize: number;
-};
-
-export type GuideInput = {
-  title: string;
-  slug: string;
-  excerpt: string;
-  body: string;
-  status?: "draft" | "published";
-  seoTitle?: string | null;
-  seoDescription?: string | null;
-  ctaLabel?: string | null;
-  ctaHref?: string | null;
-};
+export type { GuideInput, GuideItem, GuidesListResult };
+export { slugify };
 
 function mapGuide(row: Guide): GuideItem {
   return {
@@ -55,16 +30,6 @@ function mapGuide(row: Guide): GuideItem {
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
   };
-}
-
-export function slugify(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/['"]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 160);
 }
 
 function normalizeSlug(slug: string): string {
