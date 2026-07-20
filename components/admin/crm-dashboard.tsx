@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   AlertTriangle,
   BarChart3,
   Bell,
+  BookOpen,
   Calendar,
   Clock,
   Download,
@@ -214,6 +216,11 @@ export function CrmDashboard({ initial }: CrmDashboardProps) {
                   <Mail className="h-3.5 w-3.5" /> SMTP not configured
                 </span>
               )}
+              <Button asChild type="button" variant="outline" size="sm">
+                <Link href="/admin/guides">
+                  <BookOpen className="h-4 w-4 mr-1" /> Guides
+                </Link>
+              </Button>
               <Button type="button" variant="ghost" size="sm" onClick={handleLogout}>
                 <LogOut className="h-4 w-4 mr-1" /> Logout
               </Button>

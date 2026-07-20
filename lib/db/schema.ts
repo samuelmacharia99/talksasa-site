@@ -1,4 +1,4 @@
-import { index, int, mysqlEnum, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
+import { index, int, mysqlEnum, mysqlTable, text, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 export const leads = mysqlTable(
   "leads",
@@ -93,8 +93,34 @@ export const leadReminders = mysqlTable(
   ]
 );
 
+export const guides = mysqlTable(
+  "guides",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    slug: varchar("slug", { length: 160 }).notNull(),
+    title: varchar("title", { length: 200 }).notNull(),
+    excerpt: text("excerpt").notNull(),
+    body: text("body").notNull(),
+    status: mysqlEnum("status", ["draft", "published"]).notNull().default("draft"),
+    seoTitle: varchar("seo_title", { length: 200 }),
+    seoDescription: varchar("seo_description", { length: 320 }),
+    ctaLabel: varchar("cta_label", { length: 80 }),
+    ctaHref: varchar("cta_href", { length: 300 }),
+    publishedAt: varchar("published_at", { length: 30 }),
+    createdAt: varchar("created_at", { length: 30 }).notNull(),
+    updatedAt: varchar("updated_at", { length: 30 }).notNull(),
+  },
+  (table) => [
+    uniqueIndex("guides_slug_uidx").on(table.slug),
+    index("guides_status_idx").on(table.status),
+    index("guides_published_at_idx").on(table.publishedAt),
+  ]
+);
+
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
 export type LeadNote = typeof leadNotes.$inferSelect;
 export type LeadActivity = typeof leadActivities.$inferSelect;
 export type LeadReminder = typeof leadReminders.$inferSelect;
+export type Guide = typeof guides.$inferSelect;
+export type NewGuide = typeof guides.$inferInsert;

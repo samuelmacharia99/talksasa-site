@@ -29,6 +29,13 @@
       "when": 1751961600000,
       "tag": "0003_add_lost_status",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752984000000,
+      "tag": "0004_guides",
+      "breakpoints": true
     }
   ]
 }

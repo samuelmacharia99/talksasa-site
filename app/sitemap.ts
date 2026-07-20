@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { listPublishedGuides } from "@/lib/admin/guides-query";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com";
 
@@ -19,11 +20,25 @@ const PAGES: MetadataRoute.Sitemap = [
   { url: `${BASE_URL}/book-demo`, changeFrequency: "monthly", priority: 0.85 },
   { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.8 },
   { url: `${BASE_URL}/about`, changeFrequency: "monthly", priority: 0.75 },
+  { url: `${BASE_URL}/guides`, changeFrequency: "weekly", priority: 0.85 },
   { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.4 },
   { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.4 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  return PAGES.map((page) => ({ ...page, lastModified: now }));
+  const staticPages = PAGES.map((page) => ({ ...page, lastModified: now }));
+
+  try {
+    const published = await listPublishedGuides();
+    const guidePages: MetadataRoute.Sitemap = published.map((guide) => ({
+      url: `${BASE_URL}/guides/${guide.slug}`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      lastModified: new Date(guide.publishedAt || guide.updatedAt),
+    }));
+    return [...staticPages, ...guidePages];
+  } catch {
+    return staticPages;
+  }
 }
