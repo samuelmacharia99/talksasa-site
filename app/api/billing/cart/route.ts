@@ -38,6 +38,8 @@ function isValidCartItem(item: unknown): item is CartItem {
     if (typed.operating_system !== undefined && typeof typed.operating_system !== "string") {
       return false;
     }
+    if (typed.domain !== undefined && typeof typed.domain !== "string") return false;
+    if (typed.full_domain !== undefined && typeof typed.full_domain !== "string") return false;
     return true;
   }
 

@@ -9,6 +9,7 @@ import {
   Code2,
   Users,
   Tag,
+  Mail,
 } from "lucide-react";
 import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
 
@@ -95,6 +96,12 @@ export const megaMenuGroups: MegaMenuGroup[] = [
         title: "Domains",
         description: "Register .co.ke, .com, transfer & manage DNS.",
         href: "/domains",
+      },
+      {
+        icon: Mail,
+        title: "Email hosting",
+        description: "Business email on your domain with Mailcow webmail.",
+        href: "/email-hosting",
       },
       {
         icon: Container,

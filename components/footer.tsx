@@ -9,6 +9,7 @@ import { SOCIAL_LINKS } from "@/lib/social";
 const services = [
   { label: "Web hosting", href: "/web-hosting" },
   { label: "Domains", href: "/domains" },
+  { label: "Email hosting", href: "/email-hosting" },
   { label: "Application hosting", href: "/cloud-hosting" },
   { label: "VPS", href: "/vps" },
   { label: "Dedicated servers", href: "/dedicated" },

@@ -75,6 +75,13 @@ export const PRODUCT_CATEGORIES = [
     href: "/domains",
   },
   {
+    id: "email-hosting",
+    emoji: "✉️",
+    title: "Business email",
+    description: "Mailcow email on your domain — webmail, mailboxes, aliases, DKIM/SPF helpers.",
+    href: "/email-hosting",
+  },
+  {
     id: "shared-hosting",
     emoji: "🏠",
     title: "Shared hosting",
@@ -195,7 +202,8 @@ export type ProductPageSlug =
   | "reseller-hosting"
   | "sms-reseller"
   | "mpesa"
-  | "bulk-sms";
+  | "bulk-sms"
+  | "email-hosting";
 
 export type ProductPageContent = {
   slug: string;
@@ -264,12 +272,43 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Live availability search with instant retail pricing",
       "Full DNS management — A, CNAME, MX, TXT records",
       "Transfer domains in with EPP/auth codes",
-      "Bundle domains with web or application hosting at checkout",
+      "Bundle domains with web, email, or application hosting at checkout",
       "M-Pesa STK push, card, and PayPal — automatic renewal reminders",
     ],
     seoNote: "Buy domain Kenya · .co.ke registration · domain transfer Kenya",
     ctaPrimary: { label: "Search domains", href: "#domain-search" },
-    ctaSecondary: { label: "View hosting bundles", href: "/web-hosting" },
+    ctaSecondary: { label: "Add business email", href: "/email-hosting" },
+  },
+  "email-hosting": {
+    slug: "email-hosting",
+    path: "/email-hosting",
+    title: "Business Email Hosting Kenya — Mailcow on Your Domain",
+    metaDescription:
+      "Professional business email hosting in Kenya on your .co.ke or .com domain. Mailcow webmail, mailboxes, aliases, DKIM/SPF helpers, and M-Pesa billing via Talksasa Cloud.",
+    keywords: [
+      "business email hosting Kenya",
+      "email hosting Nairobi",
+      "Mailcow email Kenya",
+      "professional email .co.ke",
+      "company email Kenya",
+      "webmail hosting Kenya",
+    ],
+    headline: "Business email that matches your brand",
+    subheadline:
+      "you@yourcompany.co.ke — Mailcow webmail, mailboxes, aliases, and DNS helpers. Order with a new domain or attach to one you already own.",
+    intro:
+      "Stop using free Gmail for invoices and customer trust. Talksasa Cloud email hosting gives Kenyan businesses branded inboxes on their own domain, with SOGo webmail, mailbox quotas, alias support, and DKIM/SPF helpers after checkout. Pay with M-Pesa and manage renewals next to your domains and hosting.",
+    features: [
+      "Mailcow-powered business email with webmail access",
+      "Multiple mailboxes and aliases per plan",
+      "DKIM, SPF and DMARC helpers when you register the domain in the same cart",
+      "Attach email to an existing domain or register .co.ke / .com together",
+      "Clear retail pricing with monthly and annual billing cycles",
+      "M-Pesa STK push, cards, and portal renewals on Talksasa Cloud",
+    ],
+    seoNote: "Business email hosting Kenya · professional email .co.ke · Mailcow Nairobi",
+    ctaPrimary: { label: "View email plans", href: "#plans" },
+    ctaSecondary: { label: "Register a domain first", href: "/domains" },
   },
   "cloud-hosting": {
     slug: "cloud-hosting",

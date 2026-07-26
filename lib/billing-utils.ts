@@ -1,4 +1,5 @@
 import type { BillingCycle, PlatformService, ServerIpOption, ServerLocation } from "@/lib/billing-types";
+import { asServerConfiguration } from "@/lib/billing-types";
 
 export function parseServiceFeatures(description: string | null | undefined): string[] {
   if (!description) return [];
@@ -89,20 +90,20 @@ export function getLocationCycleAmount(location: ServerLocation, cycle: BillingC
 }
 
 export function getDefaultLocationKey(plan: PlatformService): string {
-  const locations = plan.configuration?.locations ?? [];
-  const kenya = locations.find((l) => l.key === "kenya");
+  const locations = asServerConfiguration(plan)?.locations ?? [];
+  const kenya = locations.find((l: ServerLocation) => l.key === "kenya");
   if (kenya) return kenya.key;
   return locations[0]?.key ?? "default";
 }
 
 export function getDefaultOperatingSystem(plan: PlatformService): string {
-  const systems = plan.configuration?.operating_systems ?? [];
+  const systems = asServerConfiguration(plan)?.operating_systems ?? [];
   const ubuntu = systems.find((s) => s.key.startsWith("ubuntu-24"));
   return ubuntu?.key ?? systems[0]?.key ?? "ubuntu-24.04";
 }
 
 export function getIpOption(plan: PlatformService, ipCount: number): ServerIpOption | undefined {
-  return plan.configuration?.ip_options.find((o) => o.ip_count === ipCount);
+  return asServerConfiguration(plan)?.ip_options.find((o) => o.ip_count === ipCount);
 }
 
 /** Quote recurring + setup for display before checkout. */
@@ -110,7 +111,7 @@ export function quoteConfiguredServer(
   plan: PlatformService,
   options: { locationKey: string; ipCount: number; billingCycle: BillingCycle }
 ): { recurring: number; setupFee: number; currency: string } {
-  const config = plan.configuration;
+  const config = asServerConfiguration(plan);
   if (!config) {
     const recurring =
       options.billingCycle === "annual" && plan.yearly_price != null
@@ -144,10 +145,9 @@ export function quoteConfiguredServer(
 }
 
 export function getPlanSortPrice(plan: PlatformService, billingCycle: BillingCycle): number {
-  if (plan.configuration?.locations.length) {
-    const amounts = plan.configuration.locations.map((l) =>
-      getLocationCycleAmount(l, billingCycle)
-    );
+  const config = asServerConfiguration(plan);
+  if (config?.locations.length) {
+    const amounts = config.locations.map((l) => getLocationCycleAmount(l, billingCycle));
     return Math.min(...amounts);
   }
   if (billingCycle === "annual" && plan.yearly_price != null) return plan.yearly_price;

@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Check,
   MessageSquare,
+  Mail,
 } from "lucide-react";
 type ServiceCard = {
   id: string;
@@ -63,6 +64,16 @@ const services: ServiceCard[] = [
       "Register and renew .co.ke, .com, .org. Transfer with EPP codes, manage DNS, and bundle with hosting at checkout.",
     href: "/domains",
     features: [".co.ke & global TLDs", "DNS management", "Transfer support"],
+    colSpan: 1,
+  },
+  {
+    id: "email-hosting",
+    icon: Mail,
+    title: "Business email",
+    description:
+      "Professional email on your domain — Mailcow webmail, mailboxes, aliases, and DKIM/SPF helpers. Pay with M-Pesa.",
+    href: "/email-hosting",
+    features: ["you@yourdomain", "Webmail included", "Domain + email cart"],
     colSpan: 1,
   },
   {

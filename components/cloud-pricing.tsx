@@ -22,6 +22,8 @@ import type {
   PlatformService,
 } from "@/lib/billing-types";
 import { CLOUD_PRODUCT_LABELS, isConfigurableServer, SERVICE_TYPES_BY_TAB as TAB_TYPES } from "@/lib/billing-types";
+import { EmailHostingPlans } from "@/components/email-hosting/email-hosting-plans";
+import Link from "next/link";
 
 type Billing = "monthly" | "annual";
 
@@ -208,7 +210,9 @@ export function CloudPricing({
 
   const plans = useMemo(() => {
     const types = TAB_TYPES[product];
-    let filtered = services.filter((s) => types.includes(s.type));
+    let filtered = services.filter((s) =>
+      types.includes(s.type as (typeof types)[number])
+    );
     if (product === "cloud" && activeStack) {
       filtered = filtered.filter((plan) => getServiceTechStack(plan) === activeStack);
     }
@@ -275,6 +279,18 @@ export function CloudPricing({
         ))}
       </div>
 
+      {product === "email" ? (
+        <div className="space-y-6">
+          <p className="text-center text-sm text-muted-foreground">
+            Business email needs a domain at checkout.{" "}
+            <Link href="/email-hosting" className="text-primary hover:underline">
+              Full email hosting page
+            </Link>
+          </p>
+          <EmailHostingPlans />
+        </div>
+      ) : (
+        <>
       {product === "cloud" && availableStacks.length > 0 && (
         <div className="mb-8">
           <p className="text-center text-sm text-muted-foreground mb-3">Choose your stack</p>
@@ -393,6 +409,8 @@ export function CloudPricing({
       <p className="mt-4 text-center text-xs text-muted-foreground">
         Live retail prices from Talksasa Cloud billing. Bulk SMS pricing is listed separately.
       </p>
+        </>
+      )}
     </div>
   );
 }

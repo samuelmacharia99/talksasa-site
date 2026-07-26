@@ -6,7 +6,7 @@ import { CheckoutButton } from "@/components/checkout-button";
 import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import type { BillingCycle, CartServiceItem, PlatformService } from "@/lib/billing-types";
-import { isConfigurableServer } from "@/lib/billing-types";
+import { asServerConfiguration, isConfigurableServer } from "@/lib/billing-types";
 import {
   getDefaultLocationKey,
   getDefaultOperatingSystem,
@@ -26,7 +26,7 @@ const selectClass =
 
 export function ServerPlanCard({ plan, billingCycle, featured, className }: ServerPlanCardProps) {
   const { formatPrice } = useCurrency();
-  const config = plan.configuration;
+  const config = asServerConfiguration(plan);
 
   const [locationKey, setLocationKey] = useState(() => getDefaultLocationKey(plan));
   const [ipCount, setIpCount] = useState(() => config?.ip_options[0]?.ip_count ?? 1);

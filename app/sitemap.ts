@@ -8,6 +8,7 @@ const PAGES: MetadataRoute.Sitemap = [
   { url: `${BASE_URL}/bulk-sms`, changeFrequency: "weekly", priority: 0.95 },
   { url: `${BASE_URL}/web-hosting`, changeFrequency: "weekly", priority: 0.95 },
   { url: `${BASE_URL}/domains`, changeFrequency: "weekly", priority: 0.95 },
+  { url: `${BASE_URL}/email-hosting`, changeFrequency: "weekly", priority: 0.95 },
   { url: `${BASE_URL}/cloud-hosting`, changeFrequency: "weekly", priority: 0.95 },
   { url: `${BASE_URL}/vps`, changeFrequency: "weekly", priority: 0.95 },
   { url: `${BASE_URL}/dedicated`, changeFrequency: "weekly", priority: 0.95 },

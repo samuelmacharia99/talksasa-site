@@ -24,6 +24,7 @@ const PRODUCT_HERO_MAP: Record<ProductPageSlug, ComponentType<IllustrationProps>
   "sms-reseller": SmsResellerDesign,
   mpesa: MpesaStkDesign,
   "bulk-sms": SmsBroadcastDesign,
+  "email-hosting": HostingServerDesign,
 };
 
 export function ProductHeroIllustration({ slug }: { slug: ProductPageSlug }) {

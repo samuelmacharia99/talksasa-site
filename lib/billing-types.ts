@@ -7,6 +7,7 @@ export type ServiceType =
   | "vps"
   | "dedicated_server"
   | "container_hosting"
+  | "email_hosting"
   | "domain";
 
 export type LocationPrices = {
@@ -55,11 +56,22 @@ export type ServerConfiguration = {
   max_ip_count: number;
 };
 
+export type EmailHostingConfiguration = {
+  mailboxes?: number;
+  aliases?: number;
+  quota_mb?: number;
+  mailbox_quota_mb?: number;
+  msgs_per_day?: number;
+  requires_domain?: boolean;
+  webmail?: boolean;
+  driver?: string;
+};
+
 export type PlatformService = {
   id: number;
   name: string;
   description: string | null;
-  type: ServiceType;
+  type: ServiceType | string;
   /** Container hosting runtime, e.g. laravel, nodejs (when exposed by billing API). */
   tech_stack?: string | null;
   category: string;
@@ -69,7 +81,7 @@ export type PlatformService = {
   currency: string;
   billing_cycles: BillingCycle[];
   features: string[] | null;
-  configuration?: ServerConfiguration | null;
+  configuration?: ServerConfiguration | EmailHostingConfiguration | null;
 };
 
 export type ServicesResponse = {
@@ -136,6 +148,9 @@ export type CartServiceItem = {
   location_key?: string;
   ip_count?: number;
   operating_system?: string;
+  /** Existing FQDN for email hosting (or other domain-bound services). */
+  domain?: string;
+  full_domain?: string;
 };
 
 export type CartResellerPackageItem = {
@@ -177,13 +192,14 @@ export type ResellerPackagesResponse = {
   packages: ResellerPackage[];
 };
 
-export type CloudProductTab = "hosting" | "vps" | "dedicated" | "cloud";
+export type CloudProductTab = "hosting" | "vps" | "dedicated" | "cloud" | "email";
 
 export const CLOUD_PRODUCT_LABELS: Record<CloudProductTab, string> = {
   hosting: "Web Hosting",
   vps: "VPS",
   dedicated: "Dedicated Servers",
   cloud: "Application Hosting",
+  email: "Email Hosting",
 };
 
 export const SERVICE_TYPES_BY_TAB: Record<CloudProductTab, ServiceType[]> = {
@@ -191,12 +207,38 @@ export const SERVICE_TYPES_BY_TAB: Record<CloudProductTab, ServiceType[]> = {
   vps: ["vps"],
   dedicated: ["dedicated_server"],
   cloud: ["container_hosting"],
+  email: ["email_hosting"],
 };
+
+export function isEmailHostingPlan(plan: PlatformService): boolean {
+  return plan.type === "email_hosting";
+}
+
+export function getEmailHostingConfig(
+  plan: PlatformService
+): EmailHostingConfiguration | null {
+  if (!isEmailHostingPlan(plan) || !plan.configuration) return null;
+  const config = plan.configuration;
+  if (isServerConfiguration(config)) return null;
+  return config;
+}
+
+export function isServerConfiguration(
+  config: PlatformService["configuration"]
+): config is ServerConfiguration {
+  return !!config && Array.isArray((config as ServerConfiguration).locations);
+}
+
+export function asServerConfiguration(
+  plan: PlatformService
+): ServerConfiguration | null {
+  if (!plan.configuration || !isServerConfiguration(plan.configuration)) return null;
+  return plan.configuration;
+}
 
 export function isConfigurableServer(plan: PlatformService): boolean {
   return (
     (plan.type === "vps" || plan.type === "dedicated_server") &&
-    !!plan.configuration &&
-    plan.configuration.locations.length > 0
+    !!asServerConfiguration(plan)
   );
 }
