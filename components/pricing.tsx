@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CurrencySelector } from "@/components/currency-selector";
 import { CloudPricing } from "@/components/cloud-pricing";
+import { EmailHostingPlans } from "@/components/email-hosting/email-hosting-plans";
 import { ResellerPricing } from "@/components/reseller/reseller-pricing";
 import { BULK_SMS_URL } from "@/lib/urls";
 import { BulkSmsPlanButton } from "@/components/tracked-link";
@@ -97,6 +98,7 @@ const bulkSmsPlans: Plan[] = [
 const productLabels: Record<Product, string> = {
   "bulk-sms": "Bulk SMS",
   cloud: "Talksasa Cloud",
+  "email-hosting": "Email Hosting",
   "reseller-hosting": "Reseller Hosting",
 };
 
@@ -200,6 +202,14 @@ function PricingContent() {
 
         {product === "cloud" ? (
           <CloudPricing key={cloudTab} defaultTab={cloudTab} />
+        ) : product === "email-hosting" ? (
+          <div className="space-y-4">
+            <p className="text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+              Professional Mailcow email on your domain. Register a new domain with your plan or
+              attach email to a domain you already own.
+            </p>
+            <EmailHostingPlans />
+          </div>
         ) : product === "reseller-hosting" ? (
           <ResellerPricing compactHeader embedded />
         ) : (

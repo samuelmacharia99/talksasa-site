@@ -1,12 +1,17 @@
 import type { CloudProductTab } from "@/lib/billing-types";
 import type { AppTechStack } from "@/lib/container-stacks";
 
-export type PricingProduct = "bulk-sms" | "cloud" | "reseller-hosting";
+export type PricingProduct = "bulk-sms" | "cloud" | "email-hosting" | "reseller-hosting";
 
 const CLOUD_TABS: CloudProductTab[] = ["hosting", "vps", "dedicated", "cloud", "email"];
 
 export function isPricingProduct(value: string | null | undefined): value is PricingProduct {
-  return value === "bulk-sms" || value === "cloud" || value === "reseller-hosting";
+  return (
+    value === "bulk-sms" ||
+    value === "cloud" ||
+    value === "email-hosting" ||
+    value === "reseller-hosting"
+  );
 }
 
 export function isCloudProductTab(value: string | null | undefined): value is CloudProductTab {

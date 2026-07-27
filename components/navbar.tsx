@@ -26,6 +26,7 @@ import { megaMenuGroups } from "@/lib/platform-menu";
 const loginItems = [
   { label: "Bulk SMS", href: `${BULK_SMS_URL}/login` },
   { label: "Hosting & Domains", href: `${HOSTING_URL}/login` },
+  { label: "Mail login", href: "https://mail.talksasa.com/SOGo/" },
 ];
 
 const resellerItems = [

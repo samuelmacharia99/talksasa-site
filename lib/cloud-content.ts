@@ -307,7 +307,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "M-Pesa STK push, cards, and portal renewals on Talksasa Cloud",
     ],
     seoNote: "Business email hosting Kenya · professional email .co.ke · Mailcow Nairobi",
-    ctaPrimary: { label: "View email plans", href: "#plans" },
+    ctaPrimary: { label: "View email plans", href: pricingUrl({ product: "email-hosting" }) },
     ctaSecondary: { label: "Register a domain first", href: "/domains" },
   },
   "cloud-hosting": {
