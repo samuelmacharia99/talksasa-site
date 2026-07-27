@@ -58,7 +58,7 @@ const serviceSchema = {
   "@type": "Service",
   name: "TalkSasa",
   description:
-    "Talksasa Cloud hosting, domains, cloud apps, and reseller platform — plus Kenya's trusted bulk SMS gateway and API.",
+    "Talksasa Cloud business email, application hosting, reseller platform, and domains — plus Kenya's trusted bulk SMS gateway and API.",
   provider: {
     "@type": "Organization",
     name: "TalkSasa",
@@ -75,12 +75,12 @@ const serviceSchema = {
     "@type": "OfferCatalog",
     name: "TalkSasa Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Bulk SMS Gateway", description: "Marketing, alerts, OTP/2FA, and REST API" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Shared Web Hosting", description: "DirectAdmin shared hosting with auto-provisioning" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Email Hosting", description: "Mailcow email on your domain with webmail and DKIM/SPF" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Application Hosting", description: "Laravel, Node.js container hosting" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reseller Hosting", description: "White-label email, apps, and domains under your brand" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Domain Registration", description: ".co.ke, .com and global TLD registration" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cloud App Hosting", description: "Laravel, Node.js container hosting" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Bulk SMS Gateway", description: "Marketing, alerts, OTP/2FA, and REST API" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "VPS and Dedicated Servers", description: "Root access servers" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "White-Label Reseller Hosting", description: "Branded hosting reseller platform" } },
     ],
   },
 };

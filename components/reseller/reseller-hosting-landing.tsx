@@ -28,7 +28,7 @@ const TRUST_PILLS = [
   "100% white-label portal",
   "Your M-Pesa till",
   "Wholesale domains",
-  "DirectAdmin provisioning",
+  "Email & app provisioning",
 ];
 
 const WHY_ITEMS = [
@@ -49,8 +49,8 @@ const WHY_ITEMS = [
   },
   {
     icon: Server,
-    title: "Auto-provision hosting",
-    text: "Shared hosting, VPS, and cloud apps provision after payment — no manual server work.",
+    title: "Auto-provision cloud products",
+    text: "Business email and application hosting provision after payment — no manual server work.",
   },
 ];
 
@@ -68,7 +68,7 @@ const STEPS = [
   {
     step: "3",
     title: "Onboard clients",
-    text: "Create accounts, invoice, provision hosting, and grow with reports on revenue and margins.",
+    text: "Create accounts, invoice, provision email and apps, and grow with reports on revenue and margins.",
   },
 ];
 
@@ -76,7 +76,7 @@ const RESELLER_FAQS = [
   {
     question: "What is included in a reseller hosting plan?",
     answer:
-      "Each plan includes a white-label customer portal, limits on customers and active services, a shared disk pool for hosting accounts, wholesale domain wallet access, and automated provisioning on Talksasa Cloud infrastructure.",
+      "Each plan includes a white-label customer portal, limits on customers and active services, a disk pool for email and app accounts, wholesale domain wallet access, and automated provisioning on Talksasa Cloud infrastructure.",
   },
   {
     question: "Can I use my own M-Pesa till?",
@@ -86,7 +86,7 @@ const RESELLER_FAQS = [
   {
     question: "Do I need technical skills to run a reseller business?",
     answer:
-      "Basic web hosting knowledge helps, but the platform handles provisioning, billing, and customer management. Our team can assist with onboarding.",
+      "Basic cloud product knowledge helps, but the platform handles provisioning, billing, and customer management. Our team can assist with onboarding.",
   },
   {
     question: "Can I upgrade my reseller plan later?",

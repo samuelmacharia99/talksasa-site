@@ -1,10 +1,10 @@
 export const DEMO_PRODUCTS = [
   "Bulk SMS",
-  "Web Hosting",
+  "Business Email",
   "Application Hosting",
+  "Reseller Hosting",
   "Domains",
   "VPS & Dedicated Servers",
-  "Reseller Hosting",
   "SMS Reseller",
   "M-Pesa Payments",
   "Multiple products",

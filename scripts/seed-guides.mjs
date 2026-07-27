@@ -127,7 +127,7 @@ Usually minutes after successful payment, once the registry accepts the order.
 Yes — you will need an EPP/auth code from the current registrar and an unlocked domain. [Contact sales](/contact) if you need help planning a transfer.
 
 **Do I need hosting on the same day?**  
-No. You can register first and add [web hosting](/web-hosting) or [cloud app hosting](/cloud-hosting) when the site is ready.
+No. You can register first and add [business email](/email-hosting) or [application hosting](/cloud-hosting) when you are ready.
 
 ## Next step
 
@@ -235,8 +235,8 @@ Typically seconds on healthy routes. Build a 30–60 second UX timeout and a “
 **Can I send from a Laravel or PHP app?**  
 Yes — any stack that can make HTTPS requests. [Book a demo](/book-demo) if you want help mapping your first integration.
 
-**What if I need hosting plus SMS?**  
-TalkSasa also offers [web hosting](/web-hosting) and [cloud apps](/cloud-hosting) so billing and support sit closer together.
+**What if I need cloud products plus SMS?**  
+TalkSasa also offers [business email](/email-hosting) and [application hosting](/cloud-hosting) so billing and support sit closer together.
 
 ## Next step
 
@@ -244,34 +244,35 @@ Open [Bulk SMS](/bulk-sms), create your account, request a sender ID, and send a
 `,
   },
   {
-    slug: "pay-web-hosting-mpesa-kenya",
-    title: "How to Pay for Web Hosting with M-Pesa in Kenya",
+    slug: "pay-cloud-services-mpesa-kenya",
+    title: "How to Pay for Talksasa Cloud with M-Pesa in Kenya",
     excerpt:
-      "Pay TalkSasa Cloud hosting, domains, and renewals with M-Pesa STK push — how it works, what to expect on your phone, and how to avoid failed payments.",
-    seoTitle: "Pay Web Hosting with M-Pesa Kenya | TalkSasa",
+      "Pay TalkSasa Cloud email, apps, domains, and renewals with M-Pesa STK push — how it works, what to expect on your phone, and how to avoid failed payments.",
+    seoTitle: "Pay Talksasa Cloud with M-Pesa Kenya | TalkSasa",
     seoDescription:
-      "Use M-Pesa STK push to pay for web hosting and domains in Kenya. Step-by-step TalkSasa checkout, renewal tips, and troubleshooting failed payments.",
-    ctaLabel: "See M-Pesa hosting payments",
+      "Use M-Pesa STK push to pay for business email, application hosting, and domains in Kenya. Step-by-step TalkSasa checkout, renewal tips, and troubleshooting.",
+    ctaLabel: "See M-Pesa cloud payments",
     ctaHref: "/payments/mpesa",
-    body: `## Why M-Pesa matters for Kenyan hosting
+    body: `## Why M-Pesa matters for Kenyan cloud buyers
 
 Most SMEs in Kenya do not want foreign cards stuck on international processors. **M-Pesa STK push** lets you approve payment on the phone you already use for suppliers and salaries.
 
-TalkSasa Cloud supports M-Pesa for hosting, domains, and renewals — see the product page: [Pay for hosting with M-Pesa](/payments/mpesa).
+TalkSasa Cloud supports M-Pesa for email, apps, domains, and renewals — see the product page: [Pay with M-Pesa](/payments/mpesa).
 
 ## What you can pay with M-Pesa
 
-- [Web hosting](/web-hosting) plans
+- [Business email](/email-hosting) plans
+- [Application hosting](/cloud-hosting)
+- [Reseller hosting](/reseller-hosting)
 - [VPS](/vps) and [dedicated servers](/dedicated)
 - [Domain registration and renewals](/domains)
-- Application / [cloud hosting](/cloud-hosting) invoices
 - Reseller and add-on invoices shown in the portal
 
 Exact options depend on the invoice in [servers.talksasa.com](https://servers.talksasa.com).
 
-## Step-by-step: first hosting payment
+## Step-by-step: first cloud payment
 
-1. Choose a plan on [Web hosting](/web-hosting) or [Pricing](/pricing).
+1. Choose a plan on [Email hosting](/email-hosting), [Application hosting](/cloud-hosting), or [Pricing](/pricing).
 2. Create or log into your TalkSasa Cloud account.
 3. At checkout, select **M-Pesa** / STK push when offered.
 4. Enter the **Safaricom number** that will pay (usually \`07XXXXXXXX\`).
@@ -286,9 +287,9 @@ Provisioning starts after the payment is confirmed — do not close the browser 
 1. Watch for renewal reminders by email/SMS before expiry.
 2. Open the unpaid invoice in the customer portal.
 3. Pay with M-Pesa the same way as checkout.
-4. Keep auto-renew enabled on critical domains and production servers.
+4. Keep auto-renew enabled on critical domains and production services.
 
-If a site is revenue-critical, renew **7 days early**. Waiting until the last hour invites PIN fails and network congestion.
+If a service is revenue-critical, renew **7 days early**. Waiting until the last hour invites PIN fails and network congestion.
 
 ## Troubleshooting failed M-Pesa payments
 
@@ -313,65 +314,64 @@ M-Pesa is the default for many local customers, but TalkSasa also supports other
 
 ## FAQ
 
-**Does M-Pesa work for domain + hosting in one cart?**  
+**Does M-Pesa work for domain + email in one cart?**  
 Yes when checkout supports combined orders — you will see a single STK amount for the cart total.
 
 **Can my company pay from a till or Paybill?**  
 Ask [sales](/contact) for the process that matches your invoice; STK to a personal or business line is the most common path.
 
-**I need hosting advice before paying**  
+**I need product advice before paying**  
 [Book a demo](/book-demo) or call \`+254 781 000 403\`.
 
 ## Next step
 
-Pick a plan on [Web hosting](/web-hosting), check out with M-Pesa, and keep your renewal reminders on. More detail on the flow: [M-Pesa payments](/payments/mpesa).
+Pick a plan on [Email hosting](/email-hosting) or [Application hosting](/cloud-hosting), check out with M-Pesa, and keep your renewal reminders on. More detail on the flow: [M-Pesa payments](/payments/mpesa).
 `,
   },
   {
-    slug: "shared-hosting-vs-vps-kenya-smes",
-    title: "Shared Hosting vs VPS in Kenya: Which Should Your SME Choose?",
+    slug: "email-apps-vs-vps-kenya-smes",
+    title: "Business Email & App Hosting vs VPS in Kenya: Which Should You Choose?",
     excerpt:
-      "Compare shared web hosting and VPS for Kenyan SMEs — cost, control, traffic, WordPress/Laravel needs, and a simple decision checklist.",
-    seoTitle: "Shared Hosting vs VPS Kenya for SMEs | TalkSasa",
+      "Compare Talksasa Cloud email and application hosting with VPS for Kenyan SMEs — cost, control, and a simple decision checklist.",
+    seoTitle: "Email & App Hosting vs VPS Kenya for SMEs | TalkSasa",
     seoDescription:
-      "Shared hosting or VPS for your Kenyan business? Compare price, performance, security, and when to upgrade — with TalkSasa options and M-Pesa billing.",
-    ctaLabel: "Compare hosting plans",
+      "Business email, application hosting, or VPS for your Kenyan business? Compare price, performance, and when to upgrade — with TalkSasa options and M-Pesa billing.",
+    ctaLabel: "Compare cloud plans",
     ctaHref: "/pricing",
     body: `## The short answer
 
-- Choose **[shared web hosting](/web-hosting)** if you need a brochure site, WordPress, or a small business site with predictable traffic and a simple control panel.
-- Choose a **[VPS](/vps)** if you need root access, custom stacks, higher traffic, staging environments, or you are running Laravel/Node apps that outgrew shared limits.
-- Choose **[dedicated](/dedicated)** when compliance, noisy neighbours, or raw performance demand a whole machine.
-- Choose **[cloud / application hosting](/cloud-hosting)** when you want container-style deploys for modern apps.
+- Choose **[business email](/email-hosting)** if you need branded inboxes on your domain with webmail and DKIM/SPF helpers.
+- Choose **[application hosting](/cloud-hosting)** if you want container deploys for Laravel, Node.js, or Python without managing a full server.
+- Choose a **[VPS](/vps)** if you need root access, custom stacks, higher traffic, or staging environments.
+- Choose **[dedicated](/dedicated)** when compliance or raw performance demand a whole machine.
+- Choose **[reseller hosting](/reseller-hosting)** when you want to sell email, apps, and domains under your own brand.
 
 ## Side-by-side comparison
 
-| Factor | Shared hosting | VPS |
-|--------|----------------|-----|
-| Price | Lowest monthly cost | Higher, scales with CPU/RAM |
-| Management | Panel-focused (e.g. DirectAdmin) | You (or your developer) manage more |
-| Isolation | Shared neighbours | Stronger isolation |
-| Traffic spikes | Limited by plan fair use | Scale resources up |
-| Custom software | Restricted | Root / full stack freedom |
-| Best for | SMEs, NGOs, schools, simple shops | Agencies, SaaS MVPs, busy APIs |
+| Factor | Email / app hosting | VPS |
+|--------|---------------------|-----|
+| Price | Predictable product plans | Higher, scales with CPU/RAM |
+| Management | Managed product experience | You (or your developer) manage more |
+| Isolation | Dedicated mailboxes / containers | Full VM isolation |
+| Custom software | App stack helpers | Root / full stack freedom |
+| Best for | SMEs, teams, modern apps | Agencies, SaaS MVPs, busy APIs |
 
-## When shared hosting is enough
+## When email + app hosting is enough
 
-Stay on shared if most of these are true:
+Stay on product hosting if most of these are true:
 
-- Marketing website or WordPress blog under a few thousand visits/day
-- Email + site for a single brand
+- You need staff email on your domain
+- You deploy one or a few modern apps with Git
 - One developer or agency managing updates
 - You want M-Pesa renewals and tickets without hiring a sysadmin
 
-TalkSasa [web hosting](/web-hosting) is aimed at this segment — SSD hosting, panel access, SSL, and local billing.
+TalkSasa [business email](/email-hosting) and [application hosting](/cloud-hosting) are aimed at this segment.
 
 ## When you should move to VPS
 
 Upgrade signals:
 
-- Frequent 508/resource limit errors on shared
-- You need Redis, queues, cron-heavy jobs, or multiple apps
+- You need Redis, queues, cron-heavy jobs, or multiple custom services
 - PCI-ish or internal tools that need stricter isolation
 - CI/CD deploys and SSH as a daily workflow
 - You sell hosting to clients ([reseller hosting](/reseller-hosting) may fit better than one fat VPS)
@@ -382,45 +382,36 @@ A [TalkSasa VPS](/vps) gives dedicated resources with room to grow before bare m
 
 Do not only compare the sticker price:
 
-1. **Downtime cost** — if the site takes orders or fee payments, a cheap plan that throttles can cost more than a VPS.
+1. **Downtime cost** — if the service takes orders or fee payments, under-provisioning can cost more than a VPS.
 2. **Developer hours** — unmanaged VPS without skills is expensive.
-3. **Bundles** — domain + hosting + SMS often cheaper when billed together with [M-Pesa](/payments/mpesa).
+3. **Bundles** — domain + email + SMS often cheaper when billed together with [M-Pesa](/payments/mpesa).
 
-Start shared, measure, then upgrade with a migration plan — TalkSasa support can help scope that via [contact](/contact).
+Start with the product that matches the job, measure, then upgrade with a migration plan — TalkSasa support can help scope that via [contact](/contact).
 
 ## Recommended paths by business type
 
 | Business | Starting point |
 |----------|----------------|
-| Law firm / clinic brochure site | Shared + \`.co.ke\` domain |
-| School portal + parent SMS | Shared or cloud app + [bulk SMS](/bulk-sms) |
-| Logistics tracking API | VPS or cloud app hosting |
-| Agency with 20 client sites | [Reseller hosting](/reseller-hosting) |
+| Law firm / clinic | Business email + \`.co.ke\` domain |
+| School portal + parent SMS | App hosting + [bulk SMS](/bulk-sms) |
+| Logistics tracking API | VPS or application hosting |
+| Agency with many clients | [Reseller hosting](/reseller-hosting) |
 | High-traffic national campaign | VPS / dedicated after load testing |
-
-## Migration checklist (shared → VPS)
-
-1. Inventory apps, databases, cron jobs, and DNS.
-2. Size CPU/RAM from real peak usage, not averages alone.
-3. Stage on the VPS and test checkout/login flows.
-4. Lower DNS TTL a day before cutover.
-5. Move, verify SSL and email, then raise TTL again.
-6. Keep a rollback snapshot for 48 hours.
 
 ## FAQ
 
 **Is VPS always faster?**  
-Not automatically — a badly tuned VPS can lose to a well-tuned shared plan. VPS wins when you need resources and control.
+Not automatically — a badly tuned VPS can lose to a well-tuned app plan. VPS wins when you need resources and control.
 
 **Can I pay either option with M-Pesa?**  
 Yes on TalkSasa Cloud when M-Pesa is enabled for the invoice. See [M-Pesa payments](/payments/mpesa).
 
 **Where do I see prices?**  
-[Pricing](/pricing) and the product pages for [web hosting](/web-hosting) and [VPS](/vps).
+[Pricing](/pricing) and the product pages for [email hosting](/email-hosting), [application hosting](/cloud-hosting), and [VPS](/vps).
 
 ## Next step
 
-If you are unsure, [book a demo](/book-demo) and describe your traffic and stack — we will recommend shared, VPS, cloud, or reseller without overselling. Or start with [web hosting](/web-hosting) and upgrade when metrics say so.
+If you are unsure, [book a demo](/book-demo) and describe your traffic and stack — we will recommend email, apps, VPS, or reseller without overselling.
 `,
   },
   {
@@ -464,13 +455,13 @@ After payment, MX and related DNS helpers can be applied automatically because t
 3. Order email only — the service line carries the \`domain\` field to checkout.
 4. Point MX (and related records) as instructed in the portal if they are not auto-applied.
 
-## Email + hosting + SMS
+## Email + apps + SMS
 
 Many TalkSasa customers combine:
 
 - [Domains](/domains) for the brand
 - [Email hosting](/email-hosting) for staff inboxes
-- [Web hosting](/web-hosting) for the website
+- [Application hosting](/cloud-hosting) for their web apps
 - [Bulk SMS](/bulk-sms) for OTP and customer alerts
 
 One portal, local payments, one support team in Nairobi.
@@ -488,7 +479,7 @@ Live mailbox, alias, and quota limits are listed on each plan at [email hosting]
 
 ## Next step
 
-Pick a plan on [Email hosting](/email-hosting), attach your domain, and checkout. Need help migrating from cPanel or another host? [Contact sales](/contact) or [book a demo](/book-demo).
+Pick a plan on [Email hosting](/email-hosting), attach your domain, and checkout. Need help migrating mailboxes? [Contact sales](/contact) or [book a demo](/book-demo).
 `,
   },
 ];

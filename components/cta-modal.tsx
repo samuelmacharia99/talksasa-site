@@ -6,7 +6,8 @@ import { X, MessageSquare, Cloud, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/components/analytics";
 import { appendAttributionToUrl } from "@/lib/attribution";
-import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
+import { BULK_SMS_URL } from "@/lib/urls";
+import Link from "next/link";
 
 type CTAModalContextType = {
   openModal: () => void;
@@ -44,9 +45,9 @@ const options: Option[] = [
   },
   {
     icon: Cloud,
-    title: "I need Hosting/Cloud",
-    href: HOSTING_URL,
-    description: "Web hosting & cloud",
+    title: "I need Talksasa Cloud",
+    href: "/email-hosting",
+    description: "Email, apps & domains",
   },
   {
     icon: MessageCircle,
@@ -87,21 +88,37 @@ function ModalContent({ onClose }: { onClose: () => void }) {
         {options.map((opt) =>
           "href" in opt ? (
             <Button key={opt.title} asChild variant="outline" className="w-full justify-start h-auto py-4 px-4">
-              <a
-                href={appendAttributionToUrl(opt.href)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackCTAClick(opt.title.replace(/\s+/g, "_"));
-                  onClose();
-                }}
-              >
-                <opt.icon className="h-5 w-5 mr-3 shrink-0 text-primary" aria-hidden />
-                <span className="text-left">
-                  <span className="font-medium block">{opt.title}</span>
-                  <span className="text-xs text-muted-foreground">{opt.description}</span>
-                </span>
-              </a>
+              {opt.href.startsWith("http") ? (
+                <a
+                  href={appendAttributionToUrl(opt.href)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    trackCTAClick(opt.title.replace(/\s+/g, "_"));
+                    onClose();
+                  }}
+                >
+                  <opt.icon className="h-5 w-5 mr-3 shrink-0 text-primary" aria-hidden />
+                  <span className="text-left">
+                    <span className="font-medium block">{opt.title}</span>
+                    <span className="text-xs text-muted-foreground">{opt.description}</span>
+                  </span>
+                </a>
+              ) : (
+                <Link
+                  href={opt.href}
+                  onClick={() => {
+                    trackCTAClick(opt.title.replace(/\s+/g, "_"));
+                    onClose();
+                  }}
+                >
+                  <opt.icon className="h-5 w-5 mr-3 shrink-0 text-primary" aria-hidden />
+                  <span className="text-left">
+                    <span className="font-medium block">{opt.title}</span>
+                    <span className="text-xs text-muted-foreground">{opt.description}</span>
+                  </span>
+                </Link>
+              )}
             </Button>
           ) : (
             <Button

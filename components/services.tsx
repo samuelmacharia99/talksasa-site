@@ -27,29 +27,19 @@ type ServiceCard = {
 
 const services: ServiceCard[] = [
   {
-    id: "bulk-sms",
-    icon: MessageSquare,
-    title: "Bulk SMS",
+    id: "email-hosting",
+    icon: Mail,
+    title: "Business email",
     description:
-      "Kenya's trusted SMS gateway for marketing, alerts, OTP/2FA, and API integrations. M-Pesa top-up, delivery reports, and reseller options.",
-    href: "/bulk-sms",
-    features: ["REST API & portal", "Sender ID support", "7,000+ businesses"],
-    colSpan: 2,
-  },
-  {
-    id: "shared-hosting",
-    icon: Server,
-    title: "Shared hosting",
-    description:
-      "DirectAdmin-powered hosting with automatic provisioning after payment. DNS, email, SSL, and backups included.",
-    href: "/web-hosting",
-    features: ["DirectAdmin on port 2222", "Auto-provision after M-Pesa", "Let's Encrypt SSL"],
+      "Premium Mailcow email on your domain — webmail, mailboxes, aliases, and DKIM/SPF helpers. Built for SMEs and corporate teams.",
+    href: "/email-hosting",
+    features: ["you@yourdomain", "Webmail included", "Domain + email cart"],
     colSpan: 2,
   },
   {
     id: "cloud-apps",
     icon: Container,
-    title: "Cloud apps",
+    title: "Application hosting",
     description:
       "Deploy Laravel, Node.js, Python and more. Git deploy, web terminal, logs, metrics, and custom domains.",
     href: "/cloud-hosting",
@@ -57,23 +47,33 @@ const services: ServiceCard[] = [
     colSpan: 2,
   },
   {
+    id: "reseller-hosting",
+    icon: Server,
+    title: "Reseller hosting",
+    description:
+      "White-label portal to resell business email, apps, and domains. Your brand, your M-Pesa, automated provisioning.",
+    href: "/reseller-hosting",
+    features: ["Your brand & pricing", "Your M-Pesa till", "Auto-provision"],
+    colSpan: 2,
+  },
+  {
+    id: "bulk-sms",
+    icon: MessageSquare,
+    title: "Bulk SMS",
+    description:
+      "Kenya's trusted SMS gateway for marketing, alerts, OTP/2FA, and API integrations. M-Pesa top-up and delivery reports.",
+    href: "/bulk-sms",
+    features: ["REST API & portal", "Sender ID support", "7,000+ businesses"],
+    colSpan: 2,
+  },
+  {
     id: "domains",
     icon: Globe,
     title: "Domains",
     description:
-      "Register and renew .co.ke, .com, .org. Transfer with EPP codes, manage DNS, and bundle with hosting at checkout.",
+      "Register and renew .co.ke, .com, .org. Transfer with EPP codes, manage DNS, and bundle with email at checkout.",
     href: "/domains",
     features: [".co.ke & global TLDs", "DNS management", "Transfer support"],
-    colSpan: 1,
-  },
-  {
-    id: "email-hosting",
-    icon: Mail,
-    title: "Business email",
-    description:
-      "Professional email on your domain — Mailcow webmail, mailboxes, aliases, and DKIM/SPF helpers. Pay with M-Pesa.",
-    href: "/email-hosting",
-    features: ["you@yourdomain", "Webmail included", "Domain + email cart"],
     colSpan: 1,
   },
   {
@@ -190,10 +190,10 @@ export function Services() {
           className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-            <span className="gradient-text">TalkSasa</span> — cloud hosting & bulk SMS
+            <span className="gradient-text">Talksasa Cloud</span> & Bulk SMS
           </h2>
           <p className="mt-4 text-muted-foreground text-base sm:text-lg">
-            Talksasa Cloud for hosting, domains, and apps — plus a bulk SMS gateway trusted across East Africa.
+            Premium business email, application hosting, and reseller cloud — plus Kenya&apos;s trusted bulk SMS gateway.
           </p>
           <p className="mt-4 text-sm text-muted-foreground hidden sm:block">
             Nairobi hub · regional SMS routes · cloud edge across Kenya, Uganda, Tanzania & Rwanda.

@@ -62,7 +62,7 @@ const contactPageSchema = {
 export const metadata: Metadata = {
   title: "Contact Us | Nairobi, Kenya",
   description:
-    `Contact TalkSasa at ${CONTACT.address.display}. Phone: ${PRIMARY_PHONE.international}, ${SALES_PHONE.international}. Email: ${INFO_EMAIL}, ${SALES_EMAIL}. 24/7 support for bulk SMS, web hosting, VPS, and cloud solutions across Kenya & East Africa.`,
+    `Contact TalkSasa at ${CONTACT.address.display}. Phone: ${PRIMARY_PHONE.international}, ${SALES_PHONE.international}. Email: ${INFO_EMAIL}, ${SALES_EMAIL}. 24/7 support for bulk SMS, business email, application hosting, and domains across Kenya & East Africa.`,
   keywords: [
     "contact TalkSasa",
     "TalkSasa Nairobi",

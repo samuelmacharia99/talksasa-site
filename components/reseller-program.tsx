@@ -261,7 +261,7 @@ export function ResellerProgram() {
                   {
                     step: "3️⃣",
                     title: "Start Earning",
-                    text: "Sell SMS, hosting, and domains at your own prices",
+                    text: "Sell SMS, email, apps, and domains at your own prices",
                   },
                 ].map((item) => (
                   <div

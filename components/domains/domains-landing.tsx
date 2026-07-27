@@ -46,7 +46,7 @@ const WHY_ITEMS = [
   {
     icon: Server,
     title: "Bundle with hosting",
-    text: "Register a domain and add web hosting or application hosting in the same order.",
+    text: "Register a domain and add business email or application hosting in the same order.",
   },
   {
     icon: RefreshCw,
@@ -273,7 +273,7 @@ export function DomainsLanding() {
                 <Zap className="h-8 w-8 text-primary mb-4 mx-auto lg:mx-0" />
                 <h3 className="text-2xl font-bold">Launch faster with hosting</h3>
                 <p className="mt-3 text-muted-foreground text-sm sm:text-base">
-                  Pair your new domain with web hosting or application hosting. One checkout, one dashboard, M-Pesa-ready billing.
+                  Pair your new domain with business email or application hosting. One checkout, one dashboard, M-Pesa-ready billing.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                   <Button
@@ -284,7 +284,7 @@ export function DomainsLanding() {
                     Search a domain
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <Link href="/web-hosting">View hosting plans</Link>
+                    <Link href="/email-hosting">Add business email</Link>
                   </Button>
                 </div>
               </div>

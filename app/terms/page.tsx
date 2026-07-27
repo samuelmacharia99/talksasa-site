@@ -19,7 +19,7 @@ const breadcrumbSchema = {
 export const metadata: Metadata = {
   title: "Terms and Conditions | Service Agreement",
   description:
-    "TalkSasa Terms and Conditions of Service. Read our terms for Bulk SMS, domain registration, web hosting, and email hosting services in Kenya. Effective 10th August 2024.",
+    "TalkSasa Terms and Conditions of Service. Read our terms for Bulk SMS, domain registration, business email, and application hosting services in Kenya. Effective 10th August 2024.",
   keywords: [
     "TalkSasa terms",
     "terms and conditions Kenya",
@@ -93,8 +93,8 @@ export default function TermsPage() {
                 </li>
                 <li>
                   &quot;Services&quot; means all services offered by TalkSasa including but not
-                  limited to Bulk SMS, Sender ID Registration, Domain Registration, Web Hosting, and
-                  Email Hosting.
+                  limited to Bulk SMS, Sender ID Registration, Domain Registration, Business Email,
+                  Application Hosting, and Reseller Hosting.
                 </li>
                 <li>
                   &quot;Sender ID&quot; means a customized alphanumeric or numeric identifier used

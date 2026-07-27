@@ -7,7 +7,7 @@ const features = [
   {
     icon: Zap,
     title: "Auto-provisioning",
-    description: "Shared hosting and cloud apps provision automatically after payment — no manual setup delays.",
+    description: "Business email and application hosting provision automatically after payment — no manual setup delays.",
   },
   {
     icon: CreditCard,
@@ -16,8 +16,8 @@ const features = [
   },
   {
     icon: Shield,
-    title: "DirectAdmin & containers",
-    description: "Shared hosting on DirectAdmin plus isolated container apps with SSL, backups, and Git deploy.",
+    title: "Email & containers",
+    description: "Mailcow business email plus isolated container apps with SSL, backups, and Git deploy.",
   },
   {
     icon: Headphones,

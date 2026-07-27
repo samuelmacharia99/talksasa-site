@@ -27,23 +27,23 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Pricing - Bulk SMS, Web Hosting & Cloud Solutions in Kenya",
+  title: "Pricing - Business Email, App Hosting & Bulk SMS in Kenya",
   description:
-    "Affordable pricing for bulk SMS, web hosting, VPS, and dedicated servers in Kenya & East Africa. Plans from KES 380/month. Accept M-Pesa, Airtel Money, bank transfers. No hidden fees. 30-day money-back guarantee.",
+    "Transparent pricing for business email, application hosting, reseller hosting, domains, and bulk SMS in Kenya & East Africa. Pay with M-Pesa. No hidden fees.",
   keywords: [
-    "hosting prices Kenya",
-    "VPS pricing Kenya",
+    "email hosting prices Kenya",
+    "application hosting pricing Kenya",
+    "reseller hosting Kenya",
     "bulk SMS pricing Kenya",
-    "affordable hosting Kenya",
-    "cheap hosting Nairobi",
-    "web hosting cost Kenya",
-    "dedicated server price Kenya",
+    "domain prices Kenya",
+    "VPS pricing Kenya",
+    "Talksasa Cloud pricing",
     "M-Pesa payment hosting",
   ],
   openGraph: {
     title: "Pricing | Kenya & East Africa",
     description:
-      "Affordable pricing for bulk SMS, web hosting, VPS, and dedicated servers in Kenya & East Africa. Plans from KES 380/month.",
+      "Transparent pricing for business email, application hosting, reseller hosting, domains, and bulk SMS in Kenya & East Africa.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/pricing`,
   },
   alternates: {

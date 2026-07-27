@@ -77,8 +77,8 @@ export default async function GuidesIndexPage() {
                   domains
                 </Link>
                 , or{" "}
-                <Link href="/web-hosting" className="text-primary hover:underline">
-                  web hosting
+                <Link href="/email-hosting" className="text-primary hover:underline">
+                  business email
                 </Link>
                 .
               </p>

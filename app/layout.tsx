@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Talksasa Cloud — Web Hosting, Domains and Cloud Apps in Kenya",
+        alt: "Talksasa Cloud — Business Email, App Hosting and Domains in Kenya",
       },
     ],
   },
@@ -193,8 +193,8 @@ const organizationJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Web Hosting",
-          description: "Fast SSD web hosting with cPanel, free SSL, and unlimited bandwidth",
+          name: "Business Email Hosting",
+          description: "Mailcow business email on your domain with webmail, aliases, and DKIM/SPF",
         },
       },
       {
@@ -209,14 +209,6 @@ const organizationJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "VPS Hosting",
-          description: "Scalable cloud VPS with dedicated resources and full root access",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
           name: "Application Hosting",
           description: "Container-based application hosting with Git deploys and managed SSL",
         },
@@ -225,8 +217,16 @@ const organizationJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Dedicated Servers",
-          description: "Bare metal servers for maximum performance and control",
+          name: "Reseller Hosting",
+          description: "White-label portal to resell email, apps, and domains under your brand",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "VPS Hosting",
+          description: "Scalable cloud VPS with dedicated resources and full root access",
         },
       },
     ],

@@ -3,7 +3,7 @@ import type { AppTechStack } from "@/lib/container-stacks";
 
 export type PricingProduct = "bulk-sms" | "cloud" | "email-hosting" | "reseller-hosting";
 
-const CLOUD_TABS: CloudProductTab[] = ["hosting", "vps", "dedicated", "cloud", "email"];
+const CLOUD_TABS: CloudProductTab[] = ["email", "cloud", "vps", "dedicated"];
 
 export function isPricingProduct(value: string | null | undefined): value is PricingProduct {
   return (

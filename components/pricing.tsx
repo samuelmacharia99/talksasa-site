@@ -109,7 +109,7 @@ function parseProductFromParams(params: URLSearchParams): Product {
 
 function parseCloudTabFromParams(params: URLSearchParams): CloudProductTab {
   const value = params.get("tab");
-  return isCloudProductTab(value) ? value : "hosting";
+  return isCloudProductTab(value) ? value : "email";
 }
 
 function PricingFallback() {

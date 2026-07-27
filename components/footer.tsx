@@ -7,10 +7,10 @@ import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/
 import { SOCIAL_LINKS } from "@/lib/social";
 
 const services = [
-  { label: "Web hosting", href: "/web-hosting" },
-  { label: "Domains", href: "/domains" },
-  { label: "Email hosting", href: "/email-hosting" },
+  { label: "Business email", href: "/email-hosting" },
   { label: "Application hosting", href: "/cloud-hosting" },
+  { label: "Reseller hosting", href: "/reseller-hosting" },
+  { label: "Domains", href: "/domains" },
   { label: "VPS", href: "/vps" },
   { label: "Dedicated servers", href: "/dedicated" },
   { label: "M-Pesa payments", href: "/payments/mpesa" },

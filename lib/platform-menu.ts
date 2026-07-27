@@ -41,10 +41,10 @@ export const platformPillars: PlatformPillar[] = [
   },
   {
     id: "hosting",
-    icon: Server,
+    icon: Mail,
     label: "Talksasa Cloud",
-    detail: "Hosting & domains",
-    href: "/web-hosting",
+    detail: "Email, apps & domains",
+    href: "/email-hosting",
     lineEnd: { x: 310, y: 115 },
     positionClass: "top-6 right-2 sm:right-6",
     floatOffset: 1.2,
@@ -82,32 +82,26 @@ export const megaMenuGroups: MegaMenuGroup[] = [
   {
     id: "cloud",
     label: "Talksasa Cloud",
-    tagline: "Hosting, domains & apps",
+    tagline: "Email, apps & domains",
     accent: "from-violet-500/20 to-purple-500/10",
     items: [
       {
-        icon: Server,
-        title: "Web hosting",
-        description: "DirectAdmin shared hosting with auto-provisioning.",
-        href: "/web-hosting",
+        icon: Mail,
+        title: "Business email",
+        description: "Mailcow email on your domain — webmail, aliases, DKIM/SPF.",
+        href: "/email-hosting",
+      },
+      {
+        icon: Container,
+        title: "Application hosting",
+        description: "Laravel, Node.js, Python containers with Git deploy.",
+        href: "/cloud-hosting",
       },
       {
         icon: Globe,
         title: "Domains",
         description: "Register .co.ke, .com, transfer & manage DNS.",
         href: "/domains",
-      },
-      {
-        icon: Mail,
-        title: "Email hosting",
-        description: "Business email on your domain with Mailcow webmail.",
-        href: "/email-hosting",
-      },
-      {
-        icon: Container,
-        title: "Application hosting",
-        description: "Laravel, Node.js, Python containers.",
-        href: "/cloud-hosting",
       },
       {
         icon: Layers,
@@ -132,7 +126,7 @@ export const megaMenuGroups: MegaMenuGroup[] = [
       {
         icon: Server,
         title: "Reseller hosting",
-        description: "White-label hosting, domains, and cloud apps.",
+        description: "White-label email, apps, and domains under your brand.",
         href: "/reseller-hosting",
       },
       {

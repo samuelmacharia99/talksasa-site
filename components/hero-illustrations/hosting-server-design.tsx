@@ -5,7 +5,7 @@ import { Server, Database, Shield, Mail } from "lucide-react";
 import { IllustrationFrame } from "./illustration-frame";
 
 const layers = [
-  { icon: Server, label: "DirectAdmin", y: 0, rotateX: 8, delay: 0 },
+  { icon: Server, label: "Mailcow", y: 0, rotateX: 8, delay: 0 },
   { icon: Database, label: "MySQL", y: 28, rotateX: 12, delay: 0.15 },
   { icon: Mail, label: "Email", y: 56, rotateX: 16, delay: 0.3 },
 ];

@@ -25,6 +25,11 @@ const nextConfig = {
         destination: "/cloud-hosting",
         permanent: true,
       },
+      {
+        source: "/web-hosting",
+        destination: "/email-hosting",
+        permanent: true,
+      },
     ];
   },
 };

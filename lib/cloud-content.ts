@@ -6,21 +6,20 @@ export const BRAND = "TalkSasa";
 export const CLOUD_BRAND = "Talksasa Cloud";
 
 export const DEFAULT_SEO = {
-  title: "TalkSasa | Cloud Hosting, Domains & Bulk SMS in Kenya",
+  title: "TalkSasa | Business Email, App Hosting & Bulk SMS in Kenya",
   description:
-    "Talksasa Cloud: web hosting, domains, cloud apps, and M-Pesa billing. Plus Kenya's trusted bulk SMS gateway for marketing, alerts, and 2FA. Reseller platform for hosting and SMS.",
+    "Talksasa Cloud: business email, application hosting, reseller hosting, and domains with M-Pesa billing. Plus Kenya's trusted bulk SMS gateway for marketing, alerts, and 2FA.",
   keywords: [
-    "web hosting Kenya",
+    "business email hosting Kenya",
+    "application hosting Kenya",
+    "reseller hosting Kenya",
     "domain registration Kenya",
     "bulk SMS Kenya",
     "SMS gateway Kenya",
-    "M-Pesa hosting",
-    "reseller hosting platform",
-    "white label hosting",
-    "cloud app hosting",
-    "DirectAdmin hosting",
-    ".co.ke domains",
+    "Mailcow email Kenya",
     "Laravel hosting Kenya",
+    "white label hosting",
+    ".co.ke domains",
     "bulk SMS Nairobi",
     "SMS API Kenya",
     "TalkSasa",
@@ -30,16 +29,16 @@ export const DEFAULT_SEO = {
 
 export const HERO = {
   eyebrow: "Talksasa Cloud · Bulk SMS",
-  headline: "Hosting, domains, cloud apps — and bulk SMS —",
-  headlineAccent: "built for Kenya.",
+  headline: "Business email, apps & reseller cloud —",
+  headlineAccent: "built to convert.",
   subheadline:
-    "Run your website or hosting business on Talksasa Cloud with M-Pesa billing and auto-provisioning. Send millions of messages with our bulk SMS gateway and API — trusted by 7,000+ businesses across East Africa.",
-  tagline: "Cloud platform + SMS gateway. One partner for your digital stack.",
+    "Sell and run premium infrastructure for Kenyan SMEs and enterprises: branded Mailcow email, application hosting, white-label reseller, and .co.ke domains — plus a bulk SMS gateway trusted by 7,000+ businesses.",
+  tagline: "Cloud that closes deals. SMS that delivers.",
   trust: [
-    "M-Pesa STK push",
+    "Business email",
+    "App hosting",
+    "Reseller platform",
     "Bulk SMS & API",
-    "Auto-provisioning",
-    ".co.ke domains",
   ],
 } as const;
 
@@ -56,16 +55,30 @@ export const CUSTOMER_TRUST = [
   "Automated provisioning — no waiting for manual setup on standard plans",
   "Transparent billing — line-item invoices and renewal reminders",
   "Local payments — M-Pesa built in, not an afterthought",
-  "One login for hosting, domains, apps, invoices, and support",
+  "One login for email, apps, domains, invoices, and support",
 ] as const;
 
 export const PRODUCT_CATEGORIES = [
   {
-    id: "bulk-sms",
-    emoji: "📱",
-    title: "Bulk SMS",
-    description: "Marketing, alerts, 2FA, and API access — Kenya's trusted SMS gateway.",
-    href: "/bulk-sms",
+    id: "email-hosting",
+    emoji: "✉️",
+    title: "Business email",
+    description: "Mailcow email on your domain — webmail, mailboxes, aliases, DKIM/SPF helpers.",
+    href: "/email-hosting",
+  },
+  {
+    id: "cloud-apps",
+    emoji: "🚀",
+    title: "Application hosting",
+    description: "Deploy Laravel, Node.js, and more in containers with Git deploy and metrics.",
+    href: "/cloud-hosting",
+  },
+  {
+    id: "reseller-hosting",
+    emoji: "🏷️",
+    title: "Reseller hosting",
+    description: "White-label portal, your pricing, M-Pesa, and automated provisioning.",
+    href: "/reseller-hosting",
   },
   {
     id: "domains",
@@ -75,32 +88,11 @@ export const PRODUCT_CATEGORIES = [
     href: "/domains",
   },
   {
-    id: "email-hosting",
-    emoji: "✉️",
-    title: "Business email",
-    description: "Mailcow email on your domain — webmail, mailboxes, aliases, DKIM/SPF helpers.",
-    href: "/email-hosting",
-  },
-  {
-    id: "shared-hosting",
-    emoji: "🏠",
-    title: "Shared hosting",
-    description: "DirectAdmin hosting with email, databases, SSL, and backups.",
-    href: "/web-hosting",
-  },
-  {
-    id: "cloud-apps",
-    emoji: "🚀",
-    title: "Cloud apps",
-    description: "Deploy Laravel, Node.js, and more in containers with a full management UI.",
-    href: "/cloud-hosting",
-  },
-  {
-    id: "servers",
-    emoji: "🖥️",
-    title: "Servers",
-    description: "VPS and dedicated servers for advanced users and custom requirements.",
-    href: "/vps",
+    id: "bulk-sms",
+    emoji: "📱",
+    title: "Bulk SMS",
+    description: "Marketing, alerts, 2FA, and API access — Kenya's trusted SMS gateway.",
+    href: "/bulk-sms",
   },
   {
     id: "billing",
@@ -109,20 +101,13 @@ export const PRODUCT_CATEGORIES = [
     description: "Invoices, M-Pesa, cards, wallets, renewals, and PDF downloads.",
     href: "/payments/mpesa",
   },
-  {
-    id: "support",
-    emoji: "🎫",
-    title: "Support",
-    description: "Built-in ticketing so nothing falls through the cracks.",
-    href: "/contact",
-  },
 ] as const;
 
 export const FAQ_ITEMS = [
   {
     question: "What is Talksasa Cloud?",
     answer:
-      "Talksasa Cloud is a hosting and billing platform that lets individuals and businesses order web hosting, domains, and cloud applications online — and lets hosting resellers run a branded business on the same infrastructure.",
+      "Talksasa Cloud is our premium cloud platform for Kenyan SMEs and enterprises: business email, application hosting, reseller hosting, and domains — with M-Pesa billing and automated provisioning.",
   },
   {
     question: "Can I pay with M-Pesa?",
@@ -142,22 +127,22 @@ export const FAQ_ITEMS = [
   {
     question: "How fast is provisioning?",
     answer:
-      "Shared hosting and container services are provisioned automatically after successful payment. Domain registration depends on registry processing once the order is submitted.",
+      "Email and application hosting services are provisioned automatically after successful payment. Domain registration depends on registry processing once the order is submitted.",
   },
   {
     question: "Can I host Laravel or Node.js applications?",
     answer:
-      "Yes. Container hosting supports multiple languages and frameworks with deployment, logs, terminal access, Git integration, and custom domains.",
+      "Yes. Application hosting supports multiple languages and frameworks with deployment, logs, terminal access, Git integration, and custom domains.",
   },
   {
-    question: "Is there a control panel for shared hosting?",
+    question: "Do you offer business email on my domain?",
     answer:
-      "Yes. Shared hosting uses DirectAdmin. Customers receive login details and can access the panel at their domain on port 2222, or use simplified tools inside the customer portal.",
+      "Yes. Talksasa Cloud email hosting runs on Mailcow with webmail, mailboxes, and aliases. Register a new domain with email in one cart, or attach email to a domain you already own.",
   },
   {
-    question: "Who is Talksasa Cloud for?",
+    question: "Who is TalkSasa for?",
     answer:
-      "Customers who want hosting, domains, and apps with local payment options — and resellers who want to start or scale a hosting business without building custom software. TalkSasa Bulk SMS serves the same region for messaging and API needs.",
+      "SMEs and enterprises that want premium business email, app hosting, and reseller infrastructure with local payments — plus teams that need a reliable bulk SMS gateway and API across East Africa.",
   },
   {
     question: "Do you still offer bulk SMS?",
@@ -167,12 +152,12 @@ export const FAQ_ITEMS = [
   {
     question: "What is reseller hosting with Talksasa Cloud?",
     answer:
-      "Reseller hosting lets you sell web hosting, domains, and cloud apps under your own brand. Talksasa Cloud provides the white-label portal, automated provisioning, wholesale domain wallet, M-Pesa billing, and customer management — you set retail prices and grow your client base.",
+      "Reseller hosting lets you sell business email, application hosting, and domains under your own brand. Talksasa Cloud provides the white-label portal, automated provisioning, wholesale domain wallet, M-Pesa billing, and customer management — you set retail prices and grow your client base.",
   },
   {
     question: "How do I become a hosting reseller in Kenya?",
     answer:
-      "Sign up for the Talksasa Cloud reseller program, apply your branding (logo, colors, optional custom domain), connect your M-Pesa till, set retail prices on hosting and domains, and start onboarding customers through your branded portal. Our team can help you launch.",
+      "Sign up for the Talksasa Cloud reseller program, apply your branding (logo, colors, optional custom domain), connect your M-Pesa till, set retail prices on email, apps, and domains, and start onboarding customers through your branded portal. Our team can help you launch.",
   },
   {
     question: "What is an SMS reseller program?",
@@ -192,7 +177,6 @@ export const FAQ_ITEMS = [
 ] as const;
 
 export type ProductPageSlug =
-  | "web-hosting"
   | "domains"
   | "cloud-hosting"
   | "vps"
@@ -221,41 +205,12 @@ export type ProductPageContent = {
 };
 
 export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
-  "web-hosting": {
-    slug: "web-hosting",
-    path: "/web-hosting",
-    title: "Web Hosting Kenya — DirectAdmin Shared Hosting",
-    metaDescription:
-      "DirectAdmin shared web hosting in Kenya with auto-provisioning, SSL, email, databases, and M-Pesa billing. Order online and manage everything in one portal.",
-    keywords: [
-      "shared web hosting Kenya",
-      "DirectAdmin hosting",
-      "cPanel alternative Kenya",
-      "web hosting Nairobi",
-      "M-Pesa web hosting",
-    ],
-    headline: "Shared web hosting that provisions itself",
-    subheadline: "DirectAdmin-powered hosting tied to your domain — live minutes after payment.",
-    intro:
-      "Talksasa Cloud shared hosting is built for Kenyan businesses that want reliable websites without manual setup delays. Pay with M-Pesa, get credentials by email, and manage DNS, email, databases, SSL, and backups from DirectAdmin or your customer portal.",
-    features: [
-      "DirectAdmin control panel at your domain on port 2222",
-      "Automatic provisioning after successful payment",
-      "DNS, email accounts, databases, subdomains, and FTP",
-      "Free Let's Encrypt SSL and scheduled backups",
-      "Optional in-portal hosting dashboard for everyday tasks",
-      "Clear invoices with renewal reminders",
-    ],
-    seoNote: "Shared web hosting Kenya · DirectAdmin hosting · cPanel alternative Kenya",
-    ctaPrimary: { label: "Order hosting", href: pricingUrl({ product: "cloud", tab: "hosting" }) },
-    ctaSecondary: { label: "View pricing", href: pricingUrl({ product: "cloud", tab: "hosting" }) },
-  },
   domains: {
     slug: "domains",
     path: "/domains",
     title: "Domain Registration Kenya — .co.ke, .com & More",
     metaDescription:
-      "Register and renew .co.ke, .com, .org and global domains. DNS management, transfers with EPP codes, and checkout with hosting in one order. Pay with M-Pesa.",
+      "Register and renew .co.ke, .com, .org and global domains. DNS management, transfers with EPP codes, and checkout with business email in one order. Pay with M-Pesa.",
     keywords: [
       "buy domain Kenya",
       ".co.ke registration",
@@ -272,7 +227,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
       "Live availability search with instant retail pricing",
       "Full DNS management — A, CNAME, MX, TXT records",
       "Transfer domains in with EPP/auth codes",
-      "Bundle domains with web, email, or application hosting at checkout",
+      "Bundle domains with business email or application hosting at checkout",
       "M-Pesa STK push, card, and PayPal — automatic renewal reminders",
     ],
     seoNote: "Buy domain Kenya · .co.ke registration · domain transfer Kenya",
@@ -411,7 +366,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     headline: "VPS and dedicated servers for full control",
     subheadline: "Root access, secure delivery, and infrastructure sized for serious workloads.",
     intro:
-      "When shared hosting or containers are not enough, order VPS or bare-metal dedicated servers through Talksasa Cloud. Credentials are delivered securely after provisioning — ideal for custom stacks and enterprise traffic.",
+      "When application hosting needs more raw capacity, order VPS or bare-metal dedicated servers through Talksasa Cloud. Credentials are delivered securely after provisioning — ideal for custom stacks and enterprise traffic.",
     features: [
       "VPS plans with dedicated resources and root access",
       "Dedicated bare-metal for maximum performance",
@@ -428,7 +383,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     path: "/reseller",
     title: "White-Label Hosting Reseller Platform Kenya",
     metaDescription:
-      "Start a branded hosting business in Kenya. Custom domain, your M-Pesa, wholesale domains, automated billing, DirectAdmin provisioning, and customer management.",
+      "Start a branded cloud business in Kenya. Custom domain, your M-Pesa, wholesale domains, automated billing, email and app provisioning, and customer management.",
     keywords: [
       "white label hosting reseller",
       "start hosting company Kenya",
@@ -439,7 +394,7 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     headline: "Run a white-label hosting business — without building software",
     subheadline: "Your brand, your prices, your M-Pesa. We provision, bill, and operate the infrastructure.",
     intro:
-      "Talksasa Cloud gives designers, agencies, and entrepreneurs a complete reseller platform: branded customer portal, retail catalog, wholesale domain wallet, custom invoices, and one-click provisioning on DirectAdmin and containers.",
+      "Talksasa Cloud gives designers, agencies, and entrepreneurs a complete reseller platform: branded customer portal, retail catalog for email and apps, wholesale domain wallet, custom invoices, and automated provisioning.",
     features: [
       "Custom branding — logo, colors, and optional custom domain with SSL",
       "Set your own retail prices on hosting, domains, and cloud apps",
@@ -457,26 +412,26 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
     path: "/reseller-hosting",
     title: "Reseller Hosting Kenya — White-Label Hosting Business",
     metaDescription:
-      "Start a reseller hosting business in Kenya with Talksasa Cloud. White-label portal, your M-Pesa, wholesale domains, DirectAdmin provisioning, automated billing, and customer management.",
+      "Start a reseller hosting business in Kenya with Talksasa Cloud. White-label portal, your M-Pesa, wholesale domains, business email and app provisioning, automated billing, and customer management.",
     keywords: [
       "reseller hosting Kenya",
       "white label hosting reseller",
       "start hosting company Kenya",
       "hosting reseller program",
       "domain reseller wholesale",
-      "web hosting reseller Nairobi",
+      "cloud reseller Nairobi",
     ],
     headline: "Run a hosting company under your brand",
     subheadline:
       "White-label portal, wholesale domains, your M-Pesa till, and automated provisioning — with live platform plans you can checkout today.",
     intro:
-      "Talksasa Cloud reseller hosting is built for web designers, digital agencies, and entrepreneurs who want to run a hosting company without building software or managing data centres. You get a branded customer portal, retail catalog, wholesale domain wallet, one-click DirectAdmin provisioning, container app hosting, and full billing automation. Set your own prices, onboard clients, and scale with reports that show revenue, margins, and active services.",
+      "Talksasa Cloud reseller hosting is built for agencies and entrepreneurs who want to sell premium cloud products without building software or managing data centres. You get a branded customer portal, retail catalog for business email and application hosting, wholesale domain wallet, and full billing automation. Set your own prices, onboard clients, and scale with reports that show revenue, margins, and active services.",
     features: [
       "White-label customer portal — your logo, colors, and optional custom domain with SSL",
-      "Retail catalog for shared hosting, domains, VPS, and cloud applications",
+      "Retail catalog for business email, domains, and application hosting",
       "Wholesale domain wallet with per-TLD margins you control",
       "Connect your own M-Pesa — customer payments settle to your business",
-      "Automated provisioning on DirectAdmin and container infrastructure",
+      "Automated provisioning for email and container infrastructure",
       "Customer lifecycle tools: create accounts, invoice, suspend, impersonate, and export reports",
     ],
     seoNote: "Reseller hosting Kenya · white label hosting · start hosting company Nairobi",

@@ -124,7 +124,7 @@ function StandardPlanCard({
 
 export function CloudPricing({
   className,
-  defaultTab = "hosting",
+  defaultTab = "email",
 }: {
   className?: string;
   defaultTab?: CloudProductTab;

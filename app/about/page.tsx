@@ -30,20 +30,20 @@ const breadcrumbSchema = {
 export const metadata: Metadata = {
   title: "About Us | Kenya's Leading Digital Infrastructure Provider",
   description:
-    "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider. Serving Nairobi, Mombasa, Kisumu, and across East Africa. Trusted by 7,000+ businesses. Our mission to power African businesses with reliable SMS and cloud solutions.",
+    "Learn about TalkSasa — Kenya's premium Talksasa Cloud (business email, app hosting, reseller) and bulk SMS gateway. Serving Nairobi and East Africa. Trusted by 7,000+ businesses.",
   keywords: [
     "about TalkSasa",
     "TalkSasa Kenya",
-    "hosting company Nairobi",
+    "Talksasa Cloud Nairobi",
     "SMS provider Kenya",
-    "cloud solutions East Africa",
-    "Kenya web hosting company",
-    "Nairobi hosting provider",
+    "business email Kenya",
+    "application hosting Kenya",
+    "bulk SMS East Africa",
   ],
   openGraph: {
     title: "About Us | Kenya's Leading Digital Infrastructure Provider",
     description:
-      "Learn about TalkSasa — Kenya's leading bulk SMS gateway and web hosting provider serving East Africa.",
+      "Learn about TalkSasa — Talksasa Cloud and Kenya's trusted bulk SMS gateway serving East Africa.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/about`,
   },
   alternates: {
@@ -74,7 +74,7 @@ export default function AboutPage() {
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
             TalkSasa was built to give Kenyan and African businesses one place for bulk SMS,
-            web hosting, domains, and cloud — without the complexity or hidden costs.
+            business email, application hosting, reseller cloud, and domains — without the complexity or hidden costs.
             We combine enterprise-grade infrastructure with local support and payment options.
           </p>
         </section>

@@ -13,7 +13,6 @@ import { MpesaStkDesign } from "@/components/hero-illustrations/mpesa-stk-design
 type IllustrationProps = { compact?: boolean };
 
 const PRODUCT_HERO_MAP: Record<ProductPageSlug, ComponentType<IllustrationProps>> = {
-  "web-hosting": HostingServerDesign,
   domains: DomainSearchDesign,
   "cloud-hosting": PipelineDesign,
   vps: ServerRackDesign,

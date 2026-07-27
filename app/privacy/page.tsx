@@ -78,7 +78,7 @@ export default function PrivacyPage() {
               <p className="text-muted-foreground">
                 TalkSasa Ltd (&quot;TalkSasa,&quot; &quot;We,&quot; &quot;Us&quot;) is a technology
                 company registered in Kenya providing Bulk SMS, Sender ID Registration, Domain
-                Registration, Web Hosting, and Email Hosting services. We are a data controller in
+                Registration, Business Email, Application Hosting, and Reseller Hosting services. We are a data controller in
                 respect of personal data collected from our clients and website visitors.
               </p>
               <p className="mt-4 text-muted-foreground">

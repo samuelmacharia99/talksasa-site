@@ -12,11 +12,12 @@ import { CONTACT, INFO_EMAIL, SALES_EMAIL, PRIMARY_PHONE, SALES_PHONE } from "@/
 
 const SERVICE_OPTIONS = [
   "Bulk SMS",
-  "Web Hosting",
+  "Business Email",
+  "Application Hosting",
+  "Reseller Hosting",
   "Domains",
   "VPS",
   "Dedicated Servers",
-  "Cloud Solutions",
   "Multiple / Not sure",
 ];
 
