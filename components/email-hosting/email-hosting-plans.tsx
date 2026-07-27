@@ -137,7 +137,7 @@ export function EmailHostingPlans({ className }: { className?: string }) {
         <div className="max-w-3xl mx-auto text-center mb-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
             <Mail className="h-3.5 w-3.5" />
-            Talksasa Cloud email
+            Talksasa Mail
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Professional email on <span className="gradient-text">your domain</span>

@@ -22,8 +22,7 @@ import type {
   PlatformService,
 } from "@/lib/billing-types";
 import { CLOUD_PRODUCT_LABELS, isConfigurableServer, SERVICE_TYPES_BY_TAB as TAB_TYPES } from "@/lib/billing-types";
-import { EmailHostingPlans } from "@/components/email-hosting/email-hosting-plans";
-import Link from "next/link";
+import { ResellerPricing } from "@/components/reseller/reseller-pricing";
 
 type Billing = "monthly" | "annual";
 
@@ -124,7 +123,7 @@ function StandardPlanCard({
 
 export function CloudPricing({
   className,
-  defaultTab = "email",
+  defaultTab = "cloud",
 }: {
   className?: string;
   defaultTab?: CloudProductTab;
@@ -209,6 +208,7 @@ export function CloudPricing({
   }, [product, techStack, availableStacks]);
 
   const plans = useMemo(() => {
+    if (product === "reseller") return [];
     const types = TAB_TYPES[product];
     let filtered = services.filter((s) =>
       types.includes(s.type as (typeof types)[number])
@@ -223,6 +223,19 @@ export function CloudPricing({
   const billingCycle = mapBillingCycle(billing);
   const isServerTab = product === "vps" || product === "dedicated";
 
+  function selectProductTab(next: CloudProductTab) {
+    setProduct(next);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("product", next === "reseller" ? "reseller-hosting" : "cloud");
+    if (next === "reseller") {
+      params.delete("tab");
+      params.delete("stack");
+    } else {
+      params.set("tab", next);
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
   function selectTechStack(stack: AppTechStack) {
     setTechStack(stack);
     const params = new URLSearchParams(searchParams.toString());
@@ -230,7 +243,7 @@ export function CloudPricing({
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
-  if (loading) {
+  if (loading && product !== "reseller") {
     return (
       <div className={cn("flex justify-center py-16", className)}>
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -238,7 +251,7 @@ export function CloudPricing({
     );
   }
 
-  if (error) {
+  if (error && product !== "reseller") {
     return (
       <p className={cn("text-center text-sm text-red-400 py-8", className)} role="alert">
         {error}
@@ -250,7 +263,7 @@ export function CloudPricing({
     <div className={className}>
       <div
         role="tablist"
-        aria-label="Cloud product pricing"
+        aria-label="Talksasa Cloud products"
         className="flex flex-wrap justify-center gap-2 mb-8"
       >
         {(Object.keys(CLOUD_PRODUCT_LABELS) as CloudProductTab[]).map((key) => (
@@ -259,7 +272,7 @@ export function CloudPricing({
             type="button"
             role="tab"
             aria-selected={product === key}
-            onClick={() => setProduct(key)}
+            onClick={() => selectProductTab(key)}
             className={cn(
               "relative rounded-full px-4 sm:px-5 py-2.5 min-h-[44px] text-sm font-medium transition-all",
               product === key
@@ -279,136 +292,128 @@ export function CloudPricing({
         ))}
       </div>
 
-      {product === "email" ? (
-        <div className="space-y-6">
-          <p className="text-center text-sm text-muted-foreground">
-            Business email needs a domain at checkout.{" "}
-            <Link href="/email-hosting" className="text-primary hover:underline">
-              Full email hosting page
-            </Link>
-          </p>
-          <EmailHostingPlans />
-        </div>
+      {product === "reseller" ? (
+        <ResellerPricing compactHeader embedded />
       ) : (
         <>
-      {product === "cloud" && availableStacks.length > 0 && (
-        <div className="mb-8">
-          <p className="text-center text-sm text-muted-foreground mb-3">Choose your stack</p>
-          <div
-            role="tablist"
-            aria-label="Application hosting tech stack"
-            className="flex flex-wrap justify-center gap-2"
-          >
-            {availableStacks.map((stack) => (
-              <button
-                key={stack}
-                type="button"
-                role="tab"
-                aria-selected={activeStack === stack}
-                onClick={() => selectTechStack(stack)}
-                className={cn(
-                  "relative rounded-full px-4 py-2 min-h-[40px] text-sm font-medium transition-all",
-                  activeStack === stack
-                    ? "text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 border border-border"
-                )}
+          {product === "cloud" && availableStacks.length > 0 && (
+            <div className="mb-8">
+              <p className="text-center text-sm text-muted-foreground mb-3">Choose your stack</p>
+              <div
+                role="tablist"
+                aria-label="Application hosting tech stack"
+                className="flex flex-wrap justify-center gap-2"
               >
-                {activeStack === stack && (
-                  <motion.span
-                    layoutId="cloud-stack-pill"
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
-                <span className="relative z-10">{APP_TECH_STACK_LABELS[stack]}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-center items-center gap-3 mb-10">
-        <span className={cn("text-sm", billing === "monthly" ? "text-foreground font-medium" : "text-muted-foreground")}>
-          Monthly
-        </span>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={billing === "annual"}
-          aria-label="Toggle annual billing"
-          onClick={() => setBilling((b) => (b === "monthly" ? "annual" : "monthly"))}
-          className={cn(
-            "relative w-12 h-7 rounded-full transition-colors",
-            billing === "annual" ? "bg-primary" : "bg-muted"
-          )}
-        >
-          <motion.span
-            className="absolute top-1 w-4 h-4 rounded-full bg-white shadow"
-            animate={{ left: billing === "annual" ? "22px" : "4px" }}
-            transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
-            style={{ top: "4px" }}
-          />
-        </button>
-        <span className={cn("text-sm", billing === "annual" ? "text-foreground font-medium" : "text-muted-foreground")}>
-          Annual
-        </span>
-      </div>
-
-      {plans.length === 0 ? (
-        <p className="text-center text-muted-foreground py-8">
-          {product === "cloud" && activeStack
-            ? `No ${APP_TECH_STACK_LABELS[activeStack]} plans are available right now.`
-            : "No plans available for this category."}
-        </p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
-          <AnimatePresence initial={false}>
-            {plans.map((plan, i) => {
-              const featured = i === featuredIndex;
-              if (isServerTab && isConfigurableServer(plan)) {
-                return (
-                  <motion.div
-                    key={plan.id}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.25, delay: i * 0.05 }}
+                {availableStacks.map((stack) => (
+                  <button
+                    key={stack}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeStack === stack}
+                    onClick={() => selectTechStack(stack)}
+                    className={cn(
+                      "relative rounded-full px-4 py-2 min-h-[40px] text-sm font-medium transition-all",
+                      activeStack === stack
+                        ? "text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/5 border border-border"
+                    )}
                   >
-                    <ServerPlanCard
-                      plan={plan}
-                      billingCycle={billingCycle}
-                      featured={featured}
-                    />
-                  </motion.div>
-                );
-              }
-              return (
-                <StandardPlanCard
-                  key={plan.id}
-                  plan={plan}
-                  billing={billing}
-                  featured={featured}
-                  subtitle={
-                    product === "cloud" && activeStack
-                      ? APP_TECH_STACK_LABELS[activeStack]
-                      : undefined
+                    {activeStack === stack && (
+                      <motion.span
+                        layoutId="cloud-stack-pill"
+                        className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                      />
+                    )}
+                    <span className="relative z-10">{APP_TECH_STACK_LABELS[stack]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex justify-center items-center gap-3 mb-10">
+            <span className={cn("text-sm", billing === "monthly" ? "text-foreground font-medium" : "text-muted-foreground")}>
+              Monthly
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={billing === "annual"}
+              aria-label="Toggle annual billing"
+              onClick={() => setBilling((b) => (b === "monthly" ? "annual" : "monthly"))}
+              className={cn(
+                "relative w-12 h-7 rounded-full transition-colors",
+                billing === "annual" ? "bg-primary" : "bg-muted"
+              )}
+            >
+              <motion.span
+                className="absolute top-1 w-4 h-4 rounded-full bg-white shadow"
+                animate={{ left: billing === "annual" ? "22px" : "4px" }}
+                transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
+                style={{ top: "4px" }}
+              />
+            </button>
+            <span className={cn("text-sm", billing === "annual" ? "text-foreground font-medium" : "text-muted-foreground")}>
+              Annual
+            </span>
+          </div>
+
+          {plans.length === 0 ? (
+            <p className="text-center text-muted-foreground py-8">
+              {product === "cloud" && activeStack
+                ? `No ${APP_TECH_STACK_LABELS[activeStack]} plans are available right now.`
+                : "No plans available for this category."}
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto items-stretch">
+              <AnimatePresence initial={false}>
+                {plans.map((plan, i) => {
+                  const featured = i === featuredIndex;
+                  if (isServerTab && isConfigurableServer(plan)) {
+                    return (
+                      <motion.div
+                        key={plan.id}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.25, delay: i * 0.05 }}
+                      >
+                        <ServerPlanCard
+                          plan={plan}
+                          billingCycle={billingCycle}
+                          featured={featured}
+                        />
+                      </motion.div>
+                    );
                   }
-                />
-              );
-            })}
-          </AnimatePresence>
-        </div>
-      )}
+                  return (
+                    <StandardPlanCard
+                      key={plan.id}
+                      plan={plan}
+                      billing={billing}
+                      featured={featured}
+                      subtitle={
+                        product === "cloud" && activeStack
+                          ? APP_TECH_STACK_LABELS[activeStack]
+                          : undefined
+                      }
+                    />
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+          )}
 
-      {isServerTab && (
-        <p className="mt-6 text-center text-xs text-muted-foreground">
-          VPS and dedicated prices vary by datacenter, IP count, and operating system. Selections are sent to checkout.
-        </p>
-      )}
+          {isServerTab && (
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              VPS and dedicated prices vary by datacenter, IP count, and operating system. Selections are sent to checkout.
+            </p>
+          )}
 
-      <p className="mt-4 text-center text-xs text-muted-foreground">
-        Live retail prices from Talksasa Cloud billing. Bulk SMS pricing is listed separately.
-      </p>
+          <p className="mt-4 text-center text-xs text-muted-foreground">
+            Live retail prices from Talksasa Cloud billing. Talksasa SMS and Talksasa Mail are listed separately.
+          </p>
         </>
       )}
     </div>

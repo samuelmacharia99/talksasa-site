@@ -2,29 +2,28 @@
 
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Loader2, Smartphone } from "lucide-react";
+import { Check, Cloud, Loader2, Mail, MessageSquare, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CurrencySelector } from "@/components/currency-selector";
 import { CloudPricing } from "@/components/cloud-pricing";
 import { EmailHostingPlans } from "@/components/email-hosting/email-hosting-plans";
-import { ResellerPricing } from "@/components/reseller/reseller-pricing";
 import { BULK_SMS_URL } from "@/lib/urls";
 import { BulkSmsPlanButton } from "@/components/tracked-link";
 import { SMSCalculator } from "@/components/sms-calculator";
-import { isCloudProductTab, isPricingProduct, type PricingProduct } from "@/lib/pricing-links";
+import {
+  cloudTabFromParams,
+  pricingBrandFromParams,
+  type PricingBrand,
+} from "@/lib/pricing-links";
 import type { CloudProductTab } from "@/lib/billing-types";
-
-type Product = PricingProduct;
 
 type Plan = {
   name: string;
   priceMonthly: number;
   unit?: string;
-  subtitle?: string;
-  description?: string;
   features: string[];
   cta: string;
   href: string;
@@ -36,8 +35,6 @@ const bulkSmsPlans: Plan[] = [
     name: "TIER 1",
     priceMonthly: 0.35,
     unit: "Top up KES 1 - 10,000",
-    subtitle: "Small Businesses",
-    description: "Perfect for local shops, restaurants, and service providers",
     features: [
       "Basic delivery reports",
       "Unlimited contacts management",
@@ -56,8 +53,6 @@ const bulkSmsPlans: Plan[] = [
     name: "TIER 2",
     priceMonthly: 0.3,
     unit: "Top up KES 10,001 - 30,000",
-    subtitle: "Medium Businesses",
-    description: "Ideal for growing companies and e-commerce businesses",
     features: [
       "Advanced analytics dashboard",
       "Unlimited contacts management",
@@ -76,8 +71,6 @@ const bulkSmsPlans: Plan[] = [
     name: "TIER 3",
     priceMonthly: 0.25,
     unit: "Top up KES 30,001+",
-    subtitle: "Large Organizations",
-    description: "For corporations, banks, and high-volume senders",
     features: [
       "Real-time delivery tracking",
       "Unlimited contacts management",
@@ -95,22 +88,31 @@ const bulkSmsPlans: Plan[] = [
   },
 ];
 
-const productLabels: Record<Product, string> = {
-  "bulk-sms": "Bulk SMS",
-  cloud: "Talksasa Cloud",
-  "email-hosting": "Email Hosting",
-  "reseller-hosting": "Reseller Hosting",
-};
-
-function parseProductFromParams(params: URLSearchParams): Product {
-  const value = params.get("product");
-  return isPricingProduct(value) ? value : "cloud";
-}
-
-function parseCloudTabFromParams(params: URLSearchParams): CloudProductTab {
-  const value = params.get("tab");
-  return isCloudProductTab(value) ? value : "email";
-}
+const BRANDS: {
+  id: PricingBrand;
+  name: string;
+  pitch: string;
+  icon: typeof MessageSquare;
+}[] = [
+  {
+    id: "sms",
+    name: "Talksasa SMS",
+    pitch: "Gateway rates for marketing, alerts, and OTP",
+    icon: MessageSquare,
+  },
+  {
+    id: "cloud",
+    name: "Talksasa Cloud",
+    pitch: "App hosting, servers, and white-label reseller",
+    icon: Cloud,
+  },
+  {
+    id: "mail",
+    name: "Talksasa Mail",
+    pitch: "Branded business email on your domain",
+    icon: Mail,
+  },
+];
 
 function PricingFallback() {
   return (
@@ -132,12 +134,19 @@ export function Pricing() {
 
 function PricingContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const { formatPrice } = useCurrency();
-  const [product, setProduct] = useState<Product>(() => parseProductFromParams(searchParams));
-  const cloudTab = parseCloudTabFromParams(searchParams);
+  const [brand, setBrand] = useState<PricingBrand>(() =>
+    pricingBrandFromParams(searchParams.get("product"), searchParams.get("tab"))
+  );
+  const cloudTab: CloudProductTab = cloudTabFromParams(
+    searchParams.get("product"),
+    searchParams.get("tab")
+  );
 
   useEffect(() => {
-    setProduct(parseProductFromParams(searchParams));
+    setBrand(pricingBrandFromParams(searchParams.get("product"), searchParams.get("tab")));
   }, [searchParams]);
 
   useEffect(() => {
@@ -148,7 +157,28 @@ function PricingContent() {
     return () => cancelAnimationFrame(frame);
   }, [searchParams]);
 
+  function selectBrand(next: PricingBrand) {
+    setBrand(next);
+    const params = new URLSearchParams(searchParams.toString());
+    if (next === "sms") {
+      params.set("product", "bulk-sms");
+      params.delete("tab");
+      params.delete("stack");
+    } else if (next === "mail") {
+      params.set("product", "email-hosting");
+      params.delete("tab");
+      params.delete("stack");
+    } else {
+      params.set("product", "cloud");
+      if (!params.get("tab") || params.get("tab") === "email") {
+        params.set("tab", "cloud");
+      }
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
   const formatSenderIdPrice = (price: number) => formatPrice(price, 0);
+  const activeBrand = BRANDS.find((b) => b.id === brand)!;
 
   return (
     <section id="pricing" className="section-py relative">
@@ -157,7 +187,7 @@ function PricingContent() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-8"
         >
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">Currency:</span>
@@ -167,42 +197,77 @@ function PricingContent() {
 
         <motion.div
           role="tablist"
-          aria-label="Pricing products"
+          aria-label="Pricing brands"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto mb-10"
         >
-          {(Object.keys(productLabels) as Product[]).map((key) => (
-            <button
-              key={key}
-              type="button"
-              role="tab"
-              aria-selected={product === key}
-              aria-label={`View ${productLabels[key]} pricing`}
-              onClick={() => setProduct(key)}
-              className={cn(
-                "relative rounded-full px-4 sm:px-5 py-2.5 min-h-[44px] text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                product === key
-                  ? "text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-              )}
-            >
-              {product === key && (
-                <motion.span
-                  layoutId="product-pill"
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                />
-              )}
-              <span className="relative z-10">{productLabels[key]}</span>
-            </button>
-          ))}
+          {BRANDS.map((item) => {
+            const Icon = item.icon;
+            const active = brand === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                aria-label={`View ${item.name} pricing`}
+                onClick={() => selectBrand(item.id)}
+                className={cn(
+                  "relative text-left rounded-2xl border p-4 sm:p-5 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background min-h-[88px]",
+                  active
+                    ? "border-transparent shadow-glow-sm"
+                    : "glass border-border hover:border-primary/30"
+                )}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="pricing-brand-card"
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/90 to-purple-600/90"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
+                <span className="relative z-10 flex gap-3">
+                  <span
+                    className={cn(
+                      "rounded-xl p-2.5 h-fit",
+                      active ? "bg-white/15 text-white" : "bg-primary/10 text-primary"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <span>
+                    <span
+                      className={cn(
+                        "block text-sm sm:text-base font-semibold",
+                        active ? "text-white" : "text-foreground"
+                      )}
+                    >
+                      {item.name}
+                    </span>
+                    <span
+                      className={cn(
+                        "mt-1 block text-xs sm:text-sm leading-snug",
+                        active ? "text-white/80" : "text-muted-foreground"
+                      )}
+                    >
+                      {item.pitch}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            );
+          })}
         </motion.div>
 
-        {product === "cloud" ? (
+        <p className="text-center text-sm text-muted-foreground mb-8 max-w-xl mx-auto">
+          {activeBrand.pitch}. Choose a plan below — no hidden fees.
+        </p>
+
+        {brand === "cloud" ? (
           <CloudPricing key={cloudTab} defaultTab={cloudTab} />
-        ) : product === "email-hosting" ? (
+        ) : brand === "mail" ? (
           <div className="space-y-4">
             <p className="text-center text-sm text-muted-foreground max-w-2xl mx-auto">
               Professional business email on your domain. Register a new domain with your plan or
@@ -210,8 +275,6 @@ function PricingContent() {
             </p>
             <EmailHostingPlans />
           </div>
-        ) : product === "reseller-hosting" ? (
-          <ResellerPricing compactHeader embedded />
         ) : (
           <>
             <div className="mb-12">
@@ -258,7 +321,11 @@ function PricingContent() {
                       href={plan.href}
                       trackId={`bulk_sms_pricing_${plan.name.replace(/\s+/g, "_").toLowerCase()}`}
                       variant={plan.featured ? "default" : "outline"}
-                      className={plan.featured ? "bg-gradient-to-r from-indigo-500 to-purple-600 border-0 hover:opacity-90" : undefined}
+                      className={
+                        plan.featured
+                          ? "bg-gradient-to-r from-indigo-500 to-purple-600 border-0 hover:opacity-90"
+                          : undefined
+                      }
                     >
                       {plan.cta}
                     </BulkSmsPlanButton>

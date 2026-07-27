@@ -192,20 +192,20 @@ export type ResellerPackagesResponse = {
   packages: ResellerPackage[];
 };
 
-export type CloudProductTab = "vps" | "dedicated" | "cloud" | "email";
+export type CloudProductTab = "vps" | "dedicated" | "cloud" | "reseller";
 
 export const CLOUD_PRODUCT_LABELS: Record<CloudProductTab, string> = {
-  email: "Email Hosting",
   cloud: "Application Hosting",
   vps: "VPS",
   dedicated: "Dedicated Servers",
+  reseller: "Reseller",
 };
 
 export const SERVICE_TYPES_BY_TAB: Record<CloudProductTab, ServiceType[]> = {
-  email: ["email_hosting"],
   cloud: ["container_hosting"],
   vps: ["vps"],
   dedicated: ["dedicated_server"],
+  reseller: [],
 };
 
 export function isEmailHostingPlan(plan: PlatformService): boolean {

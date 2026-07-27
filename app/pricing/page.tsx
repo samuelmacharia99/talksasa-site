@@ -27,23 +27,23 @@ const breadcrumbSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Pricing - Business Email, App Hosting & Bulk SMS in Kenya",
+  title: "Pricing — Talksasa SMS, Cloud & Mail in Kenya",
   description:
-    "Transparent pricing for business email, application hosting, reseller hosting, domains, and bulk SMS in Kenya & East Africa. Pay with M-Pesa. No hidden fees.",
+    "Transparent pricing for Talksasa SMS, Talksasa Cloud (apps, VPS, reseller), and Talksasa Mail business email in Kenya & East Africa. Pay with M-Pesa. No hidden fees.",
   keywords: [
-    "email hosting prices Kenya",
-    "application hosting pricing Kenya",
-    "reseller hosting Kenya",
-    "bulk SMS pricing Kenya",
-    "domain prices Kenya",
-    "VPS pricing Kenya",
+    "Talksasa SMS pricing",
     "Talksasa Cloud pricing",
+    "Talksasa Mail pricing",
+    "bulk SMS pricing Kenya",
+    "application hosting pricing Kenya",
+    "business email prices Kenya",
+    "reseller hosting Kenya",
     "M-Pesa payment hosting",
   ],
   openGraph: {
-    title: "Pricing | Kenya & East Africa",
+    title: "Pricing | Talksasa SMS, Cloud & Mail",
     description:
-      "Transparent pricing for business email, application hosting, reseller hosting, domains, and bulk SMS in Kenya & East Africa.",
+      "Compare Talksasa SMS, Talksasa Cloud, and Talksasa Mail pricing in Kenya & East Africa. Pay with M-Pesa.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://talksasa.com"}/pricing`,
   },
   alternates: {
@@ -63,10 +63,11 @@ export default function PricingPage() {
       <main id="main-content" className="pt-24 pb-20">
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-center">
-            Simple, transparent <span className="gradient-text">pricing</span>
+            Pricing for <span className="gradient-text">three brands</span>
           </h1>
-          <p className="mt-4 text-center text-muted-foreground max-w-xl mx-auto">
-            Choose the product and plan that fits your business. No hidden fees.
+          <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
+            Talksasa SMS, Talksasa Cloud, and Talksasa Mail — pick a brand, then choose the plan that
+            fits. No hidden fees.
           </p>
         </section>
         <Pricing />
