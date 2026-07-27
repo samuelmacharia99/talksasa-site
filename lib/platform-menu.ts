@@ -88,7 +88,7 @@ export const megaMenuGroups: MegaMenuGroup[] = [
       {
         icon: Mail,
         title: "Business email",
-        description: "Mailcow email on your domain — webmail, aliases, DKIM/SPF.",
+        description: "Professional email on your domain — webmail, aliases, DKIM/SPF.",
         href: "/email-hosting",
       },
       {

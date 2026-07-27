@@ -205,7 +205,7 @@ function PricingContent() {
         ) : product === "email-hosting" ? (
           <div className="space-y-4">
             <p className="text-center text-sm text-muted-foreground max-w-2xl mx-auto">
-              Professional Mailcow email on your domain. Register a new domain with your plan or
+              Professional business email on your domain. Register a new domain with your plan or
               attach email to a domain you already own.
             </p>
             <EmailHostingPlans />

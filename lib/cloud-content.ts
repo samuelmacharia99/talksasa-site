@@ -16,7 +16,7 @@ export const DEFAULT_SEO = {
     "domain registration Kenya",
     "bulk SMS Kenya",
     "SMS gateway Kenya",
-    "Mailcow email Kenya",
+    "company email Kenya",
     "Laravel hosting Kenya",
     "white label hosting",
     ".co.ke domains",
@@ -32,7 +32,7 @@ export const HERO = {
   headline: "Business email, apps & reseller cloud —",
   headlineAccent: "built to convert.",
   subheadline:
-    "Sell and run premium infrastructure for Kenyan SMEs and enterprises: branded Mailcow email, application hosting, white-label reseller, and .co.ke domains — plus a bulk SMS gateway trusted by 7,000+ businesses.",
+    "Sell and run premium infrastructure for Kenyan SMEs and enterprises: branded business email, application hosting, white-label reseller, and .co.ke domains — plus a bulk SMS gateway trusted by 7,000+ businesses.",
   tagline: "Cloud that closes deals. SMS that delivers.",
   trust: [
     "Business email",
@@ -63,7 +63,7 @@ export const PRODUCT_CATEGORIES = [
     id: "email-hosting",
     emoji: "✉️",
     title: "Business email",
-    description: "Mailcow email on your domain — webmail, mailboxes, aliases, DKIM/SPF helpers.",
+    description: "Professional email on your domain — webmail, mailboxes, aliases, DKIM/SPF helpers.",
     href: "/email-hosting",
   },
   {
@@ -137,7 +137,7 @@ export const FAQ_ITEMS = [
   {
     question: "Do you offer business email on my domain?",
     answer:
-      "Yes. Talksasa Cloud email hosting runs on Mailcow with webmail, mailboxes, and aliases. Register a new domain with email in one cart, or attach email to a domain you already own.",
+      "Yes. Talksasa Cloud email hosting includes webmail, mailboxes, and aliases. Register a new domain with email in one cart, or attach email to a domain you already own.",
   },
   {
     question: "Who is TalkSasa for?",
@@ -237,31 +237,30 @@ export const PRODUCT_PAGES: Record<ProductPageSlug, ProductPageContent> = {
   "email-hosting": {
     slug: "email-hosting",
     path: "/email-hosting",
-    title: "Business Email Hosting Kenya — Mailcow on Your Domain",
+    title: "Business Email Hosting Kenya — On Your Domain",
     metaDescription:
-      "Professional business email hosting in Kenya on your .co.ke or .com domain. Mailcow webmail, mailboxes, aliases, DKIM/SPF helpers, and M-Pesa billing via Talksasa Cloud.",
+      "Professional business email hosting in Kenya on your .co.ke or .com domain. Webmail, mailboxes, aliases, DKIM/SPF helpers, and M-Pesa billing via Talksasa Cloud.",
     keywords: [
       "business email hosting Kenya",
       "email hosting Nairobi",
-      "Mailcow email Kenya",
-      "professional email .co.ke",
       "company email Kenya",
+      "professional email .co.ke",
       "webmail hosting Kenya",
     ],
     headline: "Business email that matches your brand",
     subheadline:
-      "you@yourcompany.co.ke — Mailcow webmail, mailboxes, aliases, and DNS helpers. Order with a new domain or attach to one you already own.",
+      "you@yourcompany.co.ke — webmail, mailboxes, aliases, and DNS helpers. Order with a new domain or attach to one you already own.",
     intro:
-      "Stop using free Gmail for invoices and customer trust. Talksasa Cloud email hosting gives Kenyan businesses branded inboxes on their own domain, with SOGo webmail, mailbox quotas, alias support, and DKIM/SPF helpers after checkout. Pay with M-Pesa and manage renewals next to your domains and hosting.",
+      "Stop using free Gmail for invoices and customer trust. Talksasa Cloud email hosting gives Kenyan businesses branded inboxes on their own domain, with webmail, mailbox quotas, alias support, and DKIM/SPF helpers after checkout. Pay with M-Pesa and manage renewals next to your domains and apps.",
     features: [
-      "Mailcow-powered business email with webmail access",
+      "Branded business email with secure webmail access",
       "Multiple mailboxes and aliases per plan",
       "DKIM, SPF and DMARC helpers when you register the domain in the same cart",
       "Attach email to an existing domain or register .co.ke / .com together",
       "Clear retail pricing with monthly and annual billing cycles",
       "M-Pesa STK push, cards, and portal renewals on Talksasa Cloud",
     ],
-    seoNote: "Business email hosting Kenya · professional email .co.ke · Mailcow Nairobi",
+    seoNote: "Business email hosting Kenya · professional email .co.ke · company email Nairobi",
     ctaPrimary: { label: "View email plans", href: pricingUrl({ product: "email-hosting" }) },
     ctaSecondary: { label: "Register a domain first", href: "/domains" },
   },

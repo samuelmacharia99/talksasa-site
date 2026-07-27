@@ -5,9 +5,9 @@ import { Server, Database, Shield, Mail } from "lucide-react";
 import { IllustrationFrame } from "./illustration-frame";
 
 const layers = [
-  { icon: Server, label: "Mailcow", y: 0, rotateX: 8, delay: 0 },
-  { icon: Database, label: "MySQL", y: 28, rotateX: 12, delay: 0.15 },
-  { icon: Mail, label: "Email", y: 56, rotateX: 16, delay: 0.3 },
+  { icon: Server, label: "SMTP", y: 0, rotateX: 8, delay: 0 },
+  { icon: Database, label: "Storage", y: 28, rotateX: 12, delay: 0.15 },
+  { icon: Mail, label: "Webmail", y: 56, rotateX: 16, delay: 0.3 },
 ];
 
 export function HostingServerDesign({ compact }: { compact?: boolean }) {

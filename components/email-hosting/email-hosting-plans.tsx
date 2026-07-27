@@ -46,8 +46,7 @@ function planLimitLines(plan: PlatformService): string[] {
   const perBox = formatQuota(config?.mailbox_quota_mb);
   if (perBox) lines.push(`${perBox} per mailbox`);
   if (config?.msgs_per_day != null) lines.push(`${config.msgs_per_day} messages/day`);
-  if (config?.webmail) lines.push("SOGo / webmail included");
-  if (config?.driver === "mailcow") lines.push("Mailcow business email stack");
+  if (config?.webmail) lines.push("Webmail included");
   return lines;
 }
 
@@ -138,7 +137,7 @@ export function EmailHostingPlans({ className }: { className?: string }) {
         <div className="max-w-3xl mx-auto text-center mb-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
             <Mail className="h-3.5 w-3.5" />
-            Mailcow business email
+            Talksasa Cloud email
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Professional email on <span className="gradient-text">your domain</span>

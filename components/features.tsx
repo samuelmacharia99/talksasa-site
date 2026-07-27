@@ -17,7 +17,7 @@ const features = [
   {
     icon: Shield,
     title: "Email & containers",
-    description: "Mailcow business email plus isolated container apps with SSL, backups, and Git deploy.",
+    description: "Business email plus isolated container apps with SSL, backups, and Git deploy.",
   },
   {
     icon: Headphones,

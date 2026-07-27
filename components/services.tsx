@@ -31,7 +31,7 @@ const services: ServiceCard[] = [
     icon: Mail,
     title: "Business email",
     description:
-      "Premium Mailcow email on your domain — webmail, mailboxes, aliases, and DKIM/SPF helpers. Built for SMEs and corporate teams.",
+      "Premium business email on your domain — webmail, mailboxes, aliases, and DKIM/SPF helpers. Built for SMEs and corporate teams.",
     href: "/email-hosting",
     features: ["you@yourdomain", "Webmail included", "Domain + email cart"],
     colSpan: 2,

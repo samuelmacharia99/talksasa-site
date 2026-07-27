@@ -418,25 +418,25 @@ If you are unsure, [book a demo](/book-demo) and describe your traffic and stack
     slug: "business-email-hosting-kenya-own-domain",
     title: "Business Email Hosting in Kenya: Get you@yourcompany.co.ke",
     excerpt:
-      "Why Kenyan businesses need branded email, how Mailcow webmail works on TalkSasa Cloud, and how to order email with a new or existing domain.",
+      "Why Kenyan businesses need branded email, how TalkSasa Cloud webmail works, and how to order email with a new or existing domain.",
     seoTitle: "Business Email Hosting Kenya on Your Domain | TalkSasa",
     seoDescription:
-      "Set up professional business email in Kenya on your .co.ke or .com domain. Mailcow webmail, mailboxes, DKIM/SPF helpers, and M-Pesa checkout.",
+      "Set up professional business email in Kenya on your .co.ke or .com domain. Webmail, mailboxes, DKIM/SPF helpers, and M-Pesa checkout.",
     ctaLabel: "Order business email",
     ctaHref: "/email-hosting",
     body: `## Why branded email beats free Gmail for Kenyan businesses
 
 Customers trust \`accounts@yourcompany.co.ke\` more than \`yourcompany254@gmail.com\`. Branded email improves invoices, RFQs, bank onboarding, and Google deliverability when SPF/DKIM are set correctly.
 
-TalkSasa Cloud [email hosting](/email-hosting) sells Mailcow business email with live retail plans — pair it with a [domain](/domains) in one cart or attach it to a domain you already own.
+TalkSasa Cloud [email hosting](/email-hosting) sells professional business email with live retail plans — pair it with a [domain](/domains) in one cart or attach it to a domain you already own.
 
 ## What you get
 
 - Mailboxes and aliases based on the plan you pick
-- Webmail (SOGo where enabled on the product)
+- Secure webmail in the browser
 - Storage quotas shown on each plan card
 - DKIM/SPF helpers when the domain is registered in the same checkout
-- M-Pesa and portal renewals next to hosting and domains
+- M-Pesa and portal renewals next to domains and apps
 
 ## Option A — Register domain + email together (recommended)
 
@@ -469,7 +469,7 @@ One portal, local payments, one support team in Nairobi.
 ## FAQ
 
 **Is this Google Workspace?**  
-No — it is Mailcow business email on Talksasa Cloud infrastructure, priced in KES with M-Pesa-friendly billing.
+No — it is Talksasa Cloud business email, priced in KES with M-Pesa-friendly billing.
 
 **Can resellers sell email?**  
 Platform resellers should check their catalog in the hosting portal; marketing-site checkout uses retail \`email_hosting\` products from \`GET /services\`.

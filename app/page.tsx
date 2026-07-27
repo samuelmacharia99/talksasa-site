@@ -75,7 +75,7 @@ const serviceSchema = {
     "@type": "OfferCatalog",
     name: "TalkSasa Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Email Hosting", description: "Mailcow email on your domain with webmail and DKIM/SPF" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Email Hosting", description: "Professional email on your domain with webmail and DKIM/SPF" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Application Hosting", description: "Laravel, Node.js container hosting" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reseller Hosting", description: "White-label email, apps, and domains under your brand" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Domain Registration", description: ".co.ke, .com and global TLD registration" } },

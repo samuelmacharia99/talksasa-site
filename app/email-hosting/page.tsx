@@ -20,7 +20,7 @@ const EMAIL_FAQS = [
   {
     question: "What webmail do I get?",
     answer:
-      "Plans run on a Mailcow stack with webmail (including SOGo where enabled on the product). Exact mailbox, alias, and quota limits are shown on each live plan.",
+      "Plans include secure webmail in the browser, plus mailbox, alias, and quota limits shown on each live plan.",
   },
   {
     question: "Can I pay with M-Pesa?",

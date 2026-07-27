@@ -194,7 +194,7 @@ const organizationJsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Business Email Hosting",
-          description: "Mailcow business email on your domain with webmail, aliases, and DKIM/SPF",
+          description: "Professional business email on your domain with webmail, aliases, and DKIM/SPF",
         },
       },
       {
