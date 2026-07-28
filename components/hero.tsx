@@ -2,114 +2,15 @@
 
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, animate, useInView, useMotionValue, useTransform, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCTAModal } from "@/components/cta-modal";
 import { trackCTAClick } from "@/components/analytics";
 import { UptimeStatus } from "@/components/uptime-status";
 import { HeroPlatformIllustration } from "@/components/hero-platform-illustration";
-
-/* Animated counter for stats */
-function AnimatedCounter({
-  value,
-  suffix = "",
-  prefix = "",
-  duration = 1.5,
-}: {
-  value: number;
-  suffix?: string;
-  prefix?: string;
-  duration?: number;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const motionValue = useMotionValue(0);
-  const display = useTransform(motionValue, (v) =>
-    `${prefix}${Math.round(v).toLocaleString()}${suffix}`
-  );
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(motionValue, value, {
-      duration,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    });
-    return controls.stop;
-  }, [inView, value, motionValue, duration]);
-
-  return <motion.span ref={ref}>{display}</motion.span>;
-}
-
-/* Floating stat card (integer values) */
-function StatCard({
-  value,
-  label,
-  delay,
-  prefix = "",
-  suffix = "",
-}: {
-  value: number;
-  label: string;
-  delay: number;
-  prefix?: string;
-  suffix?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.4, delay }}
-      className="rounded-xl glass border border-border/80 px-4 py-3 sm:px-5 sm:py-4 min-w-[140px] sm:min-w-[160px]"
-    >
-      <div className="text-xl sm:text-2xl font-bold gradient-text">
-        {prefix}
-        <AnimatedCounter value={value} suffix={suffix} duration={1.8} />
-      </div>
-      <div className="mt-0.5 text-xs sm:text-sm text-muted-foreground">{label}</div>
-    </motion.div>
-  );
-}
-
-/* Fix StatCard for decimal: use a single AnimatedCounter that goes to 99.9 */
-function StatCardDecimal({ label, delay }: { label: string; delay: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-30px" });
-  const motionValue = useMotionValue(0);
-  const display = useTransform(motionValue, (v) => `${v.toFixed(1)}%`);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(motionValue, 99.9, {
-      duration: 1.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    });
-    return controls.stop;
-  }, [inView, motionValue]);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay }}
-      className="rounded-xl glass border border-border/80 px-4 py-3 sm:px-5 sm:py-4 min-w-[140px] sm:min-w-[160px]"
-    >
-      <div className="text-xl sm:text-2xl font-bold gradient-text">
-        <motion.span>{display}</motion.span>
-      </div>
-      <div className="mt-0.5 text-xs sm:text-sm text-muted-foreground">{label}</div>
-    </motion.div>
-  );
-}
-
 import { HERO } from "@/lib/cloud-content";
-import { BULK_SMS_URL, HOSTING_URL } from "@/lib/urls";
-import { appendAttributionToUrl } from "@/lib/attribution";
 import { useReducedMotion, useIsCoarsePointer } from "@/lib/use-reduced-motion";
 
-/* Particle dots for background */
 function ParticleBackground({ count }: { count: number }) {
   if (count === 0) return null;
 
@@ -165,7 +66,6 @@ const item = {
 };
 
 export function Hero() {
-  const { openModal } = useCTAModal();
   const reducedMotion = useReducedMotion();
   const isCoarsePointer = useIsCoarsePointer();
   const [mouse, setMouse] = useState({ x: 50, y: 50 });
@@ -179,7 +79,7 @@ export function Hero() {
       setParticleCount(0);
       return;
     }
-    const update = () => setParticleCount(window.innerWidth < 768 ? 10 : 20);
+    const update = () => setParticleCount(window.innerWidth < 768 ? 8 : 16);
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
@@ -197,23 +97,17 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-0 lg:min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-16 sm:pb-20"
+      className="relative min-h-0 lg:min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-16 sm:pb-20"
       onMouseMove={onMouseMove}
       onMouseLeave={() => setMouse({ x: 50, y: 50 })}
     >
-      {/* Parallax + gradient background */}
       <div className="absolute inset-0 -z-10">
-        <motion.div
-          style={{ y: reducedMotion ? 0 : parallaxY }}
-          className="absolute inset-0"
-        >
+        <motion.div style={{ y: reducedMotion ? 0 : parallaxY }} className="absolute inset-0">
           <motion.div
             animate={
               reducedMotion
                 ? undefined
-                : {
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }
+                : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }
             }
             transition={{ duration: 20, repeat: reducedMotion ? 0 : Infinity, ease: "linear" }}
             className="absolute inset-0 opacity-90"
@@ -224,7 +118,6 @@ export function Hero() {
             }}
           />
         </motion.div>
-        {/* Gradient follows mouse */}
         {!isCoarsePointer && !reducedMotion && (
           <div
             className="absolute inset-0 opacity-40 pointer-events-none transition-opacity duration-300"
@@ -235,13 +128,11 @@ export function Hero() {
         )}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.3),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_80%_50%,rgba(139,92,246,0.2),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_20%_80%,rgba(168,85,247,0.15),transparent)]" />
         <div className="absolute inset-0 bg-background/50" />
         <ParticleBackground count={particleCount} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-        {/* Left: copy + CTAs + stats */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -258,94 +149,56 @@ export function Hero() {
             variants={item}
             className="mt-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-balance"
           >
-            {HERO.headline}{" "}
-            <span className="gradient-text">{HERO.headlineAccent}</span>
+            <span className="gradient-text">{HERO.headline}</span>{" "}
+            {HERO.headlineAccent}
           </motion.h1>
           <motion.p
             variants={item}
-            className="mt-6 text-base sm:text-lg md:text-xl text-muted-foreground"
+            className="mt-6 text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0"
           >
             {HERO.subheadline}
           </motion.p>
-          <motion.p variants={item} className="mt-3 text-sm text-primary/90 font-medium italic">
-            {HERO.tagline}
-          </motion.p>
+
           <motion.div
             variants={item}
-            className="mt-8 sm:mt-10 flex flex-col md:flex-row flex-wrap gap-3 md:gap-4 justify-center lg:justify-start"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start"
           >
-            <Button size="lg" className="w-full md:w-auto group bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0 shadow-lg shadow-primary/25 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" onClick={() => { trackCTAClick("hero_start_customer"); openModal(); }}>
-              <span className="flex items-center gap-2">
-                Start as a customer
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
-              </span>
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto group bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-0 shadow-lg shadow-primary/25"
+            >
+              <Link href="/pricing" onClick={() => trackCTAClick("hero_view_pricing")}>
+                <span className="flex items-center gap-2">
+                  View pricing
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+                </span>
+              </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
-              <Link href="/bulk-sms" onClick={() => trackCTAClick("hero_explore_bulk_sms")}>Explore bulk SMS</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full md:w-auto">
-              <Link href="/reseller" onClick={() => trackCTAClick("hero_become_reseller")}>Become a reseller</Link>
-            </Button>
-          </motion.div>
-          <motion.div variants={item} className="mt-4 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
-            <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
-              <a
-                href={appendAttributionToUrl(HOSTING_URL)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCTAClick("hero_open_cloud_portal")}
-              >
-                Open cloud portal →
-              </a>
-            </Button>
-            <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto text-muted-foreground">
-              <a
-                href={appendAttributionToUrl(BULK_SMS_URL)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCTAClick("hero_open_bulk_sms_portal")}
-              >
-                Open bulk SMS portal →
-              </a>
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+              <Link href="/book-demo" onClick={() => trackCTAClick("hero_talk_to_sales")}>
+                Talk to sales
+              </Link>
             </Button>
           </motion.div>
 
           <motion.div
             variants={item}
-            className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground"
+            className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-3 gap-y-2 text-xs sm:text-sm text-muted-foreground"
           >
             {HERO.trust.map((text, i) => (
-              <span key={text} className="flex items-center gap-4">
-                {i > 0 && <span className="hidden sm:inline text-border" aria-hidden>·</span>}
+              <span key={text} className="flex items-center gap-3">
+                {i > 0 && <span className="text-border" aria-hidden>·</span>}
                 <span>{text}</span>
               </span>
             ))}
           </motion.div>
 
-          {/* Floating stats cards */}
-          <motion.div
-            variants={item}
-            className="mt-12 lg:mt-16 flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
-          >
-            <StatCard value={7000} suffix="+" label="Active Users" delay={0.1} />
-            <StatCard value={11000} suffix="+" label="Domains Managed" delay={0.2} />
-            <StatCardDecimal label="Uptime" delay={0.3} />
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="rounded-xl glass border border-border/80 px-4 py-3 sm:px-5 sm:py-4 min-w-[140px] sm:min-w-[160px]"
-            >
-              <div className="text-xl sm:text-2xl font-bold gradient-text">24/7</div>
-              <div className="mt-0.5 text-xs sm:text-sm text-muted-foreground">Support</div>
-            </motion.div>
-          </motion.div>
-          <motion.div variants={item} className="mt-6 flex justify-center lg:justify-start">
+          <motion.div variants={item} className="mt-8 flex justify-center lg:justify-start">
             <UptimeStatus />
           </motion.div>
         </motion.div>
 
-        {/* Right: hero illustration */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -356,7 +209,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

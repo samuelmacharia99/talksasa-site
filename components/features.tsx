@@ -1,28 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, CreditCard, Headphones, Shield } from "lucide-react";
+import { CreditCard, Headphones, Zap } from "lucide-react";
 
-const features = [
-  {
-    icon: Zap,
-    title: "Auto-provisioning",
-    description: "Business email and application hosting provision automatically after payment — no manual setup delays.",
-  },
+const proofs = [
   {
     icon: CreditCard,
-    title: "M-Pesa & smart billing",
-    description: "STK push, PDF invoices, wallet credits, renewal reminders, and transparent line-item billing.",
+    title: "M-Pesa-native billing",
+    description:
+      "STK push, PDF invoices, and renewal reminders — finance-ready billing for Kenyan enterprises.",
   },
   {
-    icon: Shield,
-    title: "Email & containers",
-    description: "Business email plus isolated container apps with SSL, backups, and Git deploy.",
+    icon: Zap,
+    title: "Automatic provisioning",
+    description:
+      "Talksasa Mail and Talksasa Cloud services activate after payment so your teams are not waiting on tickets.",
   },
   {
     icon: Headphones,
-    title: "Support tickets",
-    description: "Built-in ticketing, service dashboard, and 24/7 human support from our Nairobi team.",
+    title: "East Africa support",
+    description:
+      "Nairobi-based specialists for SMS, email, and cloud — available around the clock when production matters.",
   },
 ];
 
@@ -34,35 +32,32 @@ export function Features() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Built for <span className="gradient-text">Kenyan businesses</span>
+            Why enterprises choose <span className="gradient-text">TalkSasa</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Order. Pay. Provision. Manage. Renew. — automated billing and infrastructure on Talksasa Cloud.
+            Local payments, fast provisioning, and human support — without the complexity of juggling
+            multiple vendors.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {features.map((feature, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          {proofs.map((proof, i) => (
             <motion.div
-              key={feature.title}
+              key={proof.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
               className="rounded-2xl p-6 sm:p-8 glass border border-border hover:border-primary/20 transition-colors"
             >
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-primary/10 p-2.5 text-primary shrink-0">
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
-                </div>
+              <div className="rounded-lg bg-primary/10 p-2.5 text-primary w-fit">
+                <proof.icon className="h-5 w-5" aria-hidden />
               </div>
+              <h3 className="mt-4 font-semibold text-foreground">{proof.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{proof.description}</p>
             </motion.div>
           ))}
         </div>

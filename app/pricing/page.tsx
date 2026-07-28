@@ -63,7 +63,7 @@ export default function PricingPage() {
       <main id="main-content" className="pt-24 pb-20">
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-center">
-            Pricing for <span className="gradient-text">three brands</span>
+            Our <span className="gradient-text">pricing</span>
           </h1>
           <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
             Talksasa SMS, Talksasa Cloud, and Talksasa Mail — pick a brand, then choose the plan that

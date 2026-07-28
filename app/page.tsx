@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
-import { Services } from "@/components/services";
+import { BrandPillars } from "@/components/brand-pillars";
 import { Features } from "@/components/features";
 import { CloudFaqSection } from "@/components/cloud-faq";
 import { CTA } from "@/components/cta";
@@ -22,10 +22,6 @@ function SectionFallback({ minHeight = "320px" }: { minHeight?: string }) {
   );
 }
 
-const CustomerJourneySection = dynamic(
-  () => import("@/components/customer-journey").then((m) => ({ default: m.CustomerJourneySection })),
-  { loading: () => <SectionFallback minHeight="280px" /> }
-);
 const TrustIndicators = dynamic(
   () => import("@/components/trust-indicators").then((m) => ({ default: m.TrustIndicators })),
   { loading: () => <SectionFallback minHeight="360px" /> }
@@ -58,7 +54,7 @@ const serviceSchema = {
   "@type": "Service",
   name: "TalkSasa",
   description:
-    "Talksasa Cloud business email, application hosting, reseller platform, and domains — plus Kenya's trusted bulk SMS gateway and API.",
+    "Talksasa SMS, Talksasa Mail, and Talksasa Cloud — enterprise communications and cloud infrastructure for Kenya and East Africa.",
   provider: {
     "@type": "Organization",
     name: "TalkSasa",
@@ -75,12 +71,30 @@ const serviceSchema = {
     "@type": "OfferCatalog",
     name: "TalkSasa Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Email Hosting", description: "Professional email on your domain with webmail and DKIM/SPF" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Application Hosting", description: "Laravel, Node.js container hosting" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reseller Hosting", description: "White-label email, apps, and domains under your brand" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Domain Registration", description: ".co.ke, .com and global TLD registration" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Bulk SMS Gateway", description: "Marketing, alerts, OTP/2FA, and REST API" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "VPS and Dedicated Servers", description: "Root access servers" } },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Talksasa SMS",
+          description: "Bulk SMS gateway for marketing, alerts, OTP/2FA, and REST API",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Talksasa Mail",
+          description: "Business email on your domain with webmail and DKIM/SPF helpers",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Talksasa Cloud",
+          description: "Application hosting, VPS, dedicated servers, and reseller platform",
+        },
+      },
     ],
   },
 };
@@ -94,13 +108,12 @@ export default function Home() {
       <Navbar />
       <main id="main-content" role="main">
         <Hero />
-        <Services />
-        <CustomerJourneySection />
+        <BrandPillars />
         <TrustIndicators />
         <Features />
         <UseCases />
-        <ResellerProgram />
         <Pricing />
+        <ResellerProgram />
         <CloudFaqSection />
         <CTA />
         <CTASupport />

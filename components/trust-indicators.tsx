@@ -2,16 +2,9 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import {
-  Shield,
-  Lock,
-  Activity,
-  Award,
-  Quote,
-} from "lucide-react";
+import { Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* Animated counter (integer) */
 function Counter({ value, suffix = "", label }: { value: number; suffix?: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -34,7 +27,6 @@ function Counter({ value, suffix = "", label }: { value: number; suffix?: string
   );
 }
 
-/* Animated counter (decimal for 99.9%) */
 function CounterDecimal({ label }: { label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -57,10 +49,9 @@ function CounterDecimal({ label }: { label: string }) {
   );
 }
 
-/* Client logo pill for marquee */
 function LogoPlaceholder({ name }: { name: string }) {
   return (
-    <div className="group flex shrink-0 min-w-[7.5rem] max-w-[11rem] h-14 sm:h-16 rounded-xl glass border border-border/80 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center mx-3 sm:mx-4 px-4 hover:border-primary/30 hover:shadow-glow-sm">
+    <div className="group flex shrink-0 min-w-[7.5rem] max-w-[11rem] h-14 sm:h-16 rounded-xl glass border border-border/80 grayscale hover:grayscale-0 transition-all duration-300 items-center justify-center mx-3 sm:mx-4 px-4 hover:border-primary/30 hover:shadow-glow-sm">
       <span className="text-[11px] sm:text-xs font-semibold text-muted-foreground group-hover:text-foreground text-center leading-tight">
         {name}
       </span>
@@ -105,35 +96,37 @@ function LogosMarquee() {
 
 const testimonials = [
   {
-    quote: "TalkSasa's bulk SMS API is rock-solid. We've sent millions of messages with zero downtime. Their support team actually responds.",
+    quote:
+      "TalkSasa's bulk SMS API is rock-solid. We've sent millions of messages with zero downtime. Their support team actually responds.",
     name: "James Mwangi",
     company: "Jambo Pay",
     initials: "JM",
   },
   {
-    quote: "We moved our entire infrastructure to TalkSasa — hosting, domains, and VPS. One dashboard, one bill, and 99.9% uptime as promised.",
+    quote:
+      "We moved our infrastructure to TalkSasa — email, apps, and VPS. One dashboard, one bill, and 99.9% uptime as promised.",
     name: "Sarah Ochieng",
     company: "Savannah Tech",
     initials: "SO",
   },
   {
-    quote: "The dedicated server setup was done in 24 hours. Full root access, great docs, and when we had questions, 24/7 support was there.",
+    quote:
+      "The dedicated server setup was done in 24 hours. Full root access, great docs, and when we had questions, 24/7 support was there.",
     name: "David Kamau",
     company: "Nairobi Dev Studio",
     initials: "DK",
   },
   {
-    quote: "Best value for SMS in the region. Delivery reports are accurate and the API is easy to integrate. Highly recommend for any scale.",
+    quote:
+      "Best value for SMS in the region. Delivery reports are accurate and the API is easy to integrate. Highly recommend for any scale.",
     name: "Grace Wanjiku",
     company: "HealthAlert Kenya",
     initials: "GW",
   },
 ];
 
-/* Carousel: single card at a time, auto-rotate + touch swipe */
 function TestimonialsCarouselSimple() {
   const [index, setIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const id = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 5000);
@@ -151,7 +144,7 @@ function TestimonialsCarouselSimple() {
   };
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div className="relative">
       <motion.div
         key={index}
         initial={{ opacity: 0, x: 20 }}
@@ -181,6 +174,7 @@ function TestimonialsCarouselSimple() {
         {testimonials.map((_, i) => (
           <button
             key={i}
+            type="button"
             aria-label={`Go to testimonial ${i + 1}`}
             onClick={() => setIndex(i)}
             className={cn(
@@ -188,7 +182,12 @@ function TestimonialsCarouselSimple() {
               i === index ? "bg-primary/20" : "bg-transparent hover:bg-muted-foreground/10"
             )}
           >
-            <span className={cn("rounded-full transition-all duration-200", i === index ? "w-3 h-3 bg-primary" : "w-2 h-2 bg-muted-foreground/40")} />
+            <span
+              className={cn(
+                "rounded-full transition-all duration-200",
+                i === index ? "w-3 h-3 bg-primary" : "w-2 h-2 bg-muted-foreground/40"
+              )}
+            />
           </button>
         ))}
       </div>
@@ -196,90 +195,62 @@ function TestimonialsCarouselSimple() {
   );
 }
 
-const badges = [
-  { icon: Shield, label: "SSL Certified" },
-  { icon: Lock, label: "Data Protected" },
-  { icon: Activity, label: "24/7 Monitored" },
-  { icon: Award, label: "ISO Compliant" },
-];
-
-function SecurityBadges() {
-  return (
-    <div className="flex flex-wrap justify-center gap-6 sm:gap-10">
-      {badges.map(({ icon: Icon, label }) => (
-        <div
-          key={label}
-          className="flex items-center gap-3 rounded-xl glass border border-border px-4 py-3 sm:px-5 sm:py-3"
-        >
-          <div className="rounded-lg bg-primary/10 p-2 text-primary">
-            <Icon className="h-5 w-5" />
-          </div>
-          <span className="text-sm font-medium text-foreground">{label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export function TrustIndicators() {
   return (
-    <section className="section-py relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+    <section className="section-py relative border-y border-border/60 bg-muted/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* 1. Stats counter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="rounded-2xl glass border border-border p-8 sm:p-12 mb-16"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <Counter value={7000} suffix="+" label="Active Users" />
-            <Counter value={11000} suffix="+" label="Domains Managed" />
-            <CounterDecimal label="Uptime" />
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold gradient-text">24/7</div>
-              <div className="mt-1 text-sm text-muted-foreground">Support</div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 2. Client logos marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <p className="text-center text-sm text-muted-foreground mb-6">
-            Trusted by innovative companies
-          </p>
-          <LogosMarquee />
-        </motion.div>
-
-        {/* 3. Testimonials carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 max-w-3xl mx-auto"
-        >
-          <h3 className="text-xl sm:text-2xl font-semibold text-center text-foreground mb-8">
-            What our customers say
-          </h3>
-          <TestimonialsCarouselSimple />
-        </motion.div>
-
-        {/* 4. Security badges */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-10"
         >
-          <p className="text-center text-sm text-muted-foreground mb-6">
-            Security & compliance
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            Trusted across <span className="gradient-text">East Africa</span>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground">
+            Enterprises and growing teams rely on TalkSasa for communications and cloud — with Nairobi
+            support and 99.9% uptime targets.
           </p>
-          <SecurityBadges />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-2xl glass border border-border p-8 sm:p-10 mb-12"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <Counter value={7000} suffix="+" label="Businesses" />
+            <Counter value={11000} suffix="+" label="Domains managed" />
+            <CounterDecimal label="Uptime" />
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text">24/7</div>
+              <div className="mt-1 text-sm text-muted-foreground">Nairobi support</div>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <p className="text-center text-sm text-muted-foreground mb-6">Trusted by teams across the region</p>
+          <LogosMarquee />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto"
+        >
+          <h3 className="text-lg sm:text-xl font-semibold text-center text-foreground mb-6">
+            What our customers say
+          </h3>
+          <TestimonialsCarouselSimple />
         </motion.div>
       </div>
     </section>

@@ -6,9 +6,9 @@ export const BRAND = "TalkSasa";
 export const CLOUD_BRAND = "Talksasa Cloud";
 
 export const DEFAULT_SEO = {
-  title: "TalkSasa | Business Email, App Hosting & Bulk SMS in Kenya",
+  title: "TalkSasa | Bulk SMS, Business Email & Cloud in Kenya",
   description:
-    "Talksasa Cloud: business email, application hosting, reseller hosting, and domains with M-Pesa billing. Plus Kenya's trusted bulk SMS gateway for marketing, alerts, and 2FA.",
+    "Talksasa SMS, Talksasa Mail, and Talksasa Cloud for Kenyan enterprises — bulk SMS, business email, application hosting, and reseller infrastructure with M-Pesa billing.",
   keywords: [
     "business email hosting Kenya",
     "application hosting Kenya",
@@ -28,18 +28,13 @@ export const DEFAULT_SEO = {
 } as const;
 
 export const HERO = {
-  eyebrow: "Talksasa Cloud · Bulk SMS",
-  headline: "Business email, apps & reseller cloud —",
-  headlineAccent: "built to convert.",
+  eyebrow: "TalkSasa · Enterprise communications & cloud",
+  headline: "TalkSasa",
+  headlineAccent: "for modern Kenyan enterprises.",
   subheadline:
-    "Sell and run premium infrastructure for Kenyan SMEs and enterprises: branded business email, application hosting, white-label reseller, and .co.ke domains — plus a bulk SMS gateway trusted by 7,000+ businesses.",
-  tagline: "Cloud that closes deals. SMS that delivers.",
-  trust: [
-    "Business email",
-    "App hosting",
-    "Reseller platform",
-    "Bulk SMS & API",
-  ],
+    "One trusted partner for Bulk SMS, business email, and cloud infrastructure — built for SMEs and corporates across East Africa.",
+  tagline: "",
+  trust: ["Talksasa SMS", "Talksasa Mail", "Talksasa Cloud"],
 } as const;
 
 export const CUSTOMER_JOURNEY = [
