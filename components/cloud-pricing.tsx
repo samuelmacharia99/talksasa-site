@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useCurrency } from "@/lib/currency-provider";
 import { CheckoutButton } from "@/components/checkout-button";
 import { ServerPlanCard } from "@/components/server-plan-card";
-import { parseServiceFeatures, getPlanSortPrice } from "@/lib/billing-utils";
+import { parseServiceFeatures, sortPlansByPrice } from "@/lib/billing-utils";
 import {
   APP_TECH_STACK_LABELS,
   getServiceTechStack,
@@ -28,15 +28,6 @@ type Billing = "monthly" | "annual";
 
 function mapBillingCycle(billing: Billing): BillingCycle {
   return billing === "annual" ? "annual" : "monthly";
-}
-
-function sortPlansByPrice(plans: PlatformService[], billing: Billing): PlatformService[] {
-  const cycle = mapBillingCycle(billing);
-  return [...plans].sort((a, b) => {
-    const diff = getPlanSortPrice(a, cycle) - getPlanSortPrice(b, cycle);
-    if (diff !== 0) return diff;
-    return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
-  });
 }
 
 function pickFeatured(services: PlatformService[]): number {
@@ -216,7 +207,7 @@ export function CloudPricing({
     if (product === "cloud" && activeStack) {
       filtered = filtered.filter((plan) => getServiceTechStack(plan) === activeStack);
     }
-    return sortPlansByPrice(filtered, billing);
+    return sortPlansByPrice(filtered, mapBillingCycle(billing));
   }, [services, product, billing, activeStack]);
 
   const featuredIndex = useMemo(() => pickFeatured(plans), [plans]);

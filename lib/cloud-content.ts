@@ -167,7 +167,7 @@ export const FAQ_ITEMS = [
   {
     question: "What are TalkSasa SMS reseller wholesale tiers?",
     answer:
-      "Wholesale top-ups are tiered: Starter (KES 500–20,000 at KES 0.30/SMS), Pro (KES 20,001–60,000 at KES 0.23/SMS), and Pro+ (KES 60,001–100,000 at KES 0.20/SMS). Buy at wholesale, set your own retail prices, and keep the margin.",
+      "Wholesale top-ups are tiered by rate (lowest first): Pro+ (KES 60,001–100,000 at KES 0.20/SMS), Pro (KES 20,001–60,000 at KES 0.23/SMS), and Starter (KES 500–20,000 at KES 0.30/SMS). Buy at wholesale, set your own retail prices, and keep the margin.",
   },
 ] as const;
 

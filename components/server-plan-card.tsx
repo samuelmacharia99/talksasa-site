@@ -29,7 +29,12 @@ export function ServerPlanCard({ plan, billingCycle, featured, className }: Serv
   const config = asServerConfiguration(plan);
 
   const [locationKey, setLocationKey] = useState(() => getDefaultLocationKey(plan));
-  const [ipCount, setIpCount] = useState(() => config?.ip_options[0]?.ip_count ?? 1);
+  const [ipCount, setIpCount] = useState(() => {
+    const opts = [...(config?.ip_options ?? [])].sort(
+      (a, b) => a.monthly_addon - b.monthly_addon || a.ip_count - b.ip_count
+    );
+    return opts[0]?.ip_count ?? 1;
+  });
   const [operatingSystem, setOperatingSystem] = useState(() => getDefaultOperatingSystem(plan));
 
   const features = useMemo(() => {
@@ -37,6 +42,36 @@ export function ServerPlanCard({ plan, billingCycle, featured, className }: Serv
     if (plan.features?.length) return plan.features;
     return parseServiceFeatures(plan.description);
   }, [config, plan]);
+
+  const locationsByPrice = useMemo(() => {
+    if (!config?.locations.length) return [];
+    return [...config.locations].sort((a, b) => {
+      const aPrice =
+        billingCycle === "annual"
+          ? a.prices.annual
+          : billingCycle === "quarterly"
+            ? a.prices.quarterly
+            : billingCycle === "semi-annual"
+              ? a.prices["semi-annual"]
+              : a.prices.monthly;
+      const bPrice =
+        billingCycle === "annual"
+          ? b.prices.annual
+          : billingCycle === "quarterly"
+            ? b.prices.quarterly
+            : billingCycle === "semi-annual"
+              ? b.prices["semi-annual"]
+              : b.prices.monthly;
+      return aPrice - bPrice || a.name.localeCompare(b.name);
+    });
+  }, [config, billingCycle]);
+
+  const ipOptionsByPrice = useMemo(() => {
+    if (!config?.ip_options.length) return [];
+    return [...config.ip_options].sort(
+      (a, b) => a.monthly_addon - b.monthly_addon || a.ip_count - b.ip_count
+    );
+  }, [config]);
 
   const quote = useMemo(
     () => quoteConfiguredServer(plan, { locationKey, ipCount, billingCycle }),
@@ -109,7 +144,7 @@ export function ServerPlanCard({ plan, billingCycle, featured, className }: Serv
             onChange={(e) => setLocationKey(e.target.value)}
             aria-label="Server location"
           >
-            {config.locations.map((loc) => (
+            {locationsByPrice.map((loc) => (
               <option key={loc.key} value={loc.key}>
                 {loc.name}
                 {loc.city ? ` (${loc.city})` : ""}
@@ -129,14 +164,13 @@ export function ServerPlanCard({ plan, billingCycle, featured, className }: Serv
             onChange={(e) => setIpCount(Number(e.target.value))}
             aria-label="IP address count"
           >
-            {config.ip_options.map((opt) => (
+            {ipOptionsByPrice.map((opt) => (
               <option key={opt.ip_count} value={opt.ip_count}>
                 {opt.label}
               </option>
             ))}
           </select>
         </label>
-
         <label className="block">
           <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
             <Monitor className="h-3.5 w-3.5 text-primary" />

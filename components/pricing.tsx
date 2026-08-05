@@ -32,42 +32,6 @@ type Plan = {
 
 const bulkSmsPlans: Plan[] = [
   {
-    name: "TIER 1",
-    priceMonthly: 0.35,
-    unit: "Top up KES 1 - 10,000",
-    features: [
-      "Basic delivery reports",
-      "Unlimited contacts management",
-      "Free generic sender ID on signup",
-      "Email support",
-      "Standard delivery speed",
-      "Kenya coverage",
-      "SMS credits never expire",
-      "Free API access",
-    ],
-    cta: "Get Started",
-    href: BULK_SMS_URL,
-    featured: true,
-  },
-  {
-    name: "TIER 2",
-    priceMonthly: 0.3,
-    unit: "Top up KES 10,001 - 30,000",
-    features: [
-      "Advanced analytics dashboard",
-      "Unlimited contacts management",
-      "Free generic sender ID on signup",
-      "Priority phone support",
-      "Scheduled messaging",
-      "API integration",
-      "WhatsApp Business integration",
-      "SMS credits never expire",
-    ],
-    cta: "Get Started",
-    href: BULK_SMS_URL,
-    featured: false,
-  },
-  {
     name: "TIER 3",
     priceMonthly: 0.25,
     unit: "Top up KES 30,001+",
@@ -86,8 +50,49 @@ const bulkSmsPlans: Plan[] = [
     href: BULK_SMS_URL,
     featured: false,
   },
+  {
+    name: "TIER 2",
+    priceMonthly: 0.3,
+    unit: "Top up KES 10,001 - 30,000",
+    features: [
+      "Advanced analytics dashboard",
+      "Unlimited contacts management",
+      "Free generic sender ID on signup",
+      "Priority phone support",
+      "Scheduled messaging",
+      "API integration",
+      "WhatsApp Business integration",
+      "SMS credits never expire",
+    ],
+    cta: "Get Started",
+    href: BULK_SMS_URL,
+    featured: true,
+  },
+  {
+    name: "TIER 1",
+    priceMonthly: 0.35,
+    unit: "Top up KES 1 - 10,000",
+    features: [
+      "Basic delivery reports",
+      "Unlimited contacts management",
+      "Free generic sender ID on signup",
+      "Email support",
+      "Standard delivery speed",
+      "Kenya coverage",
+      "SMS credits never expire",
+      "Free API access",
+    ],
+    cta: "Get Started",
+    href: BULK_SMS_URL,
+    featured: false,
+  },
 ];
 
+const SENDER_ID_FEES = [
+  { network: "Safaricom", price: 6950 },
+  { network: "Telkom", price: 7300 },
+  { network: "Airtel", price: 7500 },
+] as const;
 const BRANDS: {
   id: PricingBrand;
   name: string;
@@ -347,11 +352,7 @@ function PricingContent() {
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                {[
-                  { network: "Safaricom", price: 6950 },
-                  { network: "Airtel", price: 7500 },
-                  { network: "Telkom", price: 7300 },
-                ].map((item) => (
+                {SENDER_ID_FEES.map((item) => (
                   <motion.div
                     key={item.network}
                     initial={{ opacity: 0, scale: 0.95 }}

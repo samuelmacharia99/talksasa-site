@@ -9,12 +9,12 @@ export type SmsResellerTier = {
 
 export const SMS_RESELLER_TIERS: SmsResellerTier[] = [
   {
-    id: "starter",
-    name: "Starter",
-    minAmount: 500,
-    maxAmount: 20_000,
-    rate: 0.3,
-    rangeLabel: "500 – 20,000 KSH",
+    id: "pro-plus",
+    name: "Pro+",
+    minAmount: 60_001,
+    maxAmount: 100_000,
+    rate: 0.2,
+    rangeLabel: "60,001 – 100,000 KSH",
   },
   {
     id: "pro",
@@ -25,26 +25,25 @@ export const SMS_RESELLER_TIERS: SmsResellerTier[] = [
     rangeLabel: "20,001 – 60,000 KSH",
   },
   {
-    id: "pro-plus",
-    name: "Pro+",
-    minAmount: 60_001,
-    maxAmount: 100_000,
-    rate: 0.2,
-    rangeLabel: "60,001 – 100,000 KSH",
+    id: "starter",
+    name: "Starter",
+    minAmount: 500,
+    maxAmount: 20_000,
+    rate: 0.3,
+    rangeLabel: "500 – 20,000 KSH",
   },
 ];
 
 export function getTierForAmount(amount: number): SmsResellerTier | null {
-  if (amount < SMS_RESELLER_TIERS[0].minAmount) return null;
-  for (const tier of SMS_RESELLER_TIERS) {
+  const byMin = [...SMS_RESELLER_TIERS].sort((a, b) => a.minAmount - b.minAmount);
+  if (amount < byMin[0].minAmount) return null;
+  for (const tier of byMin) {
     if (amount >= tier.minAmount && amount <= tier.maxAmount) return tier;
   }
-  if (amount > SMS_RESELLER_TIERS[SMS_RESELLER_TIERS.length - 1].maxAmount) {
-    return SMS_RESELLER_TIERS[SMS_RESELLER_TIERS.length - 1];
-  }
+  const top = byMin[byMin.length - 1];
+  if (amount > top.maxAmount) return top;
   return null;
 }
-
 export function calculateResellerSms(amount: number): {
   tier: SmsResellerTier | null;
   smsCount: number;

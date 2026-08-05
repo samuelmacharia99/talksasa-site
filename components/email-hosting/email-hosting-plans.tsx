@@ -8,6 +8,7 @@ import { useCurrency } from "@/lib/currency-provider";
 import { cn } from "@/lib/utils";
 import type { BillingCycle, CartItem, PlatformService } from "@/lib/billing-types";
 import { getEmailHostingConfig, isEmailHostingPlan } from "@/lib/billing-types";
+import { sortPlansByPrice } from "@/lib/billing-utils";
 
 type Billing = "monthly" | "annual";
 type DomainMode = "existing" | "register";
@@ -90,8 +91,9 @@ export function EmailHostingPlans({ className }: { className?: string }) {
         }
 
         if (cancelled) return;
-        setPlans(services);
-        setSelectedId(services[0]?.id ?? null);
+        const sorted = sortPlansByPrice(services, "monthly");
+        setPlans(sorted);
+        setSelectedId(sorted[0]?.id ?? null);
       } catch (e) {
         if (cancelled || (e instanceof DOMException && e.name === "AbortError")) return;
         setError(e instanceof Error ? e.message : "Failed to load email plans");
@@ -110,8 +112,9 @@ export function EmailHostingPlans({ className }: { className?: string }) {
 
   const domain = useMemo(() => normalizeDomain(domainInput), [domainInput]);
   const domainValid = isLikelyDomain(domain);
-  const selected = plans.find((p) => p.id === selectedId) ?? plans[0] ?? null;
   const cycle = mapBillingCycle(billing);
+  const sortedPlans = useMemo(() => sortPlansByPrice(plans, cycle), [plans, cycle]);
+  const selected = sortedPlans.find((p) => p.id === selectedId) ?? sortedPlans[0] ?? null;
 
   const cartItems: CartItem[] | null = useMemo(() => {
     if (!selected || !domainValid) return null;
@@ -178,7 +181,7 @@ export function EmailHostingPlans({ className }: { className?: string }) {
           </div>
         )}
 
-        {!loading && !error && plans.length === 0 && (
+        {!loading && !error && sortedPlans.length === 0 && (
           <div className="rounded-xl border border-border bg-muted/10 px-4 py-8 text-center text-muted-foreground max-w-xl mx-auto">
             Email plans are being configured.{" "}
             <a href="/contact" className="text-primary hover:underline">
@@ -188,10 +191,10 @@ export function EmailHostingPlans({ className }: { className?: string }) {
           </div>
         )}
 
-        {!loading && plans.length > 0 && (
+        {!loading && sortedPlans.length > 0 && (
           <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
             <div className="grid sm:grid-cols-2 gap-4">
-              {plans.map((plan, index) => {
+              {sortedPlans.map((plan, index) => {
                 const price =
                   billing === "annual" && plan.yearly_price != null
                     ? plan.yearly_price
@@ -213,7 +216,7 @@ export function EmailHostingPlans({ className }: { className?: string }) {
                       active
                         ? "border-primary/50 bg-primary/5 shadow-glow-sm"
                         : "border-border bg-muted/10 hover:border-primary/30",
-                      index === 0 && plans.length === 1 && "sm:col-span-2"
+                      index === 0 && sortedPlans.length === 1 && "sm:col-span-2"
                     )}
                   >
                     <div className="flex items-start justify-between gap-3">

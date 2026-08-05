@@ -153,3 +153,15 @@ export function getPlanSortPrice(plan: PlatformService, billingCycle: BillingCyc
   if (billingCycle === "annual" && plan.yearly_price != null) return plan.yearly_price;
   return plan.monthly_price;
 }
+
+/** Ascending price order for plan grids (lowest → highest). */
+export function sortPlansByPrice<T extends PlatformService>(
+  plans: T[],
+  billingCycle: BillingCycle
+): T[] {
+  return [...plans].sort((a, b) => {
+    const diff = getPlanSortPrice(a, billingCycle) - getPlanSortPrice(b, billingCycle);
+    if (diff !== 0) return diff;
+    return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+  });
+}
